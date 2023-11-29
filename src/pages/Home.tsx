@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <main>HOME</main>
+    <main className="bg-green-200">HOME</main>
   );
 }
