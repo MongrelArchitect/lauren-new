@@ -11,12 +11,21 @@ export default function Nav() {
   };
 
   return (
-    <nav className="flex justify-end bg-red-200">
+    <nav className="flex items-center justify-between bg-red-200 p-2">
+      <span>Lauren Mendelsohn-Bass</span>
       <div
         className={`${
-          menuVisible ? null : "-translate-x-full"
-        } absolute left-0 top-0 h-[100svh] min-w-[200px] bg-blue-200 p-2 transition-transform`}
+          menuVisible ? null : "translate-x-full"
+        } absolute right-0 top-0 flex h-[100svh] min-w-[200px] flex-col bg-blue-200 p-2 transition-transform`}
       >
+        <button className="self-end" type="button">
+          <img
+            alt="menu"
+            className="h-[40px]"
+            onClick={toggleMenu}
+            src={closeIcon}
+          />
+        </button>
         <ul>
           <li>HOME</li>
           <li>PROFILE</li>
@@ -33,7 +42,7 @@ export default function Nav() {
           alt="menu"
           className="h-[40px]"
           onClick={toggleMenu}
-          src={menuVisible ? closeIcon : menuIcon}
+          src={menuIcon}
         />
       </button>
     </nav>
