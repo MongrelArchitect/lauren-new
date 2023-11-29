@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { CollectionsContext } from "@contexts/collections";
+import { UserContext } from "@contexts/users";
 
 import closeIcon from "@assets/icons/close.svg";
 import menuIcon from "@assets/icons/menu.svg";
@@ -26,6 +27,8 @@ export default function Nav() {
     return null;
   };
 
+  const user = useContext(UserContext);
+
   return (
     <nav className="flex items-center justify-between bg-red-200 p-2">
       <span>Lauren Mendelsohn-Bass</span>
@@ -47,6 +50,7 @@ export default function Nav() {
           <li>PROFILE</li>
           <li>PRESS</li>
           <li>CONTACT</li>
+          {user ? <li>DASHBOARD</li> : null}
           {displayCollections()}
         </ul>
       </div>
