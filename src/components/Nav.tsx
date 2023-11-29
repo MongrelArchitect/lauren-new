@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CollectionsContext } from "@contexts/collections";
 
 import closeIcon from "@assets/icons/close.svg";
 import menuIcon from "@assets/icons/menu.svg";
@@ -8,6 +9,21 @@ export default function Nav() {
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
+  };
+
+  const collections = useContext(CollectionsContext);
+
+  const displayCollections = () => {
+    if (collections) {
+      return collections.map((collection) => {
+        return (
+          <li key={collection.id}>
+            {collection.name.toUpperCase()}
+          </li>
+        );
+      });
+    }
+    return null;
   };
 
   return (
@@ -30,11 +46,8 @@ export default function Nav() {
           <li>HOME</li>
           <li>PROFILE</li>
           <li>PRESS</li>
-          <li>POP FICTION</li>
-          <li>CANDY</li>
-          <li>FUN &amp; GAMES</li>
-          <li>FAIRY TALES</li>
           <li>CONTACT</li>
+          {displayCollections()}
         </ul>
       </div>
       <button type="button">

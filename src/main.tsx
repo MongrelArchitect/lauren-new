@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
+import CollectionsContextProvider from "@contexts/collections";
+
 import ErrorPage from "@pages/ErrorPage";
 import Home from "@pages/Home";
 import Root from "@pages/Root";
@@ -10,7 +12,11 @@ import Root from "@pages/Root";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <CollectionsContextProvider>
+        <Root />
+      </CollectionsContextProvider>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
