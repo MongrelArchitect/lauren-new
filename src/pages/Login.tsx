@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "@contexts/users";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@util/firebase";
 
 export default function Login() {
+  const user = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user]);
+
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [formInfo, setFormInfo] = useState({

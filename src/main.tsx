@@ -6,9 +6,14 @@ import "./index.css";
 import CollectionsContextProvider from "@contexts/collections";
 import UserContextProvider from "@contexts/users";
 
+import Contact from "@pages/Contact";
+import Dashboard from "@pages/Dashboard";
 import ErrorPage from "@pages/ErrorPage";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
+import NotFound from "@pages/NotFound";
+import Press from "@pages/Press";
+import Profile from "@pages/Profile";
 import Root from "@pages/Root";
 
 const router = createBrowserRouter([
@@ -24,12 +29,32 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
         index: true,
         element: <Home />,
       },
       {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "press",
+        element: <Press />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
