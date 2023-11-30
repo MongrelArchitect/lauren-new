@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "@util/firebase";
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
@@ -38,13 +40,24 @@ export default function Nav() {
 
   const user = useContext(UserContext);
 
+  const logout = async () => {
+    toggleMenu();
+    try {
+      await signOut(auth);
+    } catch (err) {
+      // XXX
+      // handle better
+      console.error(err);
+    }
+  };
+
   return (
     <nav className="flex items-center justify-between bg-red-200 p-2">
       <span>Lauren Mendelsohn-Bass</span>
       <div
         className={`${
           menuVisible ? null : "translate-x-full"
-        } absolute right-0 top-0 flex h-[100svh] min-w-[200px] flex-col bg-blue-200 p-2 transition-transform`}
+        } absolute right-0 top-0 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-blue-200 p-2 transition-transform`}
       >
         <button className="self-end" type="button">
           <img
@@ -54,7 +67,7 @@ export default function Nav() {
             src={closeIcon}
           />
         </button>
-        <ul>
+        <ul className="flex flex-col gap-3 text-2xl">
           <li>
             <NavLink onClick={toggleMenu} to="/">
               HOME
@@ -75,14 +88,21 @@ export default function Nav() {
               CONTACT
             </NavLink>
           </li>
-          {user ? (
-            <li>
-              <NavLink onClick={toggleMenu} to="/dashboard">
-                DASHBOARD
-              </NavLink>
-            </li>
-          ) : null}
           {displayCollections()}
+          {user ? (
+            <>
+              <li>
+                <NavLink onClick={toggleMenu} to="/dashboard">
+                  DASHBOARD
+                </NavLink>
+              </li>
+              <li>
+                <button onClick={logout} type="button">
+                  SIGN OUT
+                </button>
+              </li>
+            </>
+          ) : null}
         </ul>
       </div>
       <button type="button">
