@@ -7,10 +7,11 @@ import CollectionsContextProvider from "@contexts/collections";
 import UserContextProvider from "@contexts/users";
 
 import Contact from "@pages/Contact";
+import Dashboard from "@pages/Dashboard";
 import ErrorPage from "@pages/ErrorPage";
 import Gallery from "@pages/Gallery";
 import Home from "@pages/Home";
-import Protected from "@pages/Protected";
+import Login from "@pages/Login";
 import NotFound from "@pages/NotFound";
 import Press from "@pages/Press";
 import Profile from "@pages/Profile";
@@ -42,11 +43,21 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <Protected />,
+        element: <Dashboard />,
+        children: [
+          {
+            index: true,
+            element: <div>Please select a collection to get started</div>
+          },
+          {
+            path: "art/:collectionId",
+            element: <Gallery />,
+          },
+        ],
       },
       {
         path: "login",
-        element: <Protected />,
+        element: <Login />,
       },
       {
         path: "press",

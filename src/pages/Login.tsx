@@ -13,7 +13,7 @@ export default function Login() {
     if (user) {
       navigate('/dashboard');
     }
-  }, [user]);
+  }, [navigate, user]);
 
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
