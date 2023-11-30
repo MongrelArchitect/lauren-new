@@ -5,6 +5,8 @@ import { auth } from "@util/firebase";
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
+import Blur from "./Blur";
+
 import closeIcon from "@assets/icons/close.svg";
 import menuIcon from "@assets/icons/menu.svg";
 
@@ -27,7 +29,10 @@ export default function Nav() {
     if (collections && collectionIds) {
       return collectionIds.map((collectionId) => {
         return (
-          <li key={collectionId}>
+          <li
+            className={collectionIds.indexOf(collectionId) === 0 ? "mt-8" : ""}
+            key={collectionId}
+          >
             <NavLink onClick={toggleMenu} to={`/art/${collectionId}`}>
               {collections[collectionId].name.toUpperCase()}
             </NavLink>
@@ -54,10 +59,11 @@ export default function Nav() {
   return (
     <nav className="flex items-center justify-between bg-red-200 p-2">
       <span>Lauren Mendelsohn-Bass</span>
+      {menuVisible ? <Blur /> : null}
       <div
         className={`${
-          menuVisible ? null : "translate-x-full"
-        } absolute right-0 top-0 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-blue-200 p-2 transition-transform`}
+          menuVisible ? null : "translate-x-[110%]"
+        } absolute right-0 top-0 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-blue-200 p-2 shadow-nav transition-transform`}
       >
         <button className="self-end" type="button">
           <img
@@ -91,7 +97,7 @@ export default function Nav() {
           {displayCollections()}
           {user ? (
             <>
-              <li>
+              <li className="mt-8">
                 <NavLink onClick={toggleMenu} to="/dashboard">
                   DASHBOARD
                 </NavLink>
