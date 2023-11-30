@@ -7,11 +7,10 @@ import CollectionsContextProvider from "@contexts/collections";
 import UserContextProvider from "@contexts/users";
 
 import Contact from "@pages/Contact";
-import Dashboard from "@pages/Dashboard";
 import ErrorPage from "@pages/ErrorPage";
 import Gallery from "@pages/Gallery";
 import Home from "@pages/Home";
-import Login from "@pages/Login";
+import Protected from "@pages/Protected";
 import NotFound from "@pages/NotFound";
 import Press from "@pages/Press";
 import Profile from "@pages/Profile";
@@ -43,11 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <Protected />,
       },
       {
         path: "login",
-        element: <Login />,
+        element: <Protected />,
       },
       {
         path: "press",
