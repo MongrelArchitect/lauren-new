@@ -95,7 +95,7 @@ export default function Login() {
           type="email"
           value={formInfo.email || ""}
         />
-        <label htmlFor="passowrd">Password:</label>
+        <label htmlFor="password">Password:</label>
         <input
           name="password"
           id="password"
