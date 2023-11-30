@@ -82,7 +82,7 @@ export default function Login() {
   };
 
   return (
-    <main>
+    <div>
       <form className="flex flex-col items-start gap-1">
         <h1>Login</h1>
         <label htmlFor="email">Email:</label>
@@ -114,6 +114,6 @@ export default function Login() {
         </button>
         {attempted && error ? <div className="bg-red-300">{error}</div> : null}
       </form>
-    </main>
+    </div>
   );
 }

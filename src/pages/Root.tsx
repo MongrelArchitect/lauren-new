@@ -7,7 +7,9 @@ export default function Root() {
   return (
     <div className="flex min-h-[100svh] flex-col">
       <Nav />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
