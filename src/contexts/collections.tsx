@@ -7,21 +7,22 @@ interface ContextProps {
   children: React.ReactNode;
 }
 
-export const CollectionsContext = createContext<null | Collection[]>(null);
+interface AllCollections {
+  [key: string]: Collection;
+}
+
+export const CollectionsContext = createContext<null | AllCollections>(null);
 
 export default function CollectionsContextProvider({ children }: ContextProps) {
-  const [collections, setCollections] = useState<null | Collection[]>(null);
+  const [collections, setCollections] = useState<null | AllCollections>(null);
 
   useEffect(() => {
     const collectionsQuery = query(collection(database, "collections"));
-    const allCollections: Collection[] = [];
+    const allCollections: AllCollections = {};
     const unsubscribe = onSnapshot(collectionsQuery, (querySnapshot) => {
       querySnapshot.forEach((docu) => {
         const data = docu.data() as Collection;
-        allCollections.push(data);
-      });
-      allCollections.sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        allCollections[docu.id] = data;
       });
       setCollections(allCollections);
     });

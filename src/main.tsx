@@ -9,6 +9,7 @@ import UserContextProvider from "@contexts/users";
 import Contact from "@pages/Contact";
 import Dashboard from "@pages/Dashboard";
 import ErrorPage from "@pages/ErrorPage";
+import Gallery from "@pages/Gallery";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
 import NotFound from "@pages/NotFound";
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "art/:collectionId",
+        element: <Gallery />,
+      },
       {
         path: "contact",
         element: <Contact />,

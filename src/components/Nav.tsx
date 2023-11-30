@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
@@ -13,13 +14,21 @@ export default function Nav() {
   };
 
   const collections = useContext(CollectionsContext);
+  const collectionIds = collections ? Object.keys(collections) : null;
+  if (collections && collectionIds) {
+    collectionIds.sort((a, b) => {
+      return collections[a].name.localeCompare(collections[b].name);
+    });
+  }
 
   const displayCollections = () => {
-    if (collections) {
-      return collections.map((collection) => {
+    if (collections && collectionIds) {
+      return collectionIds.map((collectionId) => {
         return (
-          <li key={collection.id}>
-            {collection.name.toUpperCase()}
+          <li key={collectionId}>
+            <NavLink onClick={toggleMenu} to={`/art/${collectionId}`}>
+              {collections[collectionId].name.toUpperCase()}
+            </NavLink>
           </li>
         );
       });
@@ -46,11 +55,33 @@ export default function Nav() {
           />
         </button>
         <ul>
-          <li>HOME</li>
-          <li>PROFILE</li>
-          <li>PRESS</li>
-          <li>CONTACT</li>
-          {user ? <li>DASHBOARD</li> : null}
+          <li>
+            <NavLink onClick={toggleMenu} to="/">
+              HOME
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={toggleMenu} to="/profile">
+              PROFILE
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={toggleMenu} to="/press">
+              PRESS
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={toggleMenu} to="/contact">
+              CONTACT
+            </NavLink>
+          </li>
+          {user ? (
+            <li>
+              <NavLink onClick={toggleMenu} to="/dashboard">
+                DASHBOARD
+              </NavLink>
+            </li>
+          ) : null}
           {displayCollections()}
         </ul>
       </div>
