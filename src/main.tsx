@@ -47,7 +47,9 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>Please select a collection to get started</div>
+            element: (
+              <div>Please select a collection or add a new one</div>
+            ),
           },
           {
             path: "art/:collectionId",

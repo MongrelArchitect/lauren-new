@@ -18,8 +18,8 @@ export default function CollectionsContextProvider({ children }: ContextProps) {
 
   useEffect(() => {
     const collectionsQuery = query(collection(database, "collections"));
-    const allCollections: AllCollections = {};
     const unsubscribe = onSnapshot(collectionsQuery, (querySnapshot) => {
+      const allCollections: AllCollections = {};
       querySnapshot.forEach((docu) => {
         const data = docu.data() as Collection;
         allCollections[docu.id] = data;

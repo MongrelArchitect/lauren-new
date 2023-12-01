@@ -63,7 +63,7 @@ export default function Nav() {
       <div
         className={`${
           menuVisible ? null : "translate-x-[110%]"
-        } absolute right-0 top-0 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-blue-200 p-2 shadow-nav transition-transform`}
+        } absolute right-0 top-0 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-white p-2 shadow-nav transition-transform`}
       >
         <button className="self-end" type="button">
           <img
