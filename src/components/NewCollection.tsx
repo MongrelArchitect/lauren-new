@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addNewCollection } from "@util/database";
 
 interface Props {
@@ -35,13 +36,15 @@ export default function NewCollection({
     });
   };
 
+  const navigate = useNavigate();
+
   const submit = async () => {
     setAttempted(true);
     if (name.valid) {
       try {
         const newCollectionId = await addNewCollection(name.value);
-        console.log(newCollectionId);
         cancel();
+        navigate(`/dashboard/art/${newCollectionId}`);
       } catch (err) {
         console.error(err);
         let message = 'Unknown error';

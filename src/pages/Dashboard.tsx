@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Link, Outlet } from "react-router-dom";
 
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
@@ -36,7 +36,11 @@ export default function Dashboard() {
           {collectionIds.map((collectionId) => {
             const currentCollection = allCollections[collectionId];
             return (
-              <li key={collectionId}>{currentCollection.name.toUpperCase()}</li>
+              <li key={collectionId}>
+                <Link to={`/dashboard/art/${collectionId}`}>
+                  {currentCollection.name.toUpperCase()}
+                </Link>
+              </li>
             );
           })}
         </ul>
