@@ -10,3 +10,15 @@ export default interface Art {
   thumbURL: null | string;
   title: string;
 }
+
+export interface ArtFormInfo {
+  title: string;
+  validTitle: boolean;
+  medium: string;
+  validMedium: boolean;
+  size: string;
+  validSize: boolean;
+  sold: boolean;
+  image: null | File;
+  validImage: boolean;
+}

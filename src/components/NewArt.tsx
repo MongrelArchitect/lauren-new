@@ -1,22 +1,12 @@
 import { useContext, useState } from "react";
 import { CollectionsContext } from "@contexts/collections";
+import { addNewArt } from "@util/database";
+import { ArtFormInfo } from "@customTypes/art";
 
 interface Props {
   collectionId: string | undefined;
   modalVisible: boolean;
   toggleModalVisible: () => void;
-}
-
-interface FormInfo {
-  title: string;
-  validTitle: boolean;
-  medium: string;
-  validMedium: boolean;
-  size: string;
-  validSize: boolean;
-  sold: boolean;
-  image: null | File;
-  validImage: boolean;
 }
 
 export default function NewArt({
@@ -32,7 +22,7 @@ export default function NewArt({
   const currentCollection =
     allCollections && collectionId ? allCollections[collectionId] : null;
 
-  const [formInfo, setFormInfo] = useState<FormInfo>({
+  const [formInfo, setFormInfo] = useState<ArtFormInfo>({
     title: "",
     validTitle: false,
     medium: "",
@@ -133,12 +123,12 @@ export default function NewArt({
     }
   };
 
-  const submit = () => {
+  const submit = async () => {
     setAttempted(true);
     if (checkFormValidity()) {
       try {
-        // XXX
-        console.log(formInfo);
+        await addNewArt(formInfo, collectionId);
+        cancel();
       } catch (err) {
         console.error(err);
         let message = 'Unknown error';
