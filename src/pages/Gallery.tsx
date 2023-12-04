@@ -1,11 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+
+import { database } from "@util/firebase";
 
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
 import Blur from "@components/Blur";
 import NewArt from "@components/NewArt";
+import ShowArt from "@components/Art";
+
+import Art from "@customTypes/art";
+
+interface Artwork {
+  [key: string]: Art;
+}
 
 export default function Gallery() {
   const { collectionId } = useParams();
@@ -28,6 +38,23 @@ export default function Gallery() {
     setModalVisible(!modalVisible);
   };
 
+  const [art, setArt] = useState<null | Artwork>(null);
+
+  useEffect(() => {
+    const collectionsQuery = query(collection(database, "art"), where('collection', '==', collectionId));
+    const unsubscribe = onSnapshot(collectionsQuery, (querySnapshot) => {
+      const artwork: Artwork = {};
+      querySnapshot.forEach((docu) => {
+        const data = docu.data() as Art;
+        artwork[docu.id] = data;
+      });
+      setArt(artwork);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [collectionId]);
+
   const addArtButton = (
     <div>
       <button
@@ -40,6 +67,24 @@ export default function Gallery() {
     </div>
   );
 
+  const displayArt = () => {
+    if (art) {
+      const artIds = Object.keys(art);
+      if (artIds.length) {
+        return artIds.map((artId) => {
+          const currentArt = art[artId];
+          return (
+            <ShowArt art={currentArt} key={artId}/>
+          );
+        });
+      }
+      return (
+        <div>No art in this collection.</div>
+      );
+    }
+    return null;
+  };
+
   if (currentCollection) {
     return (
       <div>
@@ -51,6 +96,9 @@ export default function Gallery() {
         />
         {currentCollection.name.toUpperCase()}
         {editing ? addArtButton : null}
+        <div className="flex flex-wrap gap-4">
+          {displayArt()}
+        </div>
       </div>
     );
   }
