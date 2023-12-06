@@ -9,6 +9,7 @@ import { CollectionsContext } from "@contexts/collections";
 import ArtDetail from "@components/ArtDetail";
 import ArtThumb from "@components/ArtThumb";
 import Blur from "@components/Blur";
+import Loading from "@components/Loading";
 import NewArt from "@components/NewArt";
 
 import Art from "@customTypes/art";
@@ -30,7 +31,10 @@ export default function Gallery() {
 
   const [art, setArt] = useState<null | Artwork>(null);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     const collectionsQuery = query(
       collection(database, "art"),
       where("collection", "==", collectionId),
@@ -42,6 +46,7 @@ export default function Gallery() {
         artwork[docu.id] = data;
       });
       setArt(artwork);
+      setLoading(false);
     });
     return () => {
       unsubscribe();
@@ -98,6 +103,12 @@ export default function Gallery() {
     setEditingArt(false);
     setModalVisible(false);
   };
+
+  if (loading) {
+    return (
+      <Loading />
+    );
+  }
 
   if (currentCollection) {
     return (
