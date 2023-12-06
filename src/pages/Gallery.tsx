@@ -5,11 +5,11 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { database } from "@util/firebase";
 
 import { CollectionsContext } from "@contexts/collections";
-import { UserContext } from "@contexts/users";
 
+import ArtDetail from "@components/ArtDetail";
+import ArtThumb from "@components/ArtThumb";
 import Blur from "@components/Blur";
 import NewArt from "@components/NewArt";
-import ShowArt from "@components/Art";
 
 import Art from "@customTypes/art";
 
@@ -24,24 +24,17 @@ export default function Gallery() {
     allCollections && collectionId ? allCollections[collectionId] : null;
 
   const { pathname } = useLocation();
-  const user = useContext(UserContext);
   const inDashboard = pathname.includes("dashboard");
-  let editing = false;
-
-  if (user && inDashboard) {
-    editing = true;
-  }
 
   const [modalVisible, setModalVisible] = useState(false);
-
-  const toggleModalVisible = () => {
-    setModalVisible(!modalVisible);
-  };
 
   const [art, setArt] = useState<null | Artwork>(null);
 
   useEffect(() => {
-    const collectionsQuery = query(collection(database, "art"), where('collection', '==', collectionId));
+    const collectionsQuery = query(
+      collection(database, "art"),
+      where("collection", "==", collectionId),
+    );
     const unsubscribe = onSnapshot(collectionsQuery, (querySnapshot) => {
       const artwork: Artwork = {};
       querySnapshot.forEach((docu) => {
@@ -55,11 +48,18 @@ export default function Gallery() {
     };
   }, [collectionId]);
 
+  const [addingArt, setAddingArt] = useState(false);
+
+  const toggleAddingArt = () => {
+    setModalVisible(!modalVisible);
+    setAddingArt(!addingArt);
+  };
+
   const addArtButton = (
     <div>
       <button
         className="mt-4 rounded border-2 border-gray-800 bg-purple-300 p-1"
-        onClick={toggleModalVisible}
+        onClick={toggleAddingArt}
         type="button"
       >
         + add art
@@ -67,22 +67,36 @@ export default function Gallery() {
     </div>
   );
 
-  const displayArt = () => {
+  const [artDetail, setArtDetail] = useState<null | Art>(null);
+  const [editingArt, setEditingArt] = useState(false);
+
+  const displayThumbs = () => {
     if (art) {
       const artIds = Object.keys(art);
       if (artIds.length) {
         return artIds.map((artId) => {
           const currentArt = art[artId];
           return (
-            <ShowArt art={currentArt} key={artId}/>
+            <ArtThumb
+              art={currentArt}
+              inDashboard={inDashboard}
+              key={artId}
+              setArtDetail={setArtDetail}
+              setModalVisible={setModalVisible}
+              setEditingArt={setEditingArt}
+            />
           );
         });
       }
-      return (
-        <div>No art in this collection.</div>
-      );
+      return <div>No art in this collection.</div>;
     }
     return null;
+  };
+
+  const closeArtDetail = () => {
+    setArtDetail(null);
+    setEditingArt(false);
+    setModalVisible(false);
   };
 
   if (currentCollection) {
@@ -90,15 +104,18 @@ export default function Gallery() {
       <div>
         {modalVisible ? <Blur /> : null}
         <NewArt
+          addingArt={addingArt}
           collectionId={collectionId}
-          modalVisible={modalVisible}
-          toggleModalVisible={toggleModalVisible}
+          toggleAddingArt={toggleAddingArt}
+        />
+        <ArtDetail
+          artDetail={artDetail}
+          editingArt={editingArt}
+          closeArtDetail={closeArtDetail}
         />
         {currentCollection.name.toUpperCase()}
-        {editing ? addArtButton : null}
-        <div className="flex flex-wrap gap-4">
-          {displayArt()}
-        </div>
+        {inDashboard ? addArtButton : null}
+        <div className="flex flex-wrap gap-4">{displayThumbs()}</div>
       </div>
     );
   }

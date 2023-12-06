@@ -4,15 +4,15 @@ import { addNewArt } from "@util/database";
 import { ArtFormInfo } from "@customTypes/art";
 
 interface Props {
+  addingArt: boolean;
   collectionId: string | undefined;
-  modalVisible: boolean;
-  toggleModalVisible: () => void;
+  toggleAddingArt: () => void;
 }
 
 export default function NewArt({
+  addingArt,
   collectionId,
-  modalVisible,
-  toggleModalVisible,
+  toggleAddingArt,
 }: Props) {
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -35,7 +35,7 @@ export default function NewArt({
   });
 
   const cancel = () => {
-    toggleModalVisible();
+    toggleAddingArt();
     setFormInfo({
       title: "",
       validTitle: false,
@@ -149,14 +149,14 @@ export default function NewArt({
     return (
       <div
         className={`${
-          modalVisible ? null : "-translate-y-[110%]"
+          addingArt ? null : "-translate-y-[110%]"
         } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
       >
         <div className="my-[32px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
           <h3 className="text-2xl">New Art</h3>
           <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
           <form className="flex flex-col items-start gap-2">
-            <label htmlFor="name">Title:</label>
+            <label htmlFor="title">Title:</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"
               id="title"
@@ -242,7 +242,7 @@ export default function NewArt({
   return (
     <div
       className={`${
-        modalVisible ? null : "-translate-y-[110%]"
+        addingArt ? null : "-translate-y-[110%]"
       } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
     >
       <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
@@ -250,7 +250,7 @@ export default function NewArt({
         <p>Invalid collection</p>
         <button
           className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-          onClick={toggleModalVisible}
+          onClick={toggleAddingArt}
           type="button"
         >
           Cancel
