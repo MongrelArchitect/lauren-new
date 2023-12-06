@@ -18,10 +18,10 @@ export default function ArtDetail({
       // ======================
       return (
         <div
-          // XXX - remove ternary 
+          // XXX - remove ternary
           className={`${
             artDetail ? null : "-translate-y-[110%]"
-          } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
+          } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
         >
           <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail} />
         </div>
@@ -31,14 +31,17 @@ export default function ArtDetail({
       // VIEWING ONLY
       // ======================
       <div
-          // XXX - remove ternary 
+        // XXX - remove ternary
         className={`${
           artDetail ? null : "-translate-y-[110%]"
-        } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
+        } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
       >
         <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
           <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
-          <img alt={artDetail.title} src={artDetail.imageURL ? artDetail.imageURL : ''} />
+          <img
+            alt={artDetail.title}
+            src={artDetail.imageURL ? artDetail.imageURL : ""}
+          />
           <p>{artDetail.medium.toUpperCase()}</p>
           <p>{artDetail.size.toUpperCase()}</p>
           {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
@@ -58,10 +61,10 @@ export default function ArtDetail({
     // INVALID ART SOMEHOW
     // =========================
     <div
-      // XXX - remove ternary 
+      // XXX - remove ternary
       className={`${
         artDetail ? null : "-translate-y-[110%]"
-      } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
+      } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
     >
       <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
         <h3 className="text-2xl">Error</h3>

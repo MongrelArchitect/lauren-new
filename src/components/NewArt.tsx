@@ -131,11 +131,11 @@ export default function NewArt({
         cancel();
       } catch (err) {
         console.error(err);
-        let message = 'Unknown error';
+        let message = "Unknown error";
         if (err instanceof Error) {
           message = err.message;
         }
-        if (typeof err === 'string') {
+        if (typeof err === "string") {
           message = err;
         }
         setError(message);
@@ -150,7 +150,7 @@ export default function NewArt({
       <div
         className={`${
           addingArt ? null : "-translate-y-[110%]"
-        } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
+        } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
       >
         <div className="my-[32px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
           <h3 className="text-2xl">New Art</h3>
@@ -243,7 +243,7 @@ export default function NewArt({
     <div
       className={`${
         addingArt ? null : "-translate-y-[110%]"
-      } absolute left-0 top-0 flex h-full w-full items-start justify-center transition-transform`}
+      } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
     >
       <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
         <h3 className="text-2xl">Error</h3>
