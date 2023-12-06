@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Art, { ArtFormInfo } from "@customTypes/art";
+import {updateArt} from "@util/database";
 
 interface Props {
   artDetail: Art;
@@ -132,6 +133,7 @@ export default function EditArt({ artDetail, closeArtDetail }: Props) {
       try {
         // XXX
         // SUBMIT EDIT
+        await  updateArt(artDetail.artId, formInfo)
         cancel();
       } catch (err) {
         console.error(err);

@@ -1,5 +1,6 @@
 export default interface Art {
   added: Date;
+  artId?: string;
   collection: string;
   imagePath: null | string;
   imageURL: null | string;

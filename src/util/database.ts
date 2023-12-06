@@ -53,6 +53,7 @@ export async function addNewArt(
       imageURL,
       thumbPath,
       thumbURL,
+      uid: newArtRef.id,
     });
   }
 }
@@ -67,4 +68,18 @@ export async function addNewCollection(name: string) {
     id: docRef.id,
   });
   return docRef.id;
+}
+
+export async function updateArt(artId: string | unknown, formInfo: ArtFormInfo) {
+  if (!artId || typeof artId !== "string") {
+    throw new Error("Invalid or absent artId");
+  } else {
+    const artRef = doc(database, "art", artId);
+    await updateDoc(artRef, {
+      title: formInfo.title,
+      medium: formInfo.medium,
+      size: formInfo.size,
+      sold: formInfo.sold
+    });
+  }
 }
