@@ -55,6 +55,10 @@ const router = createBrowserRouter([
             path: "art/:collectionId",
             element: <Gallery />,
           },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
         ],
       },
       {

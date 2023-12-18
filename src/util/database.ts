@@ -1,7 +1,12 @@
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref,  uploadBytes, uploadString } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadString,
+} from "firebase/storage";
 import { database, storage } from "./firebase";
-import resizeImage, {generateThumbnail} from "./images";
+import resizeImage, { generateThumbnail } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
 
 export async function addNewArt(
@@ -31,7 +36,7 @@ export async function addNewArt(
     const { image } = formInfo;
     await generateThumbnail(image);
 
-    const newArtRef = await addDoc(collection(database, 'art'), newArt);
+    const newArtRef = await addDoc(collection(database, "art"), newArt);
 
     const resizedImage = await resizeImage(image);
     const imagePath = `art/${newArtRef.id}.JPEG`;
@@ -45,7 +50,7 @@ export async function addNewArt(
     }
     const thumbPath = `thumbs/${newArtRef.id}.JPEG`;
     const thumbRef = ref(storage, thumbPath);
-    await uploadString(thumbRef, thumbData, 'data_url');
+    await uploadString(thumbRef, thumbData, "data_url");
     const thumbURL = await getDownloadURL(thumbRef);
 
     await updateDoc(newArtRef, {
@@ -70,7 +75,10 @@ export async function addNewCollection(name: string) {
   return docRef.id;
 }
 
-export async function updateArt(artId: string | unknown, formInfo: ArtFormInfo) {
+export async function updateArt(
+  artId: string | unknown,
+  formInfo: ArtFormInfo,
+) {
   if (!artId || typeof artId !== "string") {
     throw new Error("Invalid or absent artId");
   } else {
@@ -79,7 +87,14 @@ export async function updateArt(artId: string | unknown, formInfo: ArtFormInfo) 
       title: formInfo.title,
       medium: formInfo.medium,
       size: formInfo.size,
-      sold: formInfo.sold
+      sold: formInfo.sold,
     });
   }
+}
+
+export async function updateBio(newBio: string) {
+  const bioRef = doc(database, "profile", "bio");
+  await updateDoc(bioRef, {
+    info: newBio,
+  });
 }

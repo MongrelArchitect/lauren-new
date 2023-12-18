@@ -56,16 +56,19 @@ export default function Dashboard() {
         modalVisible={modalVisible}
         toggleNewCollection={toggleNewCollection}
       />
-      <div>
+      <div className="flex flex-col">
+        <h2>Welcome {user ? user.name : null}!</h2>
         <h2>Menu</h2>
+        <h3>Collections</h3>
         {displayCollections()}
         <button
-          className="mt-4 rounded border-2 border-gray-800 bg-purple-300 p-1"
+          className="rounded border-2 border-gray-800 bg-purple-300 p-1"
           onClick={toggleNewCollection}
           type="button"
         >
           + New Collection
         </button>
+        <Link to="/dashboard/profile">Profile</Link>
       </div>
       <Outlet />
     </main>
