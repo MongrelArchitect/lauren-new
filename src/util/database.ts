@@ -8,6 +8,7 @@ import {
 import { database, storage } from "./firebase";
 import resizeImage, { generateThumbnail } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
+import { Exhibition } from "@customTypes/exhibitions";
 
 export async function addNewArt(
   formInfo: ArtFormInfo,
@@ -61,6 +62,30 @@ export async function addNewArt(
       uid: newArtRef.id,
     });
   }
+}
+
+export async function addNewExhibition(
+  year: number,
+  title: string,
+  gallery: string,
+  galleryLocation: string,
+) {
+  const newExhibition: Exhibition = {
+    added: new Date(),
+    gallery,
+    location: galleryLocation,
+    title,
+    year,
+  };
+
+  const docRef = await addDoc(
+    collection(database, "exhibitions"),
+    newExhibition,
+  );
+  const exhibitionRef = doc(database, "exhibitions", docRef.id);
+  await updateDoc(exhibitionRef, {
+    exhibitionId: docRef.id,
+  });
 }
 
 export async function addNewCollection(name: string) {

@@ -1,5 +1,6 @@
 export interface Exhibition {
   added: Date;
+  exhibitionId?: string;
   gallery: null | string;
   location: string;
   title: string;
