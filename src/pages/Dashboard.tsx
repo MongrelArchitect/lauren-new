@@ -50,7 +50,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main className="grid grid-cols-[auto_1fr] gap-4 bg-green-200">
+    <main className="grid grid-rows-[auto_1fr] gap-4 bg-green-200 sm:grid-cols-[auto_1fr]">
       {modalVisible ? <Blur /> : null}
       <NewCollection
         modalVisible={modalVisible}

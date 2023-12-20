@@ -4,7 +4,9 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import { database } from "@util/firebase";
 
 import Bio from "@components/Bio";
+import ExhibitionItem from "@components/ExhibitionItem";
 import Loading from "@components/Loading";
+import NewExhibition from "@components/NewExhibition";
 
 import Exhibitions, { Exhibition } from "@customTypes/exhibitions";
 import ImageInfo from "@customTypes/profile";
@@ -69,12 +71,11 @@ export default function Profile() {
       return (
         <ul>
           <h2>Selected Exhibitions</h2>
+          {inDashboard ? <NewExhibition /> : null}
           {exhibitionIds.map((exhibitionId) => {
             const current = exhibitions[exhibitionId];
             return (
-              <li key={exhibitionId}>
-                {`${current.year} - "${current.title}" (${current.gallery}, ${current.location})`}
-              </li>
+              <ExhibitionItem exhibition={current} key={exhibitionId} />
             );
           })}
         </ul>

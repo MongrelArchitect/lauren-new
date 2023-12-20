@@ -48,7 +48,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <div>Please select a collection or add a new one</div>
+              <div>Please select a menu option to get started</div>
             ),
           },
           {
