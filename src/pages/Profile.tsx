@@ -42,10 +42,18 @@ export default function Profile() {
       setLoading(true);
       const rawExhibitions: Exhibitions = {};
       querySnapshot.forEach((docu) => {
-        const data = docu.data() as Exhibition;
+        const data: Exhibition = {
+          added: docu.data().added.toDate(),
+          exhibitionId: docu.data().exhibitionId,
+          gallery: docu.data().gallery,
+          location: docu.data().location,
+          title: docu.data().title,
+          year: docu.data().year,
+        };
         rawExhibitions[docu.id] = data;
-        setExhibitions(rawExhibitions);
       });
+      console.log(rawExhibitions);
+      setExhibitions(rawExhibitions);
       setLoading(false);
     });
     return () => {
@@ -67,16 +75,20 @@ export default function Profile() {
 
   const displayExhibitions = () => {
     if (exhibitions) {
-      const exhibitionIds = Object.keys(exhibitions);
+      const exhibitionIds = Object.keys(exhibitions).sort((a, b) => {
+        // sort by year, then by added timestamp
+        return (
+          exhibitions[b].year - exhibitions[a].year ||
+          exhibitions[b].added.getTime() - exhibitions[a].added.getTime()
+        );
+      });
       return (
         <ul>
           <h2>Selected Exhibitions</h2>
           {inDashboard ? <NewExhibition /> : null}
           {exhibitionIds.map((exhibitionId) => {
             const current = exhibitions[exhibitionId];
-            return (
-              <ExhibitionItem exhibition={current} key={exhibitionId} />
-            );
+            return <ExhibitionItem exhibition={current} key={exhibitionId} />;
           })}
         </ul>
       );
