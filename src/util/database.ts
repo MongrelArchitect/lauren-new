@@ -1,4 +1,10 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import {
   getDownloadURL,
   ref,
@@ -100,6 +106,13 @@ export async function addNewCollection(name: string) {
   return docRef.id;
 }
 
+export async function deleteExhibition(exhibitionId: string | undefined) {
+  if (!exhibitionId) {
+    throw new Error("Invalid exhibition ID");
+  }
+  await deleteDoc(doc(database, 'exhibitions', exhibitionId));
+}
+
 export async function updateArt(
   artId: string | unknown,
   formInfo: ArtFormInfo,
@@ -127,7 +140,7 @@ export async function updateBio(newBio: string) {
 export async function updateExhibition(newExhibition: Exhibition) {
   const id = newExhibition.exhibitionId;
   if (!id) {
-    throw new Error('Invalid exhibition ID');
+    throw new Error("Invalid exhibition ID");
   }
   const exhibitionRef = doc(database, "exhibitions", id);
   await updateDoc(exhibitionRef, {

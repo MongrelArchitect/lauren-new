@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Exhibition } from "@customTypes/exhibitions";
 import Blur from "./Blur";
 import Loading from "./Loading";
-import { updateExhibition } from "@util/database";
+import { deleteExhibition, updateExhibition } from "@util/database";
 
 interface Props {
   exhibition: Exhibition;
@@ -11,6 +11,7 @@ interface Props {
 
 export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
   const [attempted, setAttempted] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [gallery, setGallery] = useState(exhibition.gallery);
   const [galleryLocation, setGalleryLocation] = useState({
@@ -122,6 +123,84 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
     }
   };
 
+  const toggleConfirm = () => {
+    setConfirmingDelete(!confirmingDelete);
+  };
+
+  const confirmDelete = async () => {
+    setAttempted(true);
+    setLoading(true);
+    try {
+      await deleteExhibition(exhibition.exhibitionId);
+      cancel();
+    } catch (err) {
+      console.error(err);
+      let message = "Unknown error";
+      if (err instanceof Error) {
+        message = err.message;
+      }
+      if (typeof err === "string") {
+        message = err;
+      }
+      setError(message);
+    }
+    setLoading(false);
+  };
+
+  const displayControls = () => {
+    if (confirmingDelete) {
+      return (
+        <div className="flex w-full flex-col gap-2">
+          <div className="bg-red-300 p-1">Confirm Delete</div>
+          <div className="p-1 text-red-800">
+            Are you sure? This cannot be undone!
+          </div>
+          <div className="flex gap-2">
+            <button
+              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+              onClick={toggleConfirm}
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+              onClick={confirmDelete}
+              type="button"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="flex flex-wrap gap-2">
+        <button
+          className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+          onClick={submit}
+          type="button"
+        >
+          Submit
+        </button>
+        <button
+          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+          onClick={cancel}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+          onClick={toggleConfirm}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    );
+  };
+
   const displayForm = () => {
     return (
       <div
@@ -175,7 +254,7 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
                   id="gallery"
                   onChange={handleChange}
                   placeholder="ex: Some Gallery"
-                  value={gallery || ''}
+                  value={gallery || ""}
                 />
                 <label htmlFor="location">Location*</label>
                 <input
@@ -190,22 +269,7 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
                 {attempted && !galleryLocation.valid ? (
                   <div className="bg-red-300 p-1">Location required</div>
                 ) : null}
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                    onClick={submit}
-                    type="button"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                    onClick={cancel}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                {displayControls()}
                 {attempted && error ? (
                   <div className="bg-red-300 p-1">{error}</div>
                 ) : null}
