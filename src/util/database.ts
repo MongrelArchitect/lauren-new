@@ -123,3 +123,17 @@ export async function updateBio(newBio: string) {
     info: newBio,
   });
 }
+
+export async function updateExhibition(newExhibition: Exhibition) {
+  const id = newExhibition.exhibitionId;
+  if (!id) {
+    throw new Error('Invalid exhibition ID');
+  }
+  const exhibitionRef = doc(database, "exhibitions", id);
+  await updateDoc(exhibitionRef, {
+    gallery: newExhibition.gallery,
+    location: newExhibition.location,
+    title: newExhibition.title,
+    year: newExhibition.year,
+  });
+}

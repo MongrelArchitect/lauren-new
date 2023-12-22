@@ -52,7 +52,6 @@ export default function Profile() {
         };
         rawExhibitions[docu.id] = data;
       });
-      console.log(rawExhibitions);
       setExhibitions(rawExhibitions);
       setLoading(false);
     });
@@ -83,14 +82,22 @@ export default function Profile() {
         );
       });
       return (
-        <ul>
+        <>
           <h2>Selected Exhibitions</h2>
-          {inDashboard ? <NewExhibition /> : null}
-          {exhibitionIds.map((exhibitionId) => {
-            const current = exhibitions[exhibitionId];
-            return <ExhibitionItem exhibition={current} key={exhibitionId} />;
-          })}
-        </ul>
+          <ul className="flex flex-col gap-2">
+            {inDashboard ? <NewExhibition /> : null}
+            {exhibitionIds.map((exhibitionId) => {
+              const current = exhibitions[exhibitionId];
+              return (
+                <ExhibitionItem
+                  exhibition={current}
+                  inDashboard={inDashboard}
+                  key={exhibitionId}
+                />
+              );
+            })}
+          </ul>
+        </>
       );
     }
     return null;
