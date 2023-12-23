@@ -33,6 +33,23 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
     setModalVisible(!modalVisible);
   };
 
+  const edit = () => {
+    toggleModal();
+    setYear({
+      value: exhibition.year,
+      valid: true,
+    });
+    setTitle({
+      value: exhibition.title,
+      valid: true,
+    });
+    setGallery(exhibition.gallery);
+    setGalleryLocation({
+      value: exhibition.location,
+      valid: true,
+    });
+  };
+
   const handleChange = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
     switch (target.id) {
@@ -289,7 +306,7 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
         {inDashboard ? (
           <button
             className="rounded border-2 border-black bg-neutral-300 p-1"
-            onClick={toggleModal}
+            onClick={edit}
           >
             Edit
           </button>
