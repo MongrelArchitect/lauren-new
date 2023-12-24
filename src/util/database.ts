@@ -6,6 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import {
+  deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
@@ -61,11 +62,11 @@ export async function addNewArt(
     const thumbURL = await getDownloadURL(thumbRef);
 
     await updateDoc(newArtRef, {
+      artId: newArtRef.id,
       imagePath,
       imageURL,
       thumbPath,
       thumbURL,
-      uid: newArtRef.id,
     });
   }
 }
@@ -104,6 +105,30 @@ export async function addNewCollection(name: string) {
     id: docRef.id,
   });
   return docRef.id;
+}
+
+export async function deleteArt(art: Art) {
+  // first check for any missing data
+  if (!art.thumbPath) {
+    throw new Error("Invalid thumbPath");
+  }
+  if (!art.imagePath) {
+    throw new Error("Invalid imagePath");
+  }
+  if (!art.artId) {
+    throw new Error("Invalid artID");
+  }
+
+  // delete thumbnail
+  const thumbRef = ref(storage, art.thumbPath);
+  await deleteObject(thumbRef);
+
+  // delete image
+  const imageRef = ref(storage, art.imagePath);
+  await deleteObject(imageRef);
+
+  // delete db entry
+  await deleteDoc(doc(database, 'art', art.artId));
 }
 
 export async function deleteExhibition(exhibitionId: string | undefined) {

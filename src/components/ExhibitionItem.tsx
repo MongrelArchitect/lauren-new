@@ -201,18 +201,18 @@ export default function ExhibitionItem({ exhibition, inDashboard }: Props) {
           Submit
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
-          onClick={cancel}
-          type="button"
-        >
-          Cancel
-        </button>
-        <button
           className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
           onClick={toggleConfirm}
           type="button"
         >
           Delete
+        </button>
+        <button
+          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+          onClick={cancel}
+          type="button"
+        >
+          Cancel
         </button>
       </div>
     );

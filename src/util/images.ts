@@ -31,7 +31,6 @@ export async function generateThumbnail(image: File) {
   let result: null | string = null;
 
   const bitmap = await createImageBitmap(shrunkImage);
-  console.log(bitmap);
 
   if (!ctx) {
     throw new Error("Error generating thumbnail");

@@ -152,11 +152,12 @@ export default function NewArt({
           addingArt ? null : "-translate-y-[110%]"
         } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
       >
-        <div className="my-[32px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
+        <div className="my-[32px] w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
           <h3 className="text-2xl">New Art</h3>
           <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
           <form className="flex flex-col items-start gap-2">
-            <label htmlFor="title">Title:</label>
+            <div>(Fields marked with * are required)</div>
+            <label htmlFor="title">Title*</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"
               id="title"
@@ -169,7 +170,7 @@ export default function NewArt({
             {attempted && !formInfo.validTitle ? (
               <div className="bg-red-300 p-1">Title required</div>
             ) : null}
-            <label htmlFor="medium">Medium:</label>
+            <label htmlFor="medium">Medium*</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"
               id="medium"
@@ -182,7 +183,7 @@ export default function NewArt({
             {attempted && !formInfo.validMedium ? (
               <div className="bg-red-300 p-1">Medium required</div>
             ) : null}
-            <label htmlFor="medium">Size:</label>
+            <label htmlFor="medium">Size*</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"
               id="size"
@@ -203,7 +204,7 @@ export default function NewArt({
               onChange={handleChange}
               type="checkbox"
             />
-            <label htmlFor="image">Image:</label>
+            <label htmlFor="image">Image*</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"
               id="image"
