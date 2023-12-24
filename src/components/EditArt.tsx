@@ -188,18 +188,18 @@ export default function EditArt({ artDetail, closeArtDetail }: Props) {
           </div>
           <div className="flex gap-2">
             <button
-              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
-              onClick={toggleConfirm}
-              type="button"
-            >
-              Cancel
-            </button>
-            <button
               className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
               onClick={confirmDelete}
               type="button"
             >
               Delete
+            </button>
+            <button
+              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+              onClick={toggleConfirm}
+              type="button"
+            >
+              Cancel
             </button>
           </div>
         </div>
