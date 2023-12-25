@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Blur from "./Blur";
 import Loading from "./Loading";
 import { deleteExhibition, updateExhibition } from "@util/database";
