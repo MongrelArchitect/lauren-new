@@ -233,7 +233,7 @@ export default function EditArt({ artDetail, closeArtDetail }: Props) {
   };
 
   return (
-    <div className="w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
+    <div className="fixed w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
       <h3 className="text-2xl">Edit Art</h3>
       {loading ? (
         <Loading />

@@ -36,7 +36,7 @@ export default function ArtDetail({
           artDetail ? null : "-translate-y-[100%]"
         } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
       >
-        <div className="w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
+        <div className="fixed w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
           <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
           <img
             alt={artDetail.title}
