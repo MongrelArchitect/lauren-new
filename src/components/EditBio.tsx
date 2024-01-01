@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { updateBio } from "@util/database";
 
-import Blur from "./Blur";
 import Loading from "./Loading";
+import Modal from "./Modal";
 
 interface Props {
   bio: string;
@@ -70,55 +70,46 @@ export default function EditBio({ bio }: Props) {
 
   return (
     <>
-      {editing ? <Blur /> : null}
-      <div
-        // XXX
-        // remove ternary?
-        className={`${
-          editing ? null : "-translate-y-[100%]"
-        } absolute left-0 top-0 z-30 flex h-full w-full items-start  justify-center transition-transform`}
-      >
-        <div className="fixed w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
-          <h3 className="text-2xl">Edit Bio</h3>
-          {loading ? (
-            <Loading />
-          ) : (
-            <form className="flex flex-col items-start gap-2">
-              <label htmlFor="bio">Bio:</label>
-              <textarea
-                className="w-full resize-none rounded border-2 border-black p-1"
-                id="bio"
-                onChange={changeBio}
-                required
-                rows={16}
-                value={formInfo.bio || ""}
-              />
-              {attempted && !formInfo.valid ? (
-                <div className="bg-red-300 p-1">Bio text required</div>
-              ) : null}
-              <div className="flex flex-wrap gap-2">
-                <button
-                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                  onClick={submit}
-                  type="button"
-                >
-                  Submit
-                </button>
-                <button
-                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                  onClick={cancel}
-                  type="button"
-                >
-                  Cancel
-                </button>
-              </div>
-              {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
-              ) : null}
-            </form>
-          )}
-        </div>
-      </div>
+      <Modal visible={editing}>
+        <h3 className="text-2xl">Edit Bio</h3>
+        {loading ? (
+          <Loading />
+        ) : (
+          <form className="flex flex-col items-start gap-2">
+            <label htmlFor="bio">Bio:</label>
+            <textarea
+              className="w-full resize-none rounded border-2 border-black p-1"
+              id="bio"
+              onChange={changeBio}
+              required
+              rows={16}
+              value={formInfo.bio || ""}
+            />
+            {attempted && !formInfo.valid ? (
+              <div className="bg-red-300 p-1">Bio text required</div>
+            ) : null}
+            <div className="flex flex-wrap gap-2">
+              <button
+                className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                onClick={submit}
+                type="button"
+              >
+                Submit
+              </button>
+              <button
+                className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                onClick={cancel}
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+            {attempted && error ? (
+              <div className="bg-red-300 p-1">{error}</div>
+            ) : null}
+          </form>
+        )}
+      </Modal>
       <button
         className="rounded border-2 border-black bg-neutral-300 p-1"
         onClick={edit}

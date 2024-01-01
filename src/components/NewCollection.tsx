@@ -1,18 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addNewCollection } from "@util/database";
+import Modal from "./Modal";
 
-interface Props {
-  modalVisible: boolean;
-  toggleNewCollection: () => void;
-}
-
-export default function NewCollection({
-  modalVisible,
-  toggleNewCollection,
-}: Props) {
+export default function NewCollection() {
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [name, setName] = useState({ value: "", valid: false });
 
   const cancel = () => {
@@ -23,6 +17,10 @@ export default function NewCollection({
       value: "",
       valid: false,
     });
+  };
+
+  const toggleNewCollection = () => {
+    setModalVisible(!modalVisible);
   };
 
   const changeName = (event: React.SyntheticEvent) => {
@@ -62,14 +60,15 @@ export default function NewCollection({
   };
 
   return (
-    <div
-      // XXX
-      // remove ternary?
-      className={`${
-        modalVisible ? null : "-translate-y-[100%]"
-      } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
-    >
-      <div className="fixed w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
+    <>
+      <button
+        className="rounded border-2 border-gray-800 bg-purple-300 p-1"
+        onClick={toggleNewCollection}
+        type="button"
+      >
+        + New Collection
+      </button>
+      <Modal visible={modalVisible}>
         <h3 className="text-2xl">New Collection</h3>
         <form className="flex flex-col items-start gap-2">
           <label htmlFor="name">Name:</label>
@@ -101,7 +100,7 @@ export default function NewCollection({
             <div className="bg-red-300 p-1">{error}</div>
           ) : null}
         </form>
-      </div>
-    </div>
+      </Modal>
+    </>
   );
 }

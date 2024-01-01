@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, Link, Outlet } from "react-router-dom";
 
 import { CollectionsContext } from "@contexts/collections";
@@ -8,7 +8,6 @@ import Blur from "@components/Blur";
 import NewCollection from "@components/NewCollection";
 
 export default function Dashboard() {
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const user = useContext(UserContext);
 
@@ -19,10 +18,6 @@ export default function Dashboard() {
       navigate("/login");
     }
   }, [user, navigate]);
-
-  const toggleNewCollection = () => {
-    setModalVisible(!modalVisible);
-  };
 
   const allCollections = useContext(CollectionsContext);
 
@@ -51,23 +46,12 @@ export default function Dashboard() {
 
   return (
     <main className="grid grid-rows-[auto_1fr] gap-4 bg-green-200 sm:grid-cols-[auto_1fr]">
-      {modalVisible ? <Blur /> : null}
-      <NewCollection
-        modalVisible={modalVisible}
-        toggleNewCollection={toggleNewCollection}
-      />
       <div className="flex flex-col">
         <h2>Welcome {user ? user.name : null}!</h2>
         <h2>Menu</h2>
         <h3>Collections</h3>
         {displayCollections()}
-        <button
-          className="rounded border-2 border-gray-800 bg-purple-300 p-1"
-          onClick={toggleNewCollection}
-          type="button"
-        >
-          + New Collection
-        </button>
+        <NewCollection />
         <Link to="/dashboard/profile">Profile</Link>
       </div>
       <Outlet />
