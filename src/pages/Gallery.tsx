@@ -8,7 +8,6 @@ import { CollectionsContext } from "@contexts/collections";
 
 import ArtDetail from "@components/ArtDetail";
 import ArtThumb from "@components/ArtThumb";
-import Blur from "@components/Blur";
 import Loading from "@components/Loading";
 import NewArt from "@components/NewArt";
 
@@ -53,24 +52,6 @@ export default function Gallery() {
     };
   }, [collectionId]);
 
-  const [addingArt, setAddingArt] = useState(false);
-
-  const toggleAddingArt = () => {
-    setModalVisible(!modalVisible);
-    setAddingArt(!addingArt);
-  };
-
-  const addArtButton = (
-    <div>
-      <button
-        className="mt-4 rounded border-2 border-gray-800 bg-purple-300 p-1"
-        onClick={toggleAddingArt}
-        type="button"
-      >
-        + add art
-      </button>
-    </div>
-  );
 
   const [artDetail, setArtDetail] = useState<null | Art>(null);
   const [editingArt, setEditingArt] = useState(false);
@@ -113,19 +94,17 @@ export default function Gallery() {
   if (currentCollection) {
     return (
       <div>
-        {modalVisible ? <Blur /> : null}
-        <NewArt
-          addingArt={addingArt}
-          collectionId={collectionId}
-          toggleAddingArt={toggleAddingArt}
-        />
+        {currentCollection.name.toUpperCase()}
+        {inDashboard ? 
+          <NewArt
+            collectionId={collectionId}
+          />
+        : null}
         <ArtDetail
           artDetail={artDetail}
           editingArt={editingArt}
           closeArtDetail={closeArtDetail}
         />
-        {currentCollection.name.toUpperCase()}
-        {inDashboard ? addArtButton : null}
         <div className="flex flex-wrap gap-4">{displayThumbs()}</div>
       </div>
     );

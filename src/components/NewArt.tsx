@@ -2,18 +2,14 @@ import { useContext, useState } from "react";
 import { CollectionsContext } from "@contexts/collections";
 import { addNewArt } from "@util/database";
 import { ArtFormInfo } from "@customTypes/art";
+import Modal from "./Modal";
 
 interface Props {
-  addingArt: boolean;
   collectionId: string | undefined;
-  toggleAddingArt: () => void;
 }
 
-export default function NewArt({
-  addingArt,
-  collectionId,
-  toggleAddingArt,
-}: Props) {
+export default function NewArt({ collectionId }: Props) {
+  const [addingArt, setAddingArt] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
@@ -145,14 +141,26 @@ export default function NewArt({
     }
   };
 
-  if (currentCollection) {
-    return (
-      <div
-        className={`${
-          addingArt ? null : "-translate-y-[100%]"
-        } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
+  const toggleAddingArt = () => {
+    setAddingArt(!addingArt);
+  };
+
+  const addArtButton = (
+    <div>
+      <button
+        className="mt-4 rounded border-2 border-gray-800 bg-purple-300 p-1"
+        onClick={toggleAddingArt}
+        type="button"
       >
-        <div className="w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
+        + add art
+      </button>
+    </div>
+  );
+
+  const displayForm = () => {
+    if (currentCollection) {
+      return (
+        <Modal visible={addingArt}>
           <h3 className="text-2xl">New Art</h3>
           <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
           <form className="flex flex-col items-start gap-2">
@@ -235,28 +243,29 @@ export default function NewArt({
               ) : null}
             </div>
           </form>
-        </div>
-      </div>
+        </Modal>
+      );
+    }
+
+    return (
+      <Modal visible={addingArt}>
+          <h3 className="text-2xl">Error</h3>
+          <p>Invalid collection</p>
+          <button
+            className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+            onClick={toggleAddingArt}
+            type="button"
+          >
+            Cancel
+          </button>
+      </Modal>
     );
-  }
+  };
 
   return (
-    <div
-      className={`${
-        addingArt ? null : "-translate-y-[110%]"
-      } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
-    >
-      <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
-        <h3 className="text-2xl">Error</h3>
-        <p>Invalid collection</p>
-        <button
-          className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-          onClick={toggleAddingArt}
-          type="button"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+    <>
+      {addArtButton}
+      {displayForm()}
+    </>
   );
 }
