@@ -26,8 +26,6 @@ export default function Gallery() {
   const { pathname } = useLocation();
   const inDashboard = pathname.includes("dashboard");
 
-  const [modalVisible, setModalVisible] = useState(false);
-
   const [art, setArt] = useState<null | Artwork>(null);
 
   const [loading, setLoading] = useState(true);
@@ -68,7 +66,6 @@ export default function Gallery() {
               inDashboard={inDashboard}
               key={artId}
               setArtDetail={setArtDetail}
-              setModalVisible={setModalVisible}
               setEditingArt={setEditingArt}
             />
           );
@@ -82,7 +79,6 @@ export default function Gallery() {
   const closeArtDetail = () => {
     setArtDetail(null);
     setEditingArt(false);
-    setModalVisible(false);
   };
 
   if (loading) {

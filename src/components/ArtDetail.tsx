@@ -1,5 +1,6 @@
 import Art from "@customTypes/art";
 import EditArt from "./EditArt";
+import Modal from "./Modal";
 
 interface Props {
   artDetail: null | Art;
@@ -17,66 +18,49 @@ export default function ArtDetail({
       // EDITING
       // ======================
       return (
-        <div
-          // XXX - remove ternary
-          className={`${
-            artDetail ? null : "-translate-y-[100%]"
-          } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
-        >
+        <Modal visible>
           <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail} />
-        </div>
+        </Modal>
       );
     }
     return (
       // VIEWING ONLY
       // ======================
-      <div
-        // XXX - remove ternary
-        className={`${
-          artDetail ? null : "-translate-y-[100%]"
-        } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
-      >
-        <div className="fixed w-full max-w-[420px] rounded bg-white p-3 text-xl shadow-xl">
-          <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
-          <img
-            alt={artDetail.title}
-            src={artDetail.imageURL ? artDetail.imageURL : ""}
-          />
-          <p>{artDetail.medium.toUpperCase()}</p>
-          <p>{artDetail.size.toUpperCase()}</p>
-          {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
-          <button
-            className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-            onClick={closeArtDetail}
-            type="button"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    // INVALID ART SOMEHOW
-    // =========================
-    <div
-      // XXX - remove ternary
-      className={`${
-        artDetail ? null : "-translate-y-[110%]"
-      } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
-    >
-      <div className="my-[100px] w-full max-w-[320px] rounded bg-white p-3 text-xl shadow-xl">
-        <h3 className="text-2xl">Error</h3>
-        <p>Invalid artwork</p>
+      <Modal visible>
+        <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
+        <img
+          alt={artDetail.title}
+          src={artDetail.imageURL ? artDetail.imageURL : ""}
+        />
+        <p>{artDetail.medium.toUpperCase()}</p>
+        <p>{artDetail.size.toUpperCase()}</p>
+        {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
         <button
           className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
           onClick={closeArtDetail}
           type="button"
         >
-          Cancel
+          Close
         </button>
-      </div>
-    </div>
+      </Modal>
+    );
+  }
+
+  return (
+    // NO ART DETAIL SELECTED
+    // =========================
+    // This modal won't show, but needs to be here for other animations to work.
+    // Keep the "error" message just in case it shows up shomehow?
+    <Modal visible={false}>
+      <h3 className="text-2xl">Error</h3>
+      <p>Invalid artwork</p>
+      <button
+        className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+        onClick={closeArtDetail}
+        type="button"
+      >
+        Cancel
+      </button>
+    </Modal>
   );
 }

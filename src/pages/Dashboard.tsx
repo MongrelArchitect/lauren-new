@@ -4,7 +4,6 @@ import { useNavigate, Link, Outlet } from "react-router-dom";
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
-import Blur from "@components/Blur";
 import NewCollection from "@components/NewCollection";
 
 export default function Dashboard() {

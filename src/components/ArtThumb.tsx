@@ -5,7 +5,6 @@ interface Props {
   art: Art;
   inDashboard: boolean;
   setArtDetail: Dispatch<SetStateAction<Art | null>>;
-  setModalVisible: Dispatch<SetStateAction<boolean>>;
   setEditingArt: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -13,7 +12,6 @@ export default function ShowArt({
   art,
   inDashboard,
   setArtDetail,
-  setModalVisible,
   setEditingArt,
 }: Props) {
   const handleClick = () => {
@@ -21,7 +19,6 @@ export default function ShowArt({
       setEditingArt(true);
     }
     setArtDetail(art);
-    setModalVisible(true);
   };
 
   return (
