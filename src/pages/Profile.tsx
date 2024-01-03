@@ -7,6 +7,7 @@ import Bio from "@components/Bio";
 import ExhibitionItem from "@components/ExhibitionItem";
 import Loading from "@components/Loading";
 import NewExhibition from "@components/NewExhibition";
+import ProfileImage from "@components/ProfileImage";
 
 import Exhibitions, { Exhibition } from "@customTypes/exhibitions";
 import ImageInfo from "@customTypes/profile";
@@ -67,7 +68,7 @@ export default function Profile() {
 
   const displayImage = () => {
     if (image) {
-      return <img alt={image.description} src={image.imageURL} />;
+      return <ProfileImage image={image} inDashboard={inDashboard} />
     }
     return null;
   };

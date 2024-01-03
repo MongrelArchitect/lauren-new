@@ -1,11 +1,11 @@
 import Resizer from "react-image-file-resizer";
 
-const resizeFile = (file: File) => {
+const resizeFile = (file: File, maxSize: number) => {
   return new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      600,
-      600,
+      maxSize,
+      maxSize,
       "JPEG",
       100,
       0,
@@ -18,7 +18,12 @@ const resizeFile = (file: File) => {
 };
 
 export default async function resizeImage(image: File) {
-  const resizedImage = await resizeFile(image);
+  const resizedImage = await resizeFile(image, 600);
+  return resizedImage as File;
+}
+
+export async function resizeProfileImage(image: File) {
+  const resizedImage = await resizeFile(image, 1200);
   return resizedImage as File;
 }
 

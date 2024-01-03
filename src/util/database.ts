@@ -13,7 +13,7 @@ import {
   uploadString,
 } from "firebase/storage";
 import { database, storage } from "./firebase";
-import resizeImage, { generateThumbnail } from "./images";
+import resizeImage, { generateThumbnail, resizeProfileImage } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
 import { Exhibition } from "@customTypes/exhibitions";
 
@@ -128,14 +128,14 @@ export async function deleteArt(art: Art) {
   await deleteObject(imageRef);
 
   // delete db entry
-  await deleteDoc(doc(database, 'art', art.artId));
+  await deleteDoc(doc(database, "art", art.artId));
 }
 
 export async function deleteExhibition(exhibitionId: string | undefined) {
   if (!exhibitionId) {
     throw new Error("Invalid exhibition ID");
   }
-  await deleteDoc(doc(database, 'exhibitions', exhibitionId));
+  await deleteDoc(doc(database, "exhibitions", exhibitionId));
 }
 
 export async function updateArt(
@@ -173,5 +173,18 @@ export async function updateExhibition(newExhibition: Exhibition) {
     location: newExhibition.location,
     title: newExhibition.title,
     year: newExhibition.year,
+  });
+}
+
+export async function updateProfileImage(newImage: File) {
+  const resizedImage = await resizeProfileImage(newImage);
+  const imagePath = "profile/profile.JPEG";
+  const imageRef = ref(storage, imagePath);
+  await uploadBytes(imageRef, resizedImage);
+  const imageURL = await getDownloadURL(imageRef);
+  const docRef = doc(database, "profile", "image");
+  await updateDoc(docRef, {
+    imagePath,
+    imageURL,
   });
 }
