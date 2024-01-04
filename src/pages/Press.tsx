@@ -1,5 +1,11 @@
+import PressArticles from "@components/PressArticles";
+import PressVideos from "@components/PressVideos";
+
 export default function Press() {
   return (
-    <div>PRESS</div>
+    <div>
+      <PressVideos />
+      <PressArticles />
+    </div>
   );
 }

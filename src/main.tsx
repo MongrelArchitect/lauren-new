@@ -59,6 +59,10 @@ const router = createBrowserRouter([
             path: "profile",
             element: <Profile />,
           },
+          {
+            path: "press",
+            element: <Press />,
+          },
         ],
       },
       {
