@@ -57,7 +57,6 @@ export default function PressVideos() {
 
   return (
     <div>
-      <h1>Press</h1>
       <h2>Videos</h2>
       {displayVideos()}
     </div>
