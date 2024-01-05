@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { database } from "@util/firebase";
 
+import Loading from "./Loading";
+import NewPressArticle from "./NewPressArticle";
 import PressArticle from "@customTypes/pressArticles";
 import PressArticleItem from "./PressArticleItem";
-
-import Loading from "./Loading";
 
 interface PressArticles {
   [key: string]: PressArticle;
 }
 
 export default function PressArticles() {
+  const { pathname } = useLocation();
+  const inDashboard = pathname.includes("dashboard");
+
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<null | PressArticles>(null);
 
@@ -21,7 +25,13 @@ export default function PressArticles() {
       setLoading(true);
       const articlesFromDB: PressArticles = {};
       querySnapshot.forEach((docu) => {
-        const articleInfo: PressArticle = docu.data() as PressArticle;
+        const articleInfo: PressArticle = {
+          added: docu.data().added.toDate(),
+          publication: docu.data().publication,
+          title: docu.data().title,
+          url: docu.data().url,
+          year: docu.data().year,
+        };
         articlesFromDB[docu.id] = articleInfo;
       });
       // only set to the temp object if there's any videos from the db
@@ -39,7 +49,13 @@ export default function PressArticles() {
     if (!articles) {
       return <div>No articles available</div>;
     }
-    const articleIds = Object.keys(articles);
+    const articleIds = Object.keys(articles).sort((a, b) => {
+      // sort by year, then by added timestamp
+      return (
+        articles[b].year - articles[a].year ||
+        articles[b].added.getTime() - articles[a].added.getTime()
+      );
+    });
     return (
       <div>
         {articleIds.map((articleId) => {
@@ -58,6 +74,7 @@ export default function PressArticles() {
   return (
     <div>
       <h2>Articles</h2>
+      {inDashboard ? <NewPressArticle /> : null}
       {displayArticles()}
     </div>
   );

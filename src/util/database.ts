@@ -16,6 +16,7 @@ import { database, storage } from "./firebase";
 import resizeImage, { generateThumbnail, resizeProfileImage } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
 import { Exhibition } from "@customTypes/exhibitions";
+import PressArticle from "@customTypes/pressArticles";
 
 export async function addNewArt(
   formInfo: ArtFormInfo,
@@ -69,6 +70,10 @@ export async function addNewArt(
       thumbURL,
     });
   }
+}
+
+export async function addNewArticle(newArticle: PressArticle) {
+  await addDoc(collection(database, "press-articles"), newArticle);
 }
 
 export async function addNewExhibition(
