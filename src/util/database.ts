@@ -136,6 +136,10 @@ export async function deleteArt(art: Art) {
   await deleteDoc(doc(database, "art", art.artId));
 }
 
+export async function deleteArticle(articleId: string) {
+  await deleteDoc(doc(database, "press-articles", articleId));
+}
+
 export async function deleteExhibition(exhibitionId: string | undefined) {
   if (!exhibitionId) {
     throw new Error("Invalid exhibition ID");
@@ -158,6 +162,16 @@ export async function updateArt(
       sold: formInfo.sold,
     });
   }
+}
+
+export async function updateArticle(articleId: string, newArticleInfo: PressArticle) {
+  const articleRef = doc(database, "press-articles", articleId);
+  await updateDoc(articleRef, {
+    title: newArticleInfo.title,
+    publication: newArticleInfo.publication,
+    year: newArticleInfo.year,
+    url: newArticleInfo.url,
+  });
 }
 
 export async function updateBio(newBio: string) {

@@ -57,13 +57,18 @@ export default function PressArticles() {
       );
     });
     return (
-      <div>
+      <ul className="flex flex-col gap-3">
         {articleIds.map((articleId) => {
           return (
-            <PressArticleItem key={articleId} article={articles[articleId]} />
+            <PressArticleItem
+              key={articleId}
+              articleId={articleId}
+              article={articles[articleId]}
+              inDashboard={inDashboard}
+            />
           );
         })}
-      </div>
+      </ul>
     );
   };
 
