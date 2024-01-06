@@ -45,6 +45,7 @@ export default function Dashboard() {
           {displayCollections()}
           <NewCollection />
           <Link to="/dashboard/profile">Profile</Link>
+          <Link to="/dashboard/press">Press</Link>
         </div>
         <Outlet />
       </div>
