@@ -145,6 +145,10 @@ export async function deleteArticle(articleId: string) {
   await deleteDoc(doc(database, "press-articles", articleId));
 }
 
+export async function deleteVideo(videoId: string) {
+  await deleteDoc(doc(database, "press-videos", videoId));
+}
+
 export async function deleteExhibition(exhibitionId: string | undefined) {
   if (!exhibitionId) {
     throw new Error("Invalid exhibition ID");

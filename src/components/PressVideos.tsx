@@ -29,7 +29,7 @@ export default function PressVideos() {
         const videoInfo: PressVideo = {
           added: docu.data().added.toDate(),
           url: docu.data().url,
-        }
+        };
         videosFromDB[docu.id] = videoInfo;
       });
       // only set to the temp object if there's any videos from the db
@@ -54,7 +54,12 @@ export default function PressVideos() {
       <div>
         {videoIds.map((videoId) => {
           return (
-            <PressVideoItem key={videoId} videoURL={videos[videoId].url} />
+            <PressVideoItem
+              inDashboard={inDashboard}
+              key={videoId}
+              videoId={videoId}
+              videoURL={videos[videoId].url}
+            />
           );
         })}
       </div>
