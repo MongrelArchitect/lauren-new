@@ -16,6 +16,8 @@ import { database, storage } from "./firebase";
 import resizeImage, { generateThumbnail, resizeProfileImage } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
 import { Exhibition } from "@customTypes/exhibitions";
+import PressArticle from "@customTypes/pressArticles";
+import PressVideo from "@customTypes/pressVideos";
 
 export async function addNewArt(
   formInfo: ArtFormInfo,
@@ -71,6 +73,10 @@ export async function addNewArt(
   }
 }
 
+export async function addNewArticle(newArticle: PressArticle) {
+  await addDoc(collection(database, "press-articles"), newArticle);
+}
+
 export async function addNewExhibition(
   year: number,
   title: string,
@@ -107,6 +113,10 @@ export async function addNewCollection(name: string) {
   return docRef.id;
 }
 
+export async function addNewVideo(newVideo: PressVideo) {
+  await addDoc(collection(database, "press-videos"), newVideo);
+}
+
 export async function deleteArt(art: Art) {
   // first check for any missing data
   if (!art.thumbPath) {
@@ -131,6 +141,14 @@ export async function deleteArt(art: Art) {
   await deleteDoc(doc(database, "art", art.artId));
 }
 
+export async function deleteArticle(articleId: string) {
+  await deleteDoc(doc(database, "press-articles", articleId));
+}
+
+export async function deleteVideo(videoId: string) {
+  await deleteDoc(doc(database, "press-videos", videoId));
+}
+
 export async function deleteExhibition(exhibitionId: string | undefined) {
   if (!exhibitionId) {
     throw new Error("Invalid exhibition ID");
@@ -153,6 +171,16 @@ export async function updateArt(
       sold: formInfo.sold,
     });
   }
+}
+
+export async function updateArticle(articleId: string, newArticleInfo: PressArticle) {
+  const articleRef = doc(database, "press-articles", articleId);
+  await updateDoc(articleRef, {
+    title: newArticleInfo.title,
+    publication: newArticleInfo.publication,
+    year: newArticleInfo.year,
+    url: newArticleInfo.url,
+  });
 }
 
 export async function updateBio(newBio: string) {
