@@ -17,6 +17,7 @@ import resizeImage, { generateThumbnail, resizeProfileImage } from "./images";
 import Art, { ArtFormInfo } from "@customTypes/art";
 import { Exhibition } from "@customTypes/exhibitions";
 import PressArticle from "@customTypes/pressArticles";
+import PressVideo from "@customTypes/pressVideos";
 
 export async function addNewArt(
   formInfo: ArtFormInfo,
@@ -110,6 +111,10 @@ export async function addNewCollection(name: string) {
     id: docRef.id,
   });
   return docRef.id;
+}
+
+export async function addNewVideo(newVideo: PressVideo) {
+  await addDoc(collection(database, "press-videos"), newVideo);
 }
 
 export async function deleteArt(art: Art) {
