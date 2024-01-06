@@ -1,22 +1,14 @@
-import { useContext, useEffect } from "react";
-import { useNavigate, Link, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
 
 import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
+import Login from "./Login";
 import NewCollection from "@components/NewCollection";
 
 export default function Dashboard() {
-
   const user = useContext(UserContext);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
 
   const allCollections = useContext(CollectionsContext);
 
@@ -43,17 +35,23 @@ export default function Dashboard() {
     return <div>No collections. Add some!</div>;
   };
 
-  return (
-    <main className="grid grid-rows-[auto_1fr] gap-4 bg-green-200 sm:grid-cols-[auto_1fr]">
-      <div className="flex flex-col">
-        <h2>Welcome {user ? user.name : null}!</h2>
-        <h2>Menu</h2>
-        <h3>Collections</h3>
-        {displayCollections()}
-        <NewCollection />
-        <Link to="/dashboard/profile">Profile</Link>
+  if (user) {
+    return (
+      <div className="grid grid-rows-[auto_1fr] gap-4 bg-green-200 sm:grid-cols-[auto_1fr]">
+        <div className="flex flex-col">
+          <h2>Welcome {user ? user.name : null}!</h2>
+          <h2>Menu</h2>
+          <h3>Collections</h3>
+          {displayCollections()}
+          <NewCollection />
+          <Link to="/dashboard/profile">Profile</Link>
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
-    </main>
+    );
+  }
+
+  return (
+    <Login />
   );
 }
