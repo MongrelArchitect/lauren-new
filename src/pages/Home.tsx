@@ -1,5 +1,7 @@
+import HomeImage from "@components/HomeImage";
+
 export default function Home() {
   return (
-    <div className="bg-green-200">HOME</div>
+    <HomeImage />
   );
 }

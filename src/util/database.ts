@@ -204,6 +204,20 @@ export async function updateExhibition(newExhibition: Exhibition) {
   });
 }
 
+export async function updateHomeImage(newImage: File) {
+  console.log(newImage);
+  const resizedImage = await resizeProfileImage(newImage);
+  const imagePath = "home/home.JPEG";
+  const imageRef = ref(storage, imagePath);
+  await uploadBytes(imageRef, resizedImage);
+  const imageURL = await getDownloadURL(imageRef);
+  const docRef = doc(database, "homepage", "image");
+  await updateDoc(docRef, {
+    imagePath,
+    imageURL,
+  });
+}
+
 export async function updateProfileImage(newImage: File) {
   const resizedImage = await resizeProfileImage(newImage);
   const imagePath = "profile/profile.JPEG";

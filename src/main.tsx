@@ -56,12 +56,16 @@ const router = createBrowserRouter([
             element: <Gallery />,
           },
           {
-            path: "profile",
-            element: <Profile />,
+            path: "home",
+            element: <Home />,
           },
           {
             path: "press",
             element: <Press />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },
