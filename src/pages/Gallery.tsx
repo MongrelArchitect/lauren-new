@@ -39,8 +39,20 @@ export default function Gallery() {
     const unsubscribe = onSnapshot(collectionsQuery, (querySnapshot) => {
       const artwork: Artwork = {};
       querySnapshot.forEach((docu) => {
-        const data = docu.data() as Art;
-        artwork[docu.id] = data;
+        const data = docu.data();
+        const artInfo: Art = {
+          added: data.added.toDate(),
+          collection: data.collection,
+          imagePath: data.imagePath,
+          imageURL: data.imageURL,
+          medium: data.medium,
+          size: data.size,
+          sold: data.sold,
+          thumbPath: data.thumbPath,
+          thumbURL: data.thumbURL,
+          title: data.title,
+        };
+        artwork[docu.id] = artInfo;
       });
       setArt(artwork);
       setLoading(false);
@@ -56,7 +68,13 @@ export default function Gallery() {
 
   const displayThumbs = () => {
     if (art) {
-      const artIds = Object.keys(art);
+      const artIds = Object.keys(art).sort((a, b) => {
+        // sort by added timestamp
+        return (
+          art[b].added.getTime() - art[a].added.getTime()
+        );
+      });
+      console.log(art);
       if (artIds.length) {
         return artIds.map((artId) => {
           const currentArt = art[artId];
