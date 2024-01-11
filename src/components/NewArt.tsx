@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { CollectionsContext } from "@contexts/collections";
 import { addNewArt } from "@util/database";
 import { ArtFormInfo } from "@customTypes/art";
+import Loading from "./Loading";
 import Modal from "./Modal";
 
 interface Props {
@@ -12,6 +13,7 @@ export default function NewArt({ collectionId }: Props) {
   const [addingArt, setAddingArt] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState(false);
 
   const allCollections = useContext(CollectionsContext);
 
@@ -123,6 +125,7 @@ export default function NewArt({ collectionId }: Props) {
     setAttempted(true);
     if (checkFormValidity()) {
       try {
+        setLoading(true);
         await addNewArt(formInfo, collectionId);
         cancel();
       } catch (err) {
@@ -139,6 +142,7 @@ export default function NewArt({ collectionId }: Props) {
     } else {
       setError("Error: check each input");
     }
+    setLoading(false);
   };
 
   const toggleAddingArt = () => {
@@ -161,87 +165,93 @@ export default function NewArt({ collectionId }: Props) {
     if (currentCollection) {
       return (
         <Modal visible={addingArt}>
-          <h3 className="text-2xl">New Art</h3>
-          <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
           <form className="flex flex-col items-start gap-2">
-            <div>(Fields marked with * are required)</div>
-            <label htmlFor="title">Title*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="title"
-              onChange={handleChange}
-              placeholder="ex: Untitled"
-              required
-              type="text"
-              value={formInfo.title || ""}
-            />
-            {attempted && !formInfo.validTitle ? (
-              <div className="bg-red-300 p-1">Title required</div>
-            ) : null}
-            <label htmlFor="medium">Medium*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="medium"
-              onChange={handleChange}
-              placeholder="ex: Oil on canvas"
-              required
-              type="text"
-              value={formInfo.medium || ""}
-            />
-            {attempted && !formInfo.validMedium ? (
-              <div className="bg-red-300 p-1">Medium required</div>
-            ) : null}
-            <label htmlFor="medium">Size*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="size"
-              onChange={handleChange}
-              placeholder={`ex: 36" x 24"`}
-              required
-              type="text"
-              value={formInfo.size || ""}
-            />
-            {attempted && !formInfo.validSize ? (
-              <div className="bg-red-300 p-1">Size required</div>
-            ) : null}
-            <label htmlFor="sold">Sold:</label>
-            <input
-              className="h-6 w-6"
-              checked={formInfo.sold || false}
-              id="sold"
-              onChange={handleChange}
-              type="checkbox"
-            />
-            <label htmlFor="image">Image*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="image"
-              onChange={handleChange}
-              required
-              type="file"
-            />
-            {attempted && !formInfo.validImage ? (
-              <div className="bg-red-300 p-1">Image required</div>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button
-                className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                onClick={submit}
-                type="button"
-              >
-                Submit
-              </button>
-              <button
-                className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                onClick={cancel}
-                type="button"
-              >
-                Cancel
-              </button>
-              {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
-              ) : null}
-            </div>
+            <h3 className="text-2xl">New Art</h3>
+            <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
+            {loading ? (
+              <Loading />
+            ) : (
+              <>
+                <div>(Fields marked with * are required)</div>
+                <label htmlFor="title">Title*</label>
+                <input
+                  className="w-full rounded border-2 border-gray-500 p-1"
+                  id="title"
+                  onChange={handleChange}
+                  placeholder="ex: Untitled"
+                  required
+                  type="text"
+                  value={formInfo.title || ""}
+                />
+                {attempted && !formInfo.validTitle ? (
+                  <div className="bg-red-300 p-1">Title required</div>
+                ) : null}
+                <label htmlFor="medium">Medium*</label>
+                <input
+                  className="w-full rounded border-2 border-gray-500 p-1"
+                  id="medium"
+                  onChange={handleChange}
+                  placeholder="ex: Oil on canvas"
+                  required
+                  type="text"
+                  value={formInfo.medium || ""}
+                />
+                {attempted && !formInfo.validMedium ? (
+                  <div className="bg-red-300 p-1">Medium required</div>
+                ) : null}
+                <label htmlFor="medium">Size*</label>
+                <input
+                  className="w-full rounded border-2 border-gray-500 p-1"
+                  id="size"
+                  onChange={handleChange}
+                  placeholder={`ex: 36" x 24"`}
+                  required
+                  type="text"
+                  value={formInfo.size || ""}
+                />
+                {attempted && !formInfo.validSize ? (
+                  <div className="bg-red-300 p-1">Size required</div>
+                ) : null}
+                <label htmlFor="sold">Sold:</label>
+                <input
+                  className="h-6 w-6"
+                  checked={formInfo.sold || false}
+                  id="sold"
+                  onChange={handleChange}
+                  type="checkbox"
+                />
+                <label htmlFor="image">Image*</label>
+                <input
+                  className="w-full rounded border-2 border-gray-500 p-1"
+                  id="image"
+                  onChange={handleChange}
+                  required
+                  type="file"
+                />
+                {attempted && !formInfo.validImage ? (
+                  <div className="bg-red-300 p-1">Image required</div>
+                ) : null}
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                    onClick={submit}
+                    type="button"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                    onClick={cancel}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  {attempted && error ? (
+                    <div className="bg-red-300 p-1">{error}</div>
+                  ) : null}
+                </div>
+              </>
+            )}
           </form>
         </Modal>
       );
@@ -249,15 +259,15 @@ export default function NewArt({ collectionId }: Props) {
 
     return (
       <Modal visible={addingArt}>
-          <h3 className="text-2xl">Error</h3>
-          <p>Invalid collection</p>
-          <button
-            className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-            onClick={toggleAddingArt}
-            type="button"
-          >
-            Cancel
-          </button>
+        <h3 className="text-2xl">Error</h3>
+        <p>Invalid collection</p>
+        <button
+          className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+          onClick={toggleAddingArt}
+          type="button"
+        >
+          Cancel
+        </button>
       </Modal>
     );
   };
