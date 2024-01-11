@@ -11,6 +11,7 @@ import ArtThumb from "@components/ArtThumb";
 import Loading from "@components/Loading";
 import NewArt from "@components/NewArt";
 
+import AdjacentArt from "@customTypes/adjacent";
 import Art from "@customTypes/art";
 
 interface Artwork {
@@ -42,6 +43,7 @@ export default function Gallery() {
         const data = docu.data();
         const artInfo: Art = {
           added: data.added.toDate(),
+          artId: data.artId,
           collection: data.collection,
           imagePath: data.imagePath,
           imageURL: data.imageURL,
@@ -62,20 +64,86 @@ export default function Gallery() {
     };
   }, [collectionId]);
 
-
+  const [adjacent, setAdjacent] = useState<AdjacentArt>({
+    next: null,
+    prev: null,
+  });
   const [artDetail, setArtDetail] = useState<null | Art>(null);
   const [editingArt, setEditingArt] = useState(false);
 
+
+  const artIds = art
+    ? Object.keys(art).sort((a, b) => {
+        // sort by added timestamp
+        return art[b].added.getTime() - art[a].added.getTime();
+      })
+    : null;
+
+  const setAdjacentArt = (index: number) => {
+    if (art && artIds && artIds.length) {
+      switch (artIds.length) {
+        case 1:
+          // only one = no adjacent
+          setAdjacent({
+            next: null,
+            prev: null,
+          });
+          break;
+        case 2:
+          // only two = next or prev based on index
+          if (index === 0) {
+            setAdjacent({
+              next: art[artIds[1]],
+              prev: null,
+            });
+          } else {
+            setAdjacent({
+              next: null,
+              prev: art[artIds[0]],
+            });
+          }
+          break;
+        default:
+          // 3 or more = determine based on sort order
+          if (index === 0) {
+            // first art
+            setAdjacent({
+              next: art[artIds[1]],
+              prev: null,
+            });
+          } else if (index === artIds.length - 1) {
+            // last art
+            setAdjacent({
+              next: null,
+              prev: art[artIds[artIds.length - 2]],
+            });
+          } else {
+            // somewhere in the middle
+            setAdjacent({
+              next: art[artIds[index + 1]],
+              prev: art[artIds[index - 1]],
+            });
+          }
+          break;
+      }
+    } else {
+      setAdjacent({
+        next: null,
+        prev: null,
+      });
+    }
+  };
+
+  // whenver the chosen artwork changes, update the adjacent art
+  useEffect(() => {
+    if (artDetail && artDetail.artId && artIds) {
+      setAdjacentArt(artIds.indexOf(artDetail.artId));
+    }
+  }, [artDetail]);
+
   const displayThumbs = () => {
     if (art) {
-      const artIds = Object.keys(art).sort((a, b) => {
-        // sort by added timestamp
-        return (
-          art[b].added.getTime() - art[a].added.getTime()
-        );
-      });
-      console.log(art);
-      if (artIds.length) {
+      if (artIds && artIds.length) {
         return artIds.map((artId) => {
           const currentArt = art[artId];
           return (
@@ -100,24 +168,20 @@ export default function Gallery() {
   };
 
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   if (currentCollection) {
     return (
       <div>
         {currentCollection.name.toUpperCase()}
-        {inDashboard ? 
-          <NewArt
-            collectionId={collectionId}
-          />
-        : null}
+        {inDashboard ? <NewArt collectionId={collectionId} /> : null}
         <ArtDetail
+          adjacent={adjacent}
           artDetail={artDetail}
           editingArt={editingArt}
           closeArtDetail={closeArtDetail}
+          setArtDetail={setArtDetail}
         />
         <div className="flex flex-wrap gap-4">{displayThumbs()}</div>
       </div>

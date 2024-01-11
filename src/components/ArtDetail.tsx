@@ -1,17 +1,25 @@
+import { Dispatch, SetStateAction } from "react";
 import Art from "@customTypes/art";
+import ArtNav from "./ArtNav";
 import EditArt from "./EditArt";
 import Modal from "./Modal";
 
+import AdjacentArt from "@customTypes/adjacent";
+
 interface Props {
+  adjacent: AdjacentArt;
   artDetail: null | Art;
   editingArt: boolean;
   closeArtDetail: () => void;
+  setArtDetail: Dispatch<SetStateAction<Art | null>>;
 }
 
 export default function ArtDetail({
+  adjacent,
   artDetail,
   editingArt,
   closeArtDetail,
+  setArtDetail,
 }: Props) {
   if (artDetail) {
     if (editingArt) {
@@ -20,6 +28,12 @@ export default function ArtDetail({
       return (
         <Modal visible>
           <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail} />
+          <ArtNav
+            adjacent={adjacent}
+            next={adjacent.next}
+            prev={adjacent.prev}
+            setArtDetail={setArtDetail}
+          />
         </Modal>
       );
     }
@@ -42,6 +56,12 @@ export default function ArtDetail({
         >
           Close
         </button>
+        <ArtNav
+          adjacent={adjacent}
+          next={adjacent.next}
+          prev={adjacent.prev}
+          setArtDetail={setArtDetail}
+        />
       </Modal>
     );
   }
