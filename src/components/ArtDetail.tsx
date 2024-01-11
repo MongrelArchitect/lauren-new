@@ -27,13 +27,14 @@ export default function ArtDetail({
       // ======================
       return (
         <Modal visible>
-          <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail} />
-          <ArtNav
-            adjacent={adjacent}
-            next={adjacent.next}
-            prev={adjacent.prev}
-            setArtDetail={setArtDetail}
-          />
+          <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail}>
+            <ArtNav
+              adjacent={adjacent}
+              next={adjacent.next}
+              prev={adjacent.prev}
+              setArtDetail={setArtDetail}
+            />
+          </EditArt>
         </Modal>
       );
     }

@@ -20,8 +20,10 @@ export default function ArtNav({
     const { id } = target;
     switch (id) {
       case "next":
+        setArtDetail(adjacent.next);
         break;
       case "prev":
+        setArtDetail(adjacent.prev);
         break;
       default:
         break;

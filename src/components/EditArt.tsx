@@ -5,10 +5,11 @@ import { deleteArt, updateArt } from "@util/database";
 
 interface Props {
   artDetail: Art;
+  children: React.ReactNode;
   closeArtDetail: () => void;
 }
 
-export default function EditArt({ artDetail, closeArtDetail }: Props) {
+export default function EditArt({ artDetail, children, closeArtDetail }: Props) {
   const [attempted, setAttempted] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [error, setError] = useState<null | string>(null);
@@ -298,6 +299,7 @@ export default function EditArt({ artDetail, closeArtDetail }: Props) {
               <div className="bg-red-300 p-1">{error}</div>
             ) : null}
           </form>
+          {children}
         </>
       )}
     </>
