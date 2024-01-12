@@ -164,7 +164,7 @@ export default function NewArt({ collectionId }: Props) {
   const displayForm = () => {
     if (currentCollection) {
       return (
-        <Modal visible={addingArt}>
+        <Modal close={cancel} visible={addingArt}>
           <form className="flex flex-col items-start gap-2">
             <h3 className="text-2xl">New Art</h3>
             <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
@@ -258,7 +258,7 @@ export default function NewArt({ collectionId }: Props) {
     }
 
     return (
-      <Modal visible={addingArt}>
+      <Modal close={cancel} visible={addingArt}>
         <h3 className="text-2xl">Error</h3>
         <p>Invalid collection</p>
         <button

@@ -226,7 +226,7 @@ export default function EditArticle({ article, articleId }: Props) {
 
   const displayForm = () => {
     return (
-      <Modal visible={editing}>
+      <Modal close={cancel} visible={editing}>
         <form className="flex flex-col items-start gap-2">
           <h3 className="text-2xl">Edit Article</h3>
           {loading ? (

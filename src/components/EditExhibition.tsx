@@ -218,7 +218,7 @@ export default function EditExhibition({ exhibition }: Props) {
 
   const displayForm = () => {
     return (
-      <Modal visible={modalVisible}>
+      <Modal close={cancel} visible={modalVisible}>
         <form className="flex flex-col items-start gap-2">
           <h3 className="text-2xl">Edit Exhibition</h3>
           {loading ? (

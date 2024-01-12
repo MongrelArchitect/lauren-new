@@ -46,7 +46,7 @@ export default function DeleteVideo({ videoId, youtubeId }: Props) {
 
   const displayForm = () => {
     return (
-      <Modal visible={confirmingDelete}>
+      <Modal close={cancel} visible={confirmingDelete}>
         <form className="flex flex-col items-start gap-2">
           <h3 className="text-2xl">Delete Video</h3>
           {loading ? (

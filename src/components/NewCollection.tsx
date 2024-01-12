@@ -9,6 +9,10 @@ export default function NewCollection() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [name, setName] = useState({ value: "", valid: false });
 
+  const toggleNewCollection = () => {
+    setModalVisible(!modalVisible);
+  };
+
   const cancel = () => {
     toggleNewCollection();
     setAttempted(false);
@@ -17,10 +21,6 @@ export default function NewCollection() {
       value: "",
       valid: false,
     });
-  };
-
-  const toggleNewCollection = () => {
-    setModalVisible(!modalVisible);
   };
 
   const changeName = (event: React.SyntheticEvent) => {
@@ -68,7 +68,7 @@ export default function NewCollection() {
       >
         + New Collection
       </button>
-      <Modal visible={modalVisible}>
+      <Modal close={cancel} visible={modalVisible}>
         <h3 className="text-2xl">New Collection</h3>
         <form className="flex flex-col items-start gap-2">
           <label htmlFor="name">Name:</label>

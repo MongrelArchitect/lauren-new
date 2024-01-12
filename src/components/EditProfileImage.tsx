@@ -78,7 +78,7 @@ export default function EditProfileImage({ imageURL }: Props) {
 
   return (
     <>
-      <Modal visible={editing}>
+      <Modal close={cancel} visible={editing}>
         <h3 className="text-2xl">Edit Image</h3>
         {loading ? (
           <Loading />

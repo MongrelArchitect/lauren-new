@@ -111,7 +111,7 @@ export default function NewExhibition() {
 
   const displayForm = () => {
     return (
-      <Modal visible={modalVisible}>
+      <Modal close={cancel} visible={modalVisible}>
         <form className="flex flex-col items-start gap-2">
           <h3 className="text-2xl">New Exhibition</h3>
           {loading ? (

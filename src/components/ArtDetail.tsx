@@ -33,7 +33,7 @@ export default function ArtDetail({
       // EDITING
       // ======================
       return (
-        <Modal visible>
+        <Modal close={closeArtDetail} visible>
           <EditArt artDetail={artDetail} closeArtDetail={closeArtDetail}>
             <ArtNav
               adjacent={adjacent}
@@ -48,7 +48,7 @@ export default function ArtDetail({
     return (
       // VIEWING ONLY
       // ======================
-      <Modal visible>
+      <Modal close={closeArtDetail} visible>
         {loading ? <Loading overlay /> : null}
         <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
         <img
@@ -83,7 +83,7 @@ export default function ArtDetail({
     // =========================
     // This modal won't show, but needs to be here for other animations to work.
     // Keep the "error" message just in case it shows up shomehow?
-    <Modal visible={false}>
+    <Modal close={closeArtDetail} visible={false}>
       <h3 className="text-2xl">Error</h3>
       <p>Invalid artwork</p>
       <button

@@ -67,7 +67,7 @@ export default function NewVideo() {
 
   const displayForm = () => {
     return (
-      <Modal visible={adding}>
+      <Modal close={cancel} visible={adding}>
         <form className="flex flex-col items-start gap-2">
           <h3 className="text-2xl">New Video</h3>
           {loading ? (
