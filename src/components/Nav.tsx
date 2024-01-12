@@ -59,7 +59,7 @@ export default function Nav() {
   return (
     <nav className="flex items-center justify-between bg-red-200 p-2">
       <span>Lauren Mendelsohn-Bass</span>
-      {menuVisible ? <Blur /> : null}
+      {menuVisible ? <Blur close={toggleMenu} /> : null}
       <div
         className={`${
           menuVisible ? null : "translate-x-[110%]"
