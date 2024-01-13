@@ -156,20 +156,43 @@ export async function deleteExhibition(exhibitionId: string | undefined) {
   await deleteDoc(doc(database, "exhibitions", exhibitionId));
 }
 
+interface UpdatedArtInfo {
+  added?: Date,
+  collection: string,
+  title: string,
+  medium: string,
+  size: string,
+  sold: boolean,
+}
+
 export async function updateArt(
   artId: string | unknown,
   formInfo: ArtFormInfo,
+  updateTimestamp: boolean,
 ) {
   if (!artId || typeof artId !== "string") {
     throw new Error("Invalid or absent artId");
   } else {
     const artRef = doc(database, "art", artId);
-    await updateDoc(artRef, {
+    const updatedInfo: UpdatedArtInfo = {
+      collection: formInfo.collection,
       title: formInfo.title,
       medium: formInfo.medium,
       size: formInfo.size,
       sold: formInfo.sold,
-    });
+    };
+    if (updateTimestamp) {
+      updatedInfo.added = new Date();
+    }
+
+    // XXX
+
+    // wonkiness here, firebase expecting this particular type, but
+    // we're conditionally updating the "added" value if the collection
+    // was changed...cleaner way to do this? want to avoid "any"
+
+    // eslint-disable-next-line
+    await updateDoc(artRef, updatedInfo as { [x: string]: any; });
   }
 }
 

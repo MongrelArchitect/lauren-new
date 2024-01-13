@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CollectionsContext } from "@contexts/collections";
 import Loading from "./Loading";
 import Art, { ArtFormInfo } from "@customTypes/art";
 import { deleteArt, updateArt } from "@util/database";
@@ -9,11 +10,17 @@ interface Props {
   closeArtDetail: () => void;
 }
 
-export default function EditArt({ artDetail, children, closeArtDetail }: Props) {
+export default function EditArt({
+  artDetail,
+  children,
+  closeArtDetail,
+}: Props) {
+  const collections = useContext(CollectionsContext);
   const [attempted, setAttempted] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [formInfo, setFormInfo] = useState<ArtFormInfo>({
+    collection: "",
     title: "",
     validTitle: false,
     medium: "",
@@ -28,6 +35,7 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
 
   useEffect(() => {
     setFormInfo({
+      collection: artDetail ? artDetail.collection : "",
       title: artDetail ? artDetail.title : "",
       validTitle: true,
       medium: artDetail ? artDetail.medium : "",
@@ -43,6 +51,7 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
   const cancel = () => {
     closeArtDetail();
     setFormInfo({
+      collection: "",
       title: "",
       validTitle: false,
       medium: "",
@@ -79,6 +88,14 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
     const file = target.files ? target.files[0] : null;
     setError(null);
     switch (inputId) {
+      case "collection":
+        setFormInfo((prevState) => {
+          return {
+            ...prevState,
+            collection: target.value,
+          };
+        });
+        break;
       case "title":
         setFormInfo((prevState) => {
           return {
@@ -134,9 +151,10 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
     if (checkFormValidity()) {
       setLoading(true);
       try {
-        // XXX
-        // SUBMIT EDIT
-        await updateArt(artDetail.artId, formInfo);
+        // if the collection was changed, update the "added" timestamp since
+        // the piece was just "added" to the new collection
+        const updateTimestamp = formInfo.collection !== artDetail.collection;
+        await updateArt(artDetail.artId, formInfo, updateTimestamp);
         cancel();
       } catch (err) {
         console.error(err);
@@ -233,6 +251,26 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
     );
   };
 
+  const displayCollectionOptions = () => {
+    if (collections) {
+      const collectionIds = Object.keys(collections).sort((a, b) => {
+        return collections[a].name.localeCompare(collections[b].name);
+      });
+      return collectionIds.map((collectionId) => {
+        const collection = collections[collectionId];
+        return (
+          <option
+            key={collectionId}
+            value={collectionId}
+          >
+            {collection.name}
+          </option>
+        );
+      });
+    }
+    return null;
+  };
+
   return (
     <>
       <h3 className="text-2xl">Edit Art</h3>
@@ -247,6 +285,15 @@ export default function EditArt({ artDetail, children, closeArtDetail }: Props) 
           />
           <form className="flex flex-col items-start gap-2">
             <div>(Fields marked with * are required)</div>
+            <label htmlFor="collection">Collection*</label>
+            <select
+              className="w-full bg-white rounded border-2 border-gray-500 p-1"
+              id="collection"
+              onChange={handleChange}
+              defaultValue={artDetail.collection}
+            >
+              {displayCollectionOptions()}
+            </select>
             <label htmlFor="title">Title*</label>
             <input
               className="w-full rounded border-2 border-gray-500 p-1"

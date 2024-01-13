@@ -13,6 +13,7 @@ export default interface Art {
 }
 
 export interface ArtFormInfo {
+  collection: string;
   title: string;
   validTitle: boolean;
   medium: string;
