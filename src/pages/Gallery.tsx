@@ -8,6 +8,7 @@ import { CollectionsContext } from "@contexts/collections";
 
 import ArtDetail from "@components/ArtDetail";
 import ArtThumb from "@components/ArtThumb";
+import DeleteCollection from "@components/DeleteCollection";
 import Loading from "@components/Loading";
 import NewArt from "@components/NewArt";
 
@@ -70,7 +71,6 @@ export default function Gallery() {
   });
   const [artDetail, setArtDetail] = useState<null | Art>(null);
   const [editingArt, setEditingArt] = useState(false);
-
 
   const artIds = art
     ? Object.keys(art).sort((a, b) => {
@@ -175,7 +175,12 @@ export default function Gallery() {
     return (
       <div>
         {currentCollection.name.toUpperCase()}
-        {inDashboard ? <NewArt collectionId={collectionId} /> : null}
+        {inDashboard ? (
+          <div>
+            <DeleteCollection artCount={artIds ? artIds.length : 0} collection={currentCollection} />
+            <NewArt collectionId={collectionId} />
+          </div>
+        ) : null}
         <ArtDetail
           adjacent={adjacent}
           artDetail={artDetail}

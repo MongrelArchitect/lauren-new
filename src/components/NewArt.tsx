@@ -21,6 +21,7 @@ export default function NewArt({ collectionId }: Props) {
     allCollections && collectionId ? allCollections[collectionId] : null;
 
   const [formInfo, setFormInfo] = useState<ArtFormInfo>({
+    collection: "",
     title: "",
     validTitle: false,
     medium: "",
@@ -35,6 +36,7 @@ export default function NewArt({ collectionId }: Props) {
   const cancel = () => {
     toggleAddingArt();
     setFormInfo({
+      collection: "",
       title: "",
       validTitle: false,
       medium: "",
