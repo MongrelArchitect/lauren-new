@@ -34,6 +34,7 @@ export default function EditArt({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     setFormInfo({
       collection: artDetail ? artDetail.collection : "",
       title: artDetail ? artDetail.title : "",
@@ -274,13 +275,14 @@ export default function EditArt({
   return (
     <>
       <h3 className="text-2xl">Edit Art</h3>
-      {loading ? (
-        <Loading />
-      ) : (
+      {loading ? <Loading overlay /> : null}
         <>
           <img
             alt={artDetail.title}
             className="max-h-[320px]"
+            onLoad={() => {
+              setLoading(false);
+            }}
             src={artDetail.imageURL ? artDetail.imageURL : ""}
           />
           <form className="flex flex-col items-start gap-2">
@@ -348,7 +350,6 @@ export default function EditArt({
           </form>
           {children}
         </>
-      )}
     </>
   );
 }

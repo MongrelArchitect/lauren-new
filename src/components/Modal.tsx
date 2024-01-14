@@ -14,7 +14,7 @@ export default function Modal({ children, close, visible }: Props) {
       <div
         className={`${
           visible ? null : "-translate-y-[100%]"
-        } absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
+        }  absolute left-0 top-0 z-30 flex h-full w-full items-start justify-center transition-transform`}
         onClick={close}
       >
         <div
