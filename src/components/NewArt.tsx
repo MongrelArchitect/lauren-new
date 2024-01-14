@@ -224,6 +224,7 @@ export default function NewArt({ collectionId }: Props) {
                 />
                 <label htmlFor="image">Image*</label>
                 <input
+                  accept="image/*"
                   className="w-full rounded border-2 border-gray-500 p-1"
                   id="image"
                   onChange={handleChange}
