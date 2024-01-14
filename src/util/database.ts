@@ -145,6 +145,22 @@ export async function deleteArticle(articleId: string) {
   await deleteDoc(doc(database, "press-articles", articleId));
 }
 
+interface Artwork {
+  [key: string]: Art;
+}
+
+export async function deleteCollection(
+  collectionId: string,
+  art: null | Artwork,
+) {
+  if (art) {
+    Object.values(art).forEach(async(artWork) => {
+      await deleteArt(artWork);
+    });
+  }
+  await deleteDoc(doc(database, "collections", collectionId));
+}
+
 export async function deleteVideo(videoId: string) {
   await deleteDoc(doc(database, "press-videos", videoId));
 }
@@ -157,12 +173,12 @@ export async function deleteExhibition(exhibitionId: string | undefined) {
 }
 
 interface UpdatedArtInfo {
-  added?: Date,
-  collection: string,
-  title: string,
-  medium: string,
-  size: string,
-  sold: boolean,
+  added?: Date;
+  collection: string;
+  title: string;
+  medium: string;
+  size: string;
+  sold: boolean;
 }
 
 export async function updateArt(
@@ -192,11 +208,14 @@ export async function updateArt(
     // was changed...cleaner way to do this? want to avoid "any"
 
     // eslint-disable-next-line
-    await updateDoc(artRef, updatedInfo as { [x: string]: any; });
+    await updateDoc(artRef, updatedInfo as { [x: string]: any });
   }
 }
 
-export async function updateArticle(articleId: string, newArticleInfo: PressArticle) {
+export async function updateArticle(
+  articleId: string,
+  newArticleInfo: PressArticle,
+) {
   const articleRef = doc(database, "press-articles", articleId);
   await updateDoc(articleRef, {
     title: newArticleInfo.title,

@@ -1,18 +1,25 @@
 import { useState } from "react";
+import { deleteCollection } from "@util/database";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import Art from "@customTypes/art";
 import Collection from "@customTypes/collections";
 
+interface Artwork {
+  [key: string]: Art;
+}
+
 interface Props {
+  art: null | Artwork;
   artCount: number;
   collection: Collection;
 }
 
-export default function DeleteCollection({ artCount, collection }: Props) {
+export default function DeleteCollection({ art, artCount, collection }: Props) {
   const [attempted, setAttempted] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
   const [confirming, setConfirming] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
 
   const toggleConfirming = () => {
@@ -20,14 +27,31 @@ export default function DeleteCollection({ artCount, collection }: Props) {
   };
 
   const cancel = () => {
-    // XXX needs more reset
     toggleConfirming();
     setAttempted(false);
     setAcknowledged(false);
     setError(null);
   };
 
-  const confirmDelete = () => {};
+  const confirmDelete = async () => {
+    setAttempted(true);
+    setLoading(true);
+    try {
+      await deleteCollection(collection.id, art);
+      cancel();
+    } catch (err) {
+      console.error(err);
+      let message = "Unknown error";
+      if (err instanceof Error) {
+        message = err.message;
+      }
+      if (typeof err === "string") {
+        message = err;
+      }
+      setError(message);
+    }
+    setLoading(false);
+  };
 
   const toggleAcknowledge = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLInputElement;

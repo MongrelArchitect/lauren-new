@@ -177,7 +177,11 @@ export default function Gallery() {
         {currentCollection.name.toUpperCase()}
         {inDashboard ? (
           <div>
-            <DeleteCollection artCount={artIds ? artIds.length : 0} collection={currentCollection} />
+            <DeleteCollection
+              art={art}
+              artCount={artIds ? artIds.length : 0}
+              collection={currentCollection}
+            />
             <NewArt collectionId={collectionId} />
           </div>
         ) : null}
