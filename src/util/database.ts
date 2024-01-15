@@ -103,7 +103,6 @@ export async function addNewExhibition(
 
 export async function addNewCollection(name: string) {
   const docRef = await addDoc(collection(database, "collections"), {
-    art: null,
     name,
   });
   const collectionRef = doc(database, "collections", docRef.id);
