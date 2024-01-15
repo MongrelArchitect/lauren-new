@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { deleteCollection } from "@util/database";
 import Loading from "./Loading";
 import Modal from "./Modal";
@@ -22,6 +23,8 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const toggleConfirming = () => {
     setConfirming(!confirming);
   };
@@ -39,6 +42,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
     try {
       await deleteCollection(collection.id, art);
       cancel();
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
       let message = "Unknown error";
