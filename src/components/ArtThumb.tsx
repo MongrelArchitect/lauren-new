@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Art from "@customTypes/art";
+import Loading from "./Loading";
 
 interface Props {
   art: Art;
@@ -14,6 +15,8 @@ export default function ShowArt({
   setArtDetail,
   setEditingArt,
 }: Props) {
+  const [loading, setLoading] = useState(true);
+
   const handleClick = () => {
     if (inDashboard) {
       setEditingArt(true);
@@ -24,13 +27,20 @@ export default function ShowArt({
   return (
     <>
       <button
-        className="man-w-[200px] relative z-10 h-full w-full max-w-[200px]"
+        className="relative z-10 h-[200px] w-[200px] border-2 border-red-400"
         onClick={handleClick}
         type="button"
       >
-        <img alt={art.title} src={art.thumbURL ? art.thumbURL : ""} />
+        {loading ? <Loading overlay /> : null}
+        <img
+          alt={art.title}
+          onLoad={() => {
+            setLoading(false);
+          }}
+          src={art.thumbURL ? art.thumbURL : ""}
+        />
         {art.sold ? (
-          <div className="absolute bottom-0 w-full bg-gray-800 bg-opacity-60 text-2xl text-neutral-50">
+          <div className="absolute bottom-0 z-0 w-full bg-gray-800 bg-opacity-60 text-2xl text-neutral-50">
             SOLD
           </div>
         ) : null}

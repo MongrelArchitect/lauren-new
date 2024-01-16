@@ -9,7 +9,7 @@ export default function Loading({ overlay }: Props) {
     <div
       className={
         overlay
-          ? "absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white min-h-[500px]"
+          ? "z-10 absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white"
           : ""
       }
     >

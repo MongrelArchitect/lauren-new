@@ -12,36 +12,37 @@ export default function HomeImage() {
   const inDashboard = pathname.includes("dashboard");
 
   const [image, setImage] = useState<null | HomeImageItem>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubImage = onSnapshot(
       doc(database, "homepage", "image"),
       (docu) => {
-        setLoading(true);
         if (docu.data()) {
           const data = docu.data() as HomeImageItem;
           setImage(data);
         } else {
           setImage(null);
         }
-        setLoading(false);
       },
     );
     return () => {
       unsubImage();
     };
   }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
-
   if (image) {
     return (
-      <div>
+      <div className="relative min-h-[200px]">
+        {loading ? <Loading overlay /> : null}
         {inDashboard ? <EditHomeImage imageURL={image.imageURL} /> : null}
-        <img alt="" className="w-full max-w-[900px]" src={image.imageURL} />
+        <img
+          alt=""
+          className="w-full max-w-[900px]"
+          onLoad={() => {
+            setLoading(false);
+          }}
+          src={image.imageURL}
+        />
       </div>
     );
   }
