@@ -4,6 +4,7 @@
 
 a.active {
   @apply text-active;
+  background: text-active;
 }
 
 .red-icon {
