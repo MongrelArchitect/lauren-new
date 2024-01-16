@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a.active {
+  @apply text-active;
+}
+
+.red-icon {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(67%) saturate(6027%) hue-rotate(356deg) brightness(97%) contrast(130%);
+}

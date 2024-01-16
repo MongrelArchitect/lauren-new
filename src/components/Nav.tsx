@@ -33,7 +33,11 @@ export default function Nav() {
             className={collectionIds.indexOf(collectionId) === 0 ? "mt-8" : ""}
             key={collectionId}
           >
-            <NavLink onClick={toggleMenu} to={`/art/${collectionId}`}>
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={toggleMenu}
+              to={`/art/${collectionId}`}
+            >
               {collections[collectionId].name.toUpperCase()}
             </NavLink>
           </li>
@@ -57,40 +61,51 @@ export default function Nav() {
   };
 
   return (
-    <nav className="flex items-center justify-between bg-red-200 p-2">
-      <span>Lauren Mendelsohn-Bass</span>
+    <nav className="sticky top-0 z-20 flex w-full items-center justify-between border-b-2 border-active bg-white p-2">
+      <span className="text-xl">Lauren Mendelsohn-Bass</span>
       {menuVisible ? <Blur close={toggleMenu} /> : null}
       <div
         className={`${
           menuVisible ? null : "translate-x-[110%]"
-        } fixed right-0 top-0 z-30 flex h-[100svh] w-[50%] min-w-[200px] flex-col bg-white p-2 shadow-nav transition-transform`}
+        } fixed right-0 top-0 z-30 flex h-[100svh] w-[50%] min-w-[200px] flex-col border-l-2 border-active bg-white p-2 transition-transform`}
       >
-        <button className="self-end" type="button">
-          <img
-            alt="menu"
-            className="h-[40px]"
-            onClick={toggleMenu}
-            src={closeIcon}
-          />
+        <button className="self-end" onClick={toggleMenu} type="button">
+          <img alt="menu" className="red-icon h-[40px]" src={closeIcon} />
         </button>
         <ul className="flex flex-col gap-3 text-2xl">
           <li>
-            <NavLink onClick={toggleMenu} to="/">
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={toggleMenu}
+              to="/"
+            >
               HOME
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/profile">
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={toggleMenu}
+              to="/profile"
+            >
               PROFILE
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/press">
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={toggleMenu}
+              to="/press"
+            >
               PRESS
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={toggleMenu} to="/contact">
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={toggleMenu}
+              to="/contact"
+            >
               CONTACT
             </NavLink>
           </li>
@@ -98,12 +113,20 @@ export default function Nav() {
           {user ? (
             <>
               <li className="mt-8">
-                <NavLink onClick={toggleMenu} to="/dashboard">
+                <NavLink
+                  className="hover:border-b-2 hover:border-active hover:text-active"
+                  onClick={toggleMenu}
+                  to="/dashboard"
+                >
                   DASHBOARD
                 </NavLink>
               </li>
               <li>
-                <button onClick={logout} type="button">
+                <button
+                  className="hover:border-b-2 hover:border-active hover:text-active"
+                  onClick={logout}
+                  type="button"
+                >
                   SIGN OUT
                 </button>
               </li>
@@ -111,13 +134,8 @@ export default function Nav() {
           ) : null}
         </ul>
       </div>
-      <button type="button">
-        <img
-          alt="menu"
-          className="h-[40px]"
-          onClick={toggleMenu}
-          src={menuIcon}
-        />
+      <button onClick={toggleMenu} tabIndex={1} type="button">
+        <img alt="menu" className="red-icon h-[40px]" src={menuIcon} />
       </button>
     </nav>
   );

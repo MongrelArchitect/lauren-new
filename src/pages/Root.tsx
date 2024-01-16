@@ -5,7 +5,7 @@ import Nav from "@components/Nav";
 
 export default function Root() {
   return (
-    <div className="flex min-h-[100svh] flex-col">
+    <div className="relative flex min-h-[100svh] flex-col">
       <Nav />
       <main>
         <Outlet />

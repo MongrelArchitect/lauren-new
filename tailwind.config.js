@@ -7,7 +7,11 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        "nav": "-4px 0px 4px 0px rgba(0,0,0,0.3)",
+        "navside": "-2px 0px 2px 0px rgba(0,0,0,0.3)",
+        "navtop": "0px 2px 2px 0px rgba(0,0,0,0.3)",
+      },
+      colors: {
+        "active": "#ff0000",
       },
     },
   },
