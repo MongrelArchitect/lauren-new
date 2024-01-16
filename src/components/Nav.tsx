@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "@util/firebase";
-import { CollectionsContext } from "@contexts/collections";
 import { UserContext } from "@contexts/users";
 
 import Blur from "./Blur";
+import CollectionLinks from "./CollectionLinks";
 
 import closeIcon from "@assets/icons/close.svg";
 import menuIcon from "@assets/icons/menu.svg";
@@ -15,40 +15,6 @@ export default function Nav() {
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
-  };
-
-  const collections = useContext(CollectionsContext);
-  const collectionIds = collections ? Object.keys(collections) : null;
-  if (collections && collectionIds) {
-    collectionIds.sort((a, b) => {
-      return collections[a].name.localeCompare(collections[b].name);
-    });
-  }
-
-  const displayCollections = () => {
-    if (collections && collectionIds) {
-      return collectionIds.map((collectionId) => {
-        return (
-          <li
-            className={
-              collectionIds.indexOf(collectionId) === 0 && menuVisible
-                ? "max-lg:mt-8"
-                : ""
-            }
-            key={collectionId}
-          >
-            <NavLink
-              className="hover:border-b-2 hover:border-active hover:text-active"
-              onClick={toggleMenu}
-              to={`/art/${collectionId}`}
-            >
-              {collections[collectionId].name.toUpperCase()}
-            </NavLink>
-          </li>
-        );
-      });
-    }
-    return null;
   };
 
   const user = useContext(UserContext);
@@ -103,7 +69,7 @@ export default function Nav() {
             CONTACT
           </NavLink>
         </li>
-        {displayCollections()}
+        <CollectionLinks menuVisible={menuVisible} toggleMenu={toggleMenu} />
         {user ? (
           <>
             <li className="max-lg:mt-8">
