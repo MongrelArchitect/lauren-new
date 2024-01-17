@@ -61,7 +61,7 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
 
   const displayDropdown = () => {
     return (
-      <ul className="absolute left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-active bg-white p-2">
+      <ul className="absolute w-[max-content] left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-active bg-white p-2">
         {displayLinks()}
       </ul>
     );

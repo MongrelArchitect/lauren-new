@@ -37,7 +37,7 @@ export default function HomeImage() {
         {inDashboard ? <EditHomeImage imageURL={image.imageURL} /> : null}
         <img
           alt=""
-          className="w-full max-w-[900px] border-[1px] border-active p-2"
+          className="w-full border-[1px] border-active p-2"
           onLoad={() => {
             setLoading(false);
           }}
