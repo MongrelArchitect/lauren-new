@@ -9,6 +9,9 @@ export default {
       colors: {
         "active": "#ff0000",
       },
+      gridTemplateColumns: {
+        "gallery": "repeat(auto-fill, minmax(160px, 1fr))",
+      },
     },
   },
   plugins: [],

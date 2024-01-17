@@ -27,20 +27,21 @@ export default function ShowArt({
   return (
     <>
       <button
-        className="relative z-10 h-[200px] w-[200px] border-2 border-red-400"
+        className="relative z-10 border-[1px] max-w-[200px] border-active p-1"
         onClick={handleClick}
         type="button"
       >
         {loading ? <Loading overlay /> : null}
         <img
           alt={art.title}
+          className="h-full w-full"
           onLoad={() => {
             setLoading(false);
           }}
           src={art.thumbURL ? art.thumbURL : ""}
         />
         {art.sold ? (
-          <div className="absolute bottom-0 z-0 w-full bg-gray-800 bg-opacity-60 text-2xl text-neutral-50">
+          <div className="absolute bottom-[3px] z-0 bg-active bg-opacity-60 text-2xl text-neutral-50">
             SOLD
           </div>
         ) : null}
