@@ -246,7 +246,6 @@ export async function updateExhibition(newExhibition: Exhibition) {
 }
 
 export async function updateHomeImage(newImage: File) {
-  console.log(newImage);
   const resizedImage = await resizeProfileImage(newImage);
   const imagePath = "home/home.JPEG";
   const imageRef = ref(storage, imagePath);
