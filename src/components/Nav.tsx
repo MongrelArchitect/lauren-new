@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "@util/firebase";
@@ -11,16 +11,30 @@ import closeIcon from "@assets/icons/close.svg";
 import menuIcon from "@assets/icons/menu.svg";
 
 export default function Nav() {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+  useEffect(() => {
+    // for the edge-case where the browser window is being resized when the
+    // nav sidebar is open, which could screw up full-width gallery dropdowns
+    window.addEventListener("resize", () => {
+      setMenuVisible(false);
+    });
+  }, []);
+
+  const closeMenu = () => {
+    setMenuVisible(false);
+    setDropdownVisible(false);
+  };
+
+  const openMenu = () => {
+    setMenuVisible(true);
   };
 
   const user = useContext(UserContext);
 
   const logout = async () => {
-    toggleMenu();
+    closeMenu();
     try {
       await signOut(auth);
     } catch (err) {
@@ -36,16 +50,22 @@ export default function Nav() {
         <li>
           <NavLink
             className="hover:border-b-2 hover:border-active hover:text-active"
-            onClick={toggleMenu}
+            onClick={closeMenu}
             to="/"
           >
             HOME
           </NavLink>
         </li>
-        <li>
+        <CollectionLinks
+          dropdownVisible={dropdownVisible}
+          setDropdownVisible={setDropdownVisible}
+          menuVisible={menuVisible}
+          closeMenu={closeMenu}
+        />
+        <li className="max-lg:mt-8">
           <NavLink
             className="hover:border-b-2 hover:border-active hover:text-active"
-            onClick={toggleMenu}
+            onClick={closeMenu}
             to="/profile"
           >
             PROFILE
@@ -54,7 +74,7 @@ export default function Nav() {
         <li>
           <NavLink
             className="hover:border-b-2 hover:border-active hover:text-active"
-            onClick={toggleMenu}
+            onClick={closeMenu}
             to="/press"
           >
             PRESS
@@ -63,19 +83,18 @@ export default function Nav() {
         <li>
           <NavLink
             className="hover:border-b-2 hover:border-active hover:text-active"
-            onClick={toggleMenu}
+            onClick={closeMenu}
             to="/contact"
           >
             CONTACT
           </NavLink>
         </li>
-        <CollectionLinks menuVisible={menuVisible} toggleMenu={toggleMenu} />
         {user ? (
           <>
             <li className="max-lg:mt-8">
               <NavLink
                 className="hover:border-b-2 hover:border-active hover:text-active"
-                onClick={toggleMenu}
+                onClick={closeMenu}
                 to="/dashboard"
               >
                 DASHBOARD
@@ -83,7 +102,7 @@ export default function Nav() {
             </li>
             <li>
               <button
-                className="hover:border-b-2 hover:border-active hover:text-active"
+                className="hover:text-active hover:underline"
                 onClick={logout}
                 type="button"
               >
@@ -103,13 +122,13 @@ export default function Nav() {
   const displaySidebar = () => {
     return (
       <div className="lg:hidden">
-        {menuVisible ? <Blur close={toggleMenu} /> : null}
+        {menuVisible ? <Blur close={closeMenu} /> : null}
         <div
           className={`${
             menuVisible ? null : "translate-x-[110%]"
-          } fixed right-0 top-0 z-30 flex h-[100svh] w-[50%] min-w-[200px] flex-col border-l-2 border-active bg-white p-2 transition-transform`}
+          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-active bg-white p-2 transition-transform`}
         >
-          <button className="self-end" onClick={toggleMenu} type="button">
+          <button className="self-end" onClick={closeMenu} type="button">
             <img alt="menu" className="red-icon h-[40px]" src={closeIcon} />
           </button>
           {displayLinks()}
@@ -125,7 +144,7 @@ export default function Nav() {
       {displayFullMenu()}
       <button
         className="lg:hidden"
-        onClick={toggleMenu}
+        onClick={openMenu}
         tabIndex={1}
         type="button"
       >

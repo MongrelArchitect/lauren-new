@@ -1,42 +1,88 @@
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { CollectionsContext } from "@contexts/collections";
 
 interface Props {
+  dropdownVisible: boolean;
+  setDropdownVisible: (value: boolean) => void;
+  closeMenu: () => void;
   menuVisible: boolean;
-  toggleMenu: () => void;
 }
 
-export default function CollectionLinks({ menuVisible, toggleMenu }: Props) {
+export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdownVisible, menuVisible }: Props) {
+  const { pathname } = useLocation();
+  const viewingArt =
+    pathname.includes("art") && !pathname.includes("dashboard");
+
   const collections = useContext(CollectionsContext);
   const collectionIds = collections ? Object.keys(collections) : null;
+
   if (collections && collectionIds) {
     collectionIds.sort((a, b) => {
       return collections[a].name.localeCompare(collections[b].name);
     });
   }
 
-  if (collections && collectionIds) {
-    return collectionIds.map((collectionId) => {
-      return (
-        <li
-          className={
-            collectionIds.indexOf(collectionId) === 0 && menuVisible
-              ? "max-lg:mt-8"
-              : ""
-          }
-          key={collectionId}
-        >
-          <NavLink
-            className="hover:border-b-2 hover:border-active hover:text-active"
-            onClick={toggleMenu}
-            to={`/art/${collectionId}`}
+  const handleClick = () => {
+    closeMenu();
+    setDropdownVisible(false);
+  };
+
+  const displayLinks = () => {
+    if (collections && collectionIds) {
+      return collectionIds.map((collectionId) => {
+        return (
+          <li
+            className={
+              collectionIds.indexOf(collectionId) === 0 && menuVisible
+                ? "max-lg:mt-8"
+                : ""
+            }
+            key={collectionId}
           >
-            {collections[collectionId].name.toUpperCase()}
-          </NavLink>
-        </li>
-      );
-    });
+            <NavLink
+              className="hover:border-b-2 hover:border-active hover:text-active"
+              onClick={handleClick}
+              to={`/art/${collectionId}`}
+            >
+              {collections[collectionId].name.toUpperCase()}
+            </NavLink>
+          </li>
+        );
+      });
+    }
+    return null;
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const displayDropdown = () => {
+    return (
+      <ul className="absolute left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-active bg-white p-2">
+        {displayLinks()}
+      </ul>
+    );
+  };
+
+  if (!menuVisible) {
+    return (
+      <li className="relative">
+        <button
+          className={`${
+            viewingArt ? "active" : null
+          } hover:text-active hover:underline`}
+          onClick={toggleDropdown}
+          type="button"
+        >
+          ART
+        </button>
+        {dropdownVisible ? displayDropdown() : null}
+      </li>
+    );
   }
-  return null;
+
+  return displayLinks();
 }
