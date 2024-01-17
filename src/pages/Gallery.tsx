@@ -173,7 +173,7 @@ export default function Gallery() {
 
   if (currentCollection) {
     return (
-      <div className="bg-yellow-300 w-full">
+      <div className="w-full bg-yellow-300">
         {currentCollection.name.toUpperCase()}
         {inDashboard ? (
           <div>
@@ -192,7 +192,9 @@ export default function Gallery() {
           closeArtDetail={closeArtDetail}
           setArtDetail={setArtDetail}
         />
-        <div className="grid grid-cols-gallery gap-4 justify-items-center">{displayThumbs()}</div>
+        <div className="grid grid-cols-gallery justify-items-center gap-4">
+          {displayThumbs()}
+        </div>
       </div>
     );
   }
