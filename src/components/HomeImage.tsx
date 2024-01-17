@@ -32,12 +32,12 @@ export default function HomeImage() {
   }, []);
   if (image) {
     return (
-      <div className="relative min-h-[200px]">
+      <div className="min-h-[200px]">
         {loading ? <Loading overlay /> : null}
         {inDashboard ? <EditHomeImage imageURL={image.imageURL} /> : null}
         <img
           alt=""
-          className="w-full max-w-[900px]"
+          className="w-full max-w-[900px] border-[1px] border-active p-2"
           onLoad={() => {
             setLoading(false);
           }}

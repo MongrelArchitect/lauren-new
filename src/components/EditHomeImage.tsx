@@ -76,57 +76,65 @@ export default function EditProfileImage({ imageURL }: Props) {
     }
   };
 
+  const displayForm = () => {
+    return (
+      <Modal close={cancel} visible={editing}>
+        <form className="flex flex-col items-start gap-2">
+          <h3 className="text-2xl">Edit Homepage Image</h3>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <label htmlFor="image">Image</label>
+              <img
+                alt="Homepage image"
+                className="max-h-[300px]"
+                src={
+                  newImage.file && checkImageValidity(newImage.file)
+                    ? URL.createObjectURL(newImage.file)
+                    : imageURL
+                }
+              />
+              <input
+                accept="image/*"
+                className="w-full rounded border-2 border-gray-500 p-1"
+                id="image"
+                onChange={changeImage}
+                required
+                type="file"
+              />
+              {attempted && !newImage.valid ? (
+                <div className="bg-red-300 p-1">Image required</div>
+              ) : null}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                  onClick={submit}
+                  type="button"
+                >
+                  Submit
+                </button>
+                <button
+                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                  onClick={cancel}
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </div>
+              {attempted && error ? (
+                <div className="bg-red-300 p-1">{error}</div>
+              ) : null}
+            </>
+          )}
+        </form>
+      </Modal>
+    );
+  };
+
   return (
     <>
-      <Modal close={cancel} visible={editing}>
-        <h3 className="text-2xl">Edit Homepage Image</h3>
-        {loading ? (
-          <Loading />
-        ) : (
-          <form className="flex flex-col items-start gap-2">
-            <label htmlFor="image">Image</label>
-            <img
-              alt="Homepage image"
-              className="max-h-[300px]"
-              src={
-                newImage.file && checkImageValidity(newImage.file)
-                  ? URL.createObjectURL(newImage.file)
-                  : imageURL
-              }
-            />
-            <input
-              accept="image/*"
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="image"
-              onChange={changeImage}
-              required
-              type="file"
-            />
-            {attempted && !newImage.valid ? (
-              <div className="bg-red-300 p-1">Image required</div>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button
-                className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                onClick={submit}
-                type="button"
-              >
-                Submit
-              </button>
-              <button
-                className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                onClick={cancel}
-                type="button"
-              >
-                Cancel
-              </button>
-            </div>
-            {attempted && error ? (
-              <div className="bg-red-300 p-1">{error}</div>
-            ) : null}
-          </form>
-        )}
-      </Modal>
+      {displayForm()}
       <button
         className="rounded border-2 border-black bg-neutral-300 p-1"
         onClick={edit}
