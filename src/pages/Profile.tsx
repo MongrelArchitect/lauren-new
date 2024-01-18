@@ -105,8 +105,8 @@ export default function Profile() {
   };
 
   return (
-    <div>
-      <h1>PROFILE</h1>
+    <div className="flex flex-col gap-2 w-full">
+      <h1 className="text-3xl">Profile</h1>
       {displayImage()}
       <Bio bio={bio} inDashboard={inDashboard} />
       {displayExhibitions()}

@@ -14,11 +14,11 @@ export default function ProfileImage({ image, inDashboard }: Props) {
   return (
     <div className="flex flex-col items-start">
       {inDashboard ? <EditProfileImage imageURL={image.imageURL} /> : null}
-      <div className="relative min-h-[200px] min-w-[200px] border-2 border-red-300">
+      <div className="relative min-h-[200px] min-w-[200px]">
         {loading ? <Loading overlay /> : null}
         <img
           alt={image.description}
-          className="max-h-[600px]"
+          className="w-full border-[1px] border-active p-2"
           onLoad={() => {
             setLoading(false);
           }}
