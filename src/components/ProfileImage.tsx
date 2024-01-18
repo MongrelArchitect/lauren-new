@@ -18,7 +18,7 @@ export default function ProfileImage({ image, inDashboard }: Props) {
         {loading ? <Loading overlay /> : null}
         <img
           alt={image.description}
-          className="w-full border-[1px] border-brand-red p-2"
+          className="w-full border-2 border-brand-red p-2"
           onLoad={() => {
             setLoading(false);
           }}
