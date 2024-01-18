@@ -75,7 +75,7 @@ export default function ArtDetail({
             <div className="h-[36px] w-[36px] flex-shrink-0" />
           </div>
           <img
-            className="border-[1px] border-brand-red p-1 max-h-[65svh]"
+            className="border-2 border-brand-red p-1 max-h-[65svh]"
             alt={artDetail.title}
             src={artDetail.imageURL ? artDetail.imageURL : ""}
             onLoad={() => {
