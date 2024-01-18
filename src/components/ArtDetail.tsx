@@ -1,11 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Art from "@customTypes/art";
+
 import ArtNav from "./ArtNav";
 import EditArt from "./EditArt";
 import Loading from "./Loading";
 import Modal from "./Modal";
 
 import AdjacentArt from "@customTypes/adjacent";
+import Art from "@customTypes/art";
+
+import closeIcon from "@assets/icons/close.svg";
 
 interface Props {
   adjacent: AdjacentArt;
@@ -50,30 +53,49 @@ export default function ArtDetail({
       // ======================
       <Modal close={closeArtDetail} visible>
         {loading ? <Loading overlay /> : null}
-        <h3 className="text-2xl">{artDetail.title.toUpperCase()}</h3>
-        <img
-          alt={artDetail.title}
-          src={artDetail.imageURL ? artDetail.imageURL : ""}
-          onLoad={() => {
-            setLoading(false);
-          }}
-        />
-        <p>{artDetail.medium.toUpperCase()}</p>
-        <p>{artDetail.size.toUpperCase()}</p>
-        {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
-        <button
-          className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-          onClick={closeArtDetail}
-          type="button"
-        >
-          Close
-        </button>
-        <ArtNav
-          adjacent={adjacent}
-          next={adjacent.next}
-          prev={adjacent.prev}
-          setArtDetail={setArtDetail}
-        />
+        <div className="relative flex flex-col items-center gap-2">
+          <div className="flex w-full items-start justify-between gap-3">
+            <button
+              className="flex-shrink-0 bg-active hover:outline hover:outline-active"
+              onClick={closeArtDetail}
+              type="button"
+            >
+              <img
+                alt="close"
+                className="h-[36px] invert"
+                title="close"
+                src={closeIcon}
+              />
+            </button>
+            <b>
+              <h3 className="text-center text-2xl">
+                {artDetail.title.toUpperCase()}
+              </h3>
+            </b>
+            <div className="h-[36px] w-[36px] flex-shrink-0" />
+          </div>
+          <img
+            className="border-[1px] border-active p-1 max-h-[65svh]"
+            alt={artDetail.title}
+            src={artDetail.imageURL ? artDetail.imageURL : ""}
+            onLoad={() => {
+              setLoading(false);
+            }}
+          />
+
+          <div className="text-center">
+            <p>{artDetail.medium.toUpperCase()}</p>
+            <p>{artDetail.size.toUpperCase()}</p>
+            {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
+          </div>
+
+          <ArtNav
+            adjacent={adjacent}
+            next={adjacent.next}
+            prev={adjacent.prev}
+            setArtDetail={setArtDetail}
+          />
+        </div>
       </Modal>
     );
   }

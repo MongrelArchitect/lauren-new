@@ -2,6 +2,9 @@ import { Dispatch, SetStateAction } from "react";
 import AdjacentArt from "@customTypes/adjacent";
 import Art from "@customTypes/art";
 
+import nextIcon from "@assets/icons/next.svg";
+import prevIcon from "@assets/icons/prev.svg";
+
 interface Props {
   adjacent: AdjacentArt;
   next: null | Art;
@@ -9,16 +12,11 @@ interface Props {
   setArtDetail: Dispatch<SetStateAction<Art | null>>;
 }
 
-export default function ArtNav({
-  adjacent,
-  next,
-  prev,
-  setArtDetail,
-}: Props) {
+export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
   const handleClick = (event: React.SyntheticEvent) => {
     const target = event.target as HTMLButtonElement;
-    const { id } = target;
-    switch (id) {
+    const { direction } = target.dataset;
+    switch (direction) {
       case "next":
         setArtDetail(adjacent.next);
         break;
@@ -33,15 +31,39 @@ export default function ArtNav({
   return (
     <div className="flex justify-between gap-2">
       {prev ? (
-        <button id="prev" onClick={handleClick} type="button">
-          PREV
+        <button
+          id="prev"
+          className="absolute bottom-0 left-0 bg-active hover:outline hover:outline-active"
+          data-direction="prev"
+          onClick={handleClick}
+          type="button"
+        >
+          <img
+            alt="previous"
+            className="h-[36px] invert"
+            data-direction="prev"
+            title="previous"
+            src={prevIcon}
+          />
         </button>
       ) : (
         <div />
       )}
       {next ? (
-        <button id="next" onClick={handleClick} type="button">
-          NEXT
+        <button
+          id="next"
+          className="absolute bottom-0 right-0 bg-active hover:outline hover:outline-active"
+          data-direction="next"
+          onClick={handleClick}
+          type="button"
+        >
+          <img
+            alt="next"
+            className="h-[36px] invert"
+            data-direction="next"
+            title="next"
+            src={nextIcon}
+          />
         </button>
       ) : (
         <div />
