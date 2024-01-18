@@ -19,11 +19,15 @@ export default function UserContextProvider({ children }: ContextProps) {
       if (authUser) {
         onSnapshot(doc(database, "users", authUser.uid), (docu) => {
           const data = docu.data() as User;
-          setUser({
-            email: data.email,
-            id: data.id,
-            name: data.name,
-          });
+          if (data && data.email && data.id && data.name) {
+            setUser({
+              email: data.email,
+              id: data.id,
+              name: data.name,
+            });
+          } else {
+            setUser(null);
+          }
         });
       } else {
         setUser(null);
