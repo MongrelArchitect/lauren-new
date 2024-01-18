@@ -4,9 +4,8 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import { database } from "@util/firebase";
 
 import Bio from "@components/Bio";
-import ExhibitionItem from "@components/ExhibitionItem";
+import ExhibitionsList from "@components/Exhibitions";
 import Loading from "@components/Loading";
-import NewExhibition from "@components/NewExhibition";
 import ProfileImage from "@components/ProfileImage";
 
 import Exhibitions, { Exhibition } from "@customTypes/exhibitions";
@@ -68,44 +67,22 @@ export default function Profile() {
 
   const displayImage = () => {
     if (image) {
-      return <ProfileImage image={image} inDashboard={inDashboard} />
+      return <ProfileImage image={image} inDashboard={inDashboard} />;
     }
     return null;
   };
 
   const displayExhibitions = () => {
     if (exhibitions) {
-      const exhibitionIds = Object.keys(exhibitions).sort((a, b) => {
-        // sort by year, then by added timestamp
-        return (
-          exhibitions[b].year - exhibitions[a].year ||
-          exhibitions[b].added.getTime() - exhibitions[a].added.getTime()
-        );
-      });
       return (
-        <>
-          <h2>Selected Exhibitions</h2>
-          <ul className="flex flex-col gap-2">
-            {inDashboard ? <NewExhibition /> : null}
-            {exhibitionIds.map((exhibitionId) => {
-              const current = exhibitions[exhibitionId];
-              return (
-                <ExhibitionItem
-                  exhibition={current}
-                  inDashboard={inDashboard}
-                  key={exhibitionId}
-                />
-              );
-            })}
-          </ul>
-        </>
+        <ExhibitionsList exhibitions={exhibitions} inDashboard={inDashboard} />
       );
     }
     return null;
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex w-full flex-col gap-2">
       <h1 className="text-3xl">Profile</h1>
       {displayImage()}
       <Bio bio={bio} inDashboard={inDashboard} />
