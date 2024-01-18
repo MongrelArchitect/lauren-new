@@ -19,7 +19,9 @@ export default function Bio({ bio, inDashboard }: Props) {
       <div>
         {inDashboard ? <EditBio bio={bio} /> : null}
         <button
-          className="flex w-full items-center justify-between gap-3 border-2 border-brand-red bg-brand-red p-2 text-brand-white"
+          className={`${
+            bioVisible ? "bg-brand-red" : "bg-brand-dark-gray"
+          } flex w-full items-center justify-between gap-3 p-2 text-brand-white`}
           onClick={toggleBioVisible}
           title={`${bioVisible ? "hide" : "show"} artist info`}
           type="button"

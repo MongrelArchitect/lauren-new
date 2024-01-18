@@ -10,6 +10,8 @@ export default {
         "brand-red": "#ee0000",
         "brand-black": "#333333",
         "brand-gray": "#e5e7eb",
+        "brand-light-gray": "#f2f3f5",
+        "brand-dark-gray": "#949aa1",
         "brand-white": "#fdfdfd",
       },
       gridTemplateColumns: {

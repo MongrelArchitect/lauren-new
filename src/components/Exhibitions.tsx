@@ -31,7 +31,9 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
     <div>
       {inDashboard ? <NewExhibition /> : null}
       <button
-        className="flex w-full items-center justify-between gap-3 border-2 border-brand-red bg-brand-red p-2 text-brand-white"
+        className={`${
+          exhibitionsVisible ? "bg-brand-red" : "bg-brand-dark-gray"
+        } flex w-full items-center justify-between gap-3 p-2 text-brand-white`}
         onClick={toggleExhibitionsVisible}
         title={`${exhibitionsVisible ? "hide" : "show"} artist info`}
         type="button"
