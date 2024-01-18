@@ -137,7 +137,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
                 {artCount ? (
                   <>
                     <div className="bg-red-300 p-1">WARNING</div>
-                    <div className="flex flex-col gap-2 p-1 text-red-800">
+                    <div className="flex flex-col gap-2 p-1 text-brand-red">
                       <p>
                         This collection contains artwork. Deleting the
                         collection will also delete{" "}
@@ -154,7 +154,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
                 ) : (
                   <>
                     <div className="bg-red-300 p-1">Confirm Delete</div>
-                    <div className="p-1 text-red-800">
+                    <div className="p-1 text-brand-red">
                       Are you sure? This cannot be undone!
                     </div>
                   </>

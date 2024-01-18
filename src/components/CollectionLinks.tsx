@@ -42,7 +42,7 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
             key={collectionId}
           >
             <NavLink
-              className="hover:border-b-2 hover:border-active hover:text-active"
+              className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
               onClick={handleClick}
               to={`/art/${collectionId}`}
             >
@@ -61,7 +61,7 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
 
   const displayDropdown = () => {
     return (
-      <ul className="absolute w-[max-content] left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-active bg-white p-2">
+      <ul className="absolute w-[max-content] left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-brand-red bg-brand-white p-2">
         {displayLinks()}
       </ul>
     );
@@ -72,8 +72,8 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
       <li className="relative">
         <button
           className={`${
-            viewingArt ? "active" : null
-          } hover:text-active hover:underline`}
+            viewingArt ? "text-brand-red" : null
+          } hover:text-brand-red hover:underline`}
           onClick={toggleDropdown}
           type="button"
         >

@@ -16,7 +16,7 @@ export default function PressArticleItem({ article, articleId, inDashboard }: Pr
         <div className="flex flex-wrap gap-1">
           <div>{`${article.year} - ${article.publication}`}</div>
           <Link
-            className="text-red-600 underline"
+            className="text-brand-red underline"
             target="_blank"
             to={article.url}
           >

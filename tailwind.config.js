@@ -7,7 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        "active": "#ff0000",
+        "brand-red": "#ee0000",
+        "brand-black": "#333333",
+        "brand-white": "#fdfdfd",
       },
       gridTemplateColumns: {
         "gallery": "repeat(auto-fill, minmax(160px, 1fr))",

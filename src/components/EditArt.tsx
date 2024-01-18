@@ -203,7 +203,7 @@ export default function EditArt({
       return (
         <div className="flex w-full flex-col gap-2">
           <div className="bg-red-300 p-1">Confirm Delete</div>
-          <div className="p-1 text-red-800">
+          <div className="p-1 text-band-red">
             Are you sure? This cannot be undone!
           </div>
           <div className="flex gap-2">
@@ -289,7 +289,7 @@ export default function EditArt({
             <div>(Fields marked with * are required)</div>
             <label htmlFor="collection">Collection*</label>
             <select
-              className="w-full bg-white rounded border-2 border-gray-500 p-1"
+              className="w-full bg-brand-white rounded border-2 border-gray-500 p-1"
               id="collection"
               onChange={handleChange}
               defaultValue={artDetail.collection}

@@ -56,7 +56,7 @@ export default function ArtDetail({
         <div className="relative flex flex-col items-center gap-2">
           <div className="flex w-full items-start justify-between gap-3">
             <button
-              className="flex-shrink-0 bg-active hover:outline hover:outline-active"
+              className="flex-shrink-0 bg-brand-red hover:outline hover:outline-brand-red"
               onClick={closeArtDetail}
               type="button"
             >
@@ -75,7 +75,7 @@ export default function ArtDetail({
             <div className="h-[36px] w-[36px] flex-shrink-0" />
           </div>
           <img
-            className="border-[1px] border-active p-1 max-h-[65svh]"
+            className="border-[1px] border-brand-red p-1 max-h-[65svh]"
             alt={artDetail.title}
             src={artDetail.imageURL ? artDetail.imageURL : ""}
             onLoad={() => {
@@ -86,7 +86,7 @@ export default function ArtDetail({
           <div className="text-center">
             <p>{artDetail.medium.toUpperCase()}</p>
             <p>{artDetail.size.toUpperCase()}</p>
-            {artDetail.sold ? <p className="text-red-600">SOLD</p> : null}
+            {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
           </div>
 
           <ArtNav

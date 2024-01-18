@@ -49,7 +49,7 @@ export default function Nav() {
       <ul className="flex gap-4 text-2xl max-lg:flex-col">
         <li>
           <NavLink
-            className="hover:border-b-2 hover:border-active hover:text-active"
+            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
             onClick={closeMenu}
             to="/"
           >
@@ -64,7 +64,7 @@ export default function Nav() {
         />
         <li className="max-lg:mt-8">
           <NavLink
-            className="hover:border-b-2 hover:border-active hover:text-active"
+            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
             onClick={closeMenu}
             to="/profile"
           >
@@ -73,7 +73,7 @@ export default function Nav() {
         </li>
         <li>
           <NavLink
-            className="hover:border-b-2 hover:border-active hover:text-active"
+            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
             onClick={closeMenu}
             to="/press"
           >
@@ -82,7 +82,7 @@ export default function Nav() {
         </li>
         <li>
           <NavLink
-            className="hover:border-b-2 hover:border-active hover:text-active"
+            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
             onClick={closeMenu}
             to="/contact"
           >
@@ -93,7 +93,7 @@ export default function Nav() {
           <>
             <li className="max-lg:mt-8">
               <NavLink
-                className="hover:border-b-2 hover:border-active hover:text-active"
+                className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
                 onClick={closeMenu}
                 to="/dashboard"
               >
@@ -102,7 +102,7 @@ export default function Nav() {
             </li>
             <li>
               <button
-                className="hover:text-active hover:underline"
+                className="hover:text-brand-red hover:underline"
                 onClick={logout}
                 type="button"
               >
@@ -126,7 +126,7 @@ export default function Nav() {
         <div
           className={`${
             menuVisible ? null : "translate-x-[110%]"
-          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-active bg-white p-2 transition-transform`}
+          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white p-2 transition-transform`}
         >
           <button className="self-end" onClick={closeMenu} type="button">
             <img alt="menu" className="red-icon h-[40px]" src={closeIcon} />
@@ -138,7 +138,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="max-w-[1000px] sticky top-0 z-20 flex w-full items-center justify-between border-b-2 border-active bg-white p-2">
+    <nav className="max-w-[1000px] sticky top-0 z-20 flex w-full items-center justify-between border-b-2 border-brand-red bg-brand-white p-2">
       <span className="text-xl">Lauren Mendelsohn-Bass</span>
       {displaySidebar()}
       {displayFullMenu()}

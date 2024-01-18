@@ -175,7 +175,7 @@ export default function EditArticle({ article, articleId }: Props) {
       return (
         <div className="flex w-full flex-col gap-2">
           <div className="bg-red-300 p-1">Confirm Delete</div>
-          <div className="p-1 text-red-800">
+          <div className="p-1 text-brand-red">
             Are you sure? This cannot be undone!
           </div>
           <div className="flex gap-2">

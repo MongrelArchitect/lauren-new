@@ -6,7 +6,7 @@ export default function Footer() {
   const user = useContext(UserContext);
 
   return (
-    <footer className="mt-auto flex w-full max-w-[1000px] items-center justify-between border-t-2 border-active bg-white p-2">
+    <footer className="mt-auto flex w-full max-w-[1000px] items-center justify-between border-t-2 border-brand-red bg-brand-white p-2">
       <div>
         <div className="text-sm">
           © {new Date().getFullYear()} Lauren Mendelsohn-Bass
@@ -15,7 +15,7 @@ export default function Footer() {
           Designed by{" "}
           <b>
           <Link
-            className="hover:text-active hover:underline"
+            className="hover:text-brand-red hover:underline"
             target="_blank"
             to="https://seanericthomas.com"
           >
@@ -26,7 +26,7 @@ export default function Footer() {
       </div>
       <div>
         <Link
-          className="text-xl hover:text-active hover:underline"
+          className="text-xl hover:text-brand-red hover:underline"
           to={user ? "/dashboard" : "/login"}
         >
           {user ? "Dashboard" : "Login"}

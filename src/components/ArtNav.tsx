@@ -33,7 +33,7 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       {prev ? (
         <button
           id="prev"
-          className="absolute bottom-0 left-0 bg-active hover:outline hover:outline-active"
+          className="absolute bottom-0 left-0 bg-brand-red hover:outline hover:outline-brand-red"
           data-direction="prev"
           onClick={handleClick}
           type="button"
@@ -52,7 +52,7 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       {next ? (
         <button
           id="next"
-          className="absolute bottom-0 right-0 bg-active hover:outline hover:outline-active"
+          className="absolute bottom-0 right-0 bg-brand-red hover:outline hover:outline-brand-red"
           data-direction="next"
           onClick={handleClick}
           type="button"

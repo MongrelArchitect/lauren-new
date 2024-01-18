@@ -27,7 +27,7 @@ export default function ShowArt({
   return (
     <>
       <button
-        className="relative z-10 aspect-square max-h-[200px] min-h-[160px] min-w-[160px] max-w-[200px] border-[1px] border-active p-1 hover:p-0 focus:p-0"
+        className="relative z-10 aspect-square max-h-[200px] min-h-[160px] min-w-[160px] max-w-[200px] border-[1px] border-brand-red p-1 hover:p-0 focus:p-0"
         onClick={handleClick}
         type="button"
       >
@@ -41,7 +41,7 @@ export default function ShowArt({
           src={art.thumbURL ? art.thumbURL : ""}
         />
         {art.sold ? (
-          <div className="relative bottom-[32px] z-0 w-full bg-active bg-opacity-60 text-2xl text-neutral-50">
+          <div className="relative bottom-[32px] z-0 w-full bg-brand-red bg-opacity-60 text-2xl text-neutral-50">
             SOLD
           </div>
         ) : null}

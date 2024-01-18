@@ -4,8 +4,7 @@
 
 a.active,
 button.active {
-  @apply text-active;
-  background: text-active;
+  @apply text-brand-red;
 }
 
 .red-icon {
