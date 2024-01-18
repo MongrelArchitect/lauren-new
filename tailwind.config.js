@@ -17,9 +17,6 @@ export default {
       gridTemplateColumns: {
         "gallery": "repeat(auto-fill, minmax(160px, 1fr))",
       },
-      transitionProperty: {
-        "max-height": "max-height",
-      },
     },
   },
   plugins: [],

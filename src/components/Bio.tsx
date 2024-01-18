@@ -39,7 +39,7 @@ export default function Bio({ bio, inDashboard }: Props) {
         <pre
           className={`${
             bioVisible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-          } whitespace-pre-wrap border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-max-height`}
+          } whitespace-pre-wrap border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-all`}
         >
           {bio}
         </pre>

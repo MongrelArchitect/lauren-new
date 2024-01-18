@@ -52,7 +52,7 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
       <ul 
         className={`${
           exhibitionsVisible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-        } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-max-height`}
+        } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-all`}
       >
         {exhibitionIds.map((exhibitionId) => {
           const current = exhibitions[exhibitionId];
