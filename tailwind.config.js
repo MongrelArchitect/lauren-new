@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        "sides": "-5px 0 5px -5px rgba(0, 0, 0, 0.8), 5px 0 5px -5px rgba(0, 0, 0, 0.8)",
+        "sides": "-5px 0 5px 0px rgba(0, 0, 0, 0.4), 5px 0 5px 0px rgba(0, 0, 0, 0.4)",
       },
       colors: {
         "brand-red": "#ee0000",

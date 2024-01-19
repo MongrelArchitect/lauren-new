@@ -53,16 +53,16 @@ export default function ArtDetail({
       // ======================
       <Modal close={closeArtDetail} visible>
         {loading ? <Loading overlay /> : null}
-        <div className="relative flex flex-col items-center gap-2">
-          <div className="flex w-full items-start justify-between gap-3">
+        <div className="relative flex min-h-[640px] flex-col items-center gap-2">
+          <div className="flex w-full items-center justify-between gap-3 bg-brand-red text-brand-white">
             <button
-              className="flex-shrink-0 bg-brand-red hover:outline hover:outline-brand-red"
+              className="flex-shrink-0 bg-brand-red hover:bg-brand-dark-gray"
               onClick={closeArtDetail}
               type="button"
             >
               <img
                 alt="close"
-                className="h-[36px] invert"
+                className="h-[40px] invert"
                 title="close"
                 src={closeIcon}
               />
@@ -72,10 +72,11 @@ export default function ArtDetail({
                 {artDetail.title.toUpperCase()}
               </h3>
             </b>
-            <div className="h-[36px] w-[36px] flex-shrink-0" />
+            <div className="h-[40px] w-[40px] flex-shrink-0" />
           </div>
+
           <img
-            className="border-2 border-brand-red p-1 max-h-[65svh]"
+            className="max-h-[500px] border-2 border-brand-red p-1"
             alt={artDetail.title}
             src={artDetail.imageURL ? artDetail.imageURL : ""}
             onLoad={() => {

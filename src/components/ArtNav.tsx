@@ -33,14 +33,14 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       {prev ? (
         <button
           id="prev"
-          className="absolute bottom-0 left-0 bg-brand-red hover:outline hover:outline-brand-red"
+          className="absolute bottom-0 left-0 bg-brand-red hover:bg-brand-dark-gray"
           data-direction="prev"
           onClick={handleClick}
           type="button"
         >
           <img
             alt="previous"
-            className="h-[36px] invert"
+            className="h-[40px] invert"
             data-direction="prev"
             title="previous"
             src={prevIcon}
@@ -52,14 +52,14 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       {next ? (
         <button
           id="next"
-          className="absolute bottom-0 right-0 bg-brand-red hover:outline hover:outline-brand-red"
+          className="absolute bottom-0 right-0 bg-brand-red hover:bg-brand-dark-gray"
           data-direction="next"
           onClick={handleClick}
           type="button"
         >
           <img
             alt="next"
-            className="h-[36px] invert"
+            className="h-[40px] invert"
             data-direction="next"
             title="next"
             src={nextIcon}
