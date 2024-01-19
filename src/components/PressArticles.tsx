@@ -3,10 +3,13 @@ import { useLocation } from "react-router-dom";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { database } from "@util/firebase";
 
+import PressArticle from "@customTypes/pressArticles";
+
 import Loading from "./Loading";
 import NewPressArticle from "./NewPressArticle";
-import PressArticle from "@customTypes/pressArticles";
 import PressArticleItem from "./PressArticleItem";
+
+import downIcon from "@assets/icons/down.svg";
 
 interface PressArticles {
   [key: string]: PressArticle;
@@ -16,8 +19,9 @@ export default function PressArticles() {
   const { pathname } = useLocation();
   const inDashboard = pathname.includes("dashboard");
 
-  const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<null | PressArticles>(null);
+  const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const articlesQuery = query(collection(database, "press-articles"));
@@ -57,17 +61,23 @@ export default function PressArticles() {
       );
     });
     return (
-      <ul className="flex flex-col gap-3">
-        {articleIds.map((articleId) => {
+      <ul 
+        className={`${
+          visible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
+        } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
+      >
+        {articleIds.map((articleId, index) => {
           return (
             <PressArticleItem
               key={articleId}
               articleId={articleId}
+              articleIndex={index}
               article={articles[articleId]}
               inDashboard={inDashboard}
             />
           );
         })}
+
       </ul>
     );
   };
@@ -76,11 +86,34 @@ export default function PressArticles() {
     return <Loading />;
   }
 
+  const toggleVisible = () => {
+    setVisible(!visible);
+  };
+
   return (
     <div>
-      <h2>Articles</h2>
       {inDashboard ? <NewPressArticle /> : null}
+      <button
+        className={`${
+          visible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
+        } flex w-full items-center justify-between gap-3 p-2`}
+        onClick={toggleVisible}
+        title={`${visible ? "hide" : "show"} articles`}
+        type="button"
+      >
+        <h2 className="text-2xl">Articles</h2>
+        <img
+          alt="view / hide biographical info"
+          className={`${
+            visible ? "rotate-180 invert" : ""
+          } h-[12px] transition-transform`}
+          title="view / hide biographical info"
+          src={downIcon}
+        />
+      </button>
+
       {displayArticles()}
+
     </div>
   );
 }

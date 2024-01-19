@@ -28,11 +28,10 @@ export default function Bio({ bio, inDashboard }: Props) {
         >
           <h2 className="text-2xl">About the Artist</h2>
           <img
-            alt="view / hide biographical info"
+            alt=""
             className={`${
               bioVisible ? "rotate-180 invert" : ""
             } h-[12px] transition-transform`}
-            title="view / hide biographical info"
             src={downIcon}
           />
         </button>

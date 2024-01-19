@@ -35,16 +35,15 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
           exhibitionsVisible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
         } flex w-full items-center justify-between gap-3 p-2`}
         onClick={toggleExhibitionsVisible}
-        title={`${exhibitionsVisible ? "hide" : "show"} artist info`}
+        title={`${exhibitionsVisible ? "hide" : "show"} exhibitions`}
         type="button"
       >
         <h2 className="text-2xl">Selected Exhibitions</h2>
         <img
-          alt="view / hide biographical info"
+          alt=""
           className={`${
             exhibitionsVisible ? "rotate-180 invert" : ""
           } h-[12px] transition-transform`}
-          title="view / hide biographical info"
           src={downIcon}
         />
       </button>

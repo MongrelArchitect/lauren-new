@@ -91,16 +91,15 @@ export default function PressVideos() {
             : "bg-brand-gray text-brand-black"
         } flex w-full items-center justify-between gap-3 p-2`}
         onClick={toggleVisible}
-        title={`${visible ? "hide" : "show"} artist info`}
+        title={`${visible ? "hide" : "show"} videos`}
         type="button"
       >
         <h2 className="text-2xl">Videos</h2>
         <img
-          alt="view / hide biographical info"
+          alt=""
           className={`${
             visible ? "rotate-180 invert" : ""
           } h-[12px] transition-transform`}
-          title="view / hide biographical info"
           src={downIcon}
         />
       </button>
