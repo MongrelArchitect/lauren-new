@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Bio({ bio, inDashboard }: Props) {
-  const [bioVisible, setBioVisible] = useState(false);
+  const [bioVisible, setBioVisible] = useState(true);
 
   const toggleBioVisible = () => {
     setBioVisible(!bioVisible);

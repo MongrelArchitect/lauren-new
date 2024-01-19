@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
-  const [exhibitionsVisible, setExhibitionsVisible] = useState(false);
+  const [exhibitionsVisible, setExhibitionsVisible] = useState(true);
 
   const toggleExhibitionsVisible = () => {
     setExhibitionsVisible(!exhibitionsVisible);
