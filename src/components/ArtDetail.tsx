@@ -54,9 +54,9 @@ export default function ArtDetail({
       <Modal close={closeArtDetail} visible>
         {loading ? <Loading overlay /> : null}
         <div className="relative flex min-h-[640px] flex-col items-center gap-2">
-          <div className="flex w-full items-center justify-between gap-3 bg-brand-red text-brand-white">
+          <div className="flex w-full items-center justify-between gap-3 bg-brand-gray text-brand-black">
             <button
-              className="flex-shrink-0 bg-brand-red hover:bg-brand-dark-gray"
+              className="flex-shrink-0 bg-brand-red hover:bg-brand-dark-gray self-start"
               onClick={closeArtDetail}
               type="button"
             >

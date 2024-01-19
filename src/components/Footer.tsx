@@ -6,7 +6,7 @@ export default function Footer() {
   const user = useContext(UserContext);
 
   return (
-    <footer className="mt-auto flex w-full max-w-[1000px] flex-wrap items-center justify-between border-t-2 border-brand-red bg-brand-white p-2">
+    <footer className="mt-auto flex w-full max-w-[1000px] flex-wrap items-center justify-between border-t-2 border-brand-red bg-brand-gray p-2">
       <div>
         <div className="text-sm">
           © {new Date().getFullYear()} Lauren Mendelsohn-Bass

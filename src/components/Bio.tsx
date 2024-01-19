@@ -20,8 +20,8 @@ export default function Bio({ bio, inDashboard }: Props) {
         {inDashboard ? <EditBio bio={bio} /> : null}
         <button
           className={`${
-            bioVisible ? "bg-brand-red" : "bg-brand-dark-gray"
-          } flex w-full items-center justify-between gap-3 p-2 text-brand-white`}
+            bioVisible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
+          } flex w-full items-center justify-between gap-3 p-2`}
           onClick={toggleBioVisible}
           title={`${bioVisible ? "hide" : "show"} artist info`}
           type="button"
@@ -30,8 +30,8 @@ export default function Bio({ bio, inDashboard }: Props) {
           <img
             alt="view / hide biographical info"
             className={`${
-              bioVisible ? "rotate-180" : ""
-            } h-[12px] invert transition-transform`}
+              bioVisible ? "rotate-180 invert" : ""
+            } h-[12px] transition-transform`}
             title="view / hide biographical info"
             src={downIcon}
           />

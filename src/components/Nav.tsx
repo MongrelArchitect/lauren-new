@@ -126,7 +126,7 @@ export default function Nav() {
         <div
           className={`${
             menuVisible ? null : "translate-x-[110%]"
-          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white p-2 transition-transform`}
+          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-gray p-2 transition-transform`}
         >
           <button className="self-end" onClick={closeMenu} type="button">
             <img alt="menu" className="red-icon h-[40px]" src={closeIcon} />
@@ -138,7 +138,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="sticky top-0 z-20 flex w-full max-w-[1000px] flex-wrap items-center justify-between border-b-2 border-brand-red bg-brand-white p-2">
+    <nav className="sticky top-0 z-20 flex w-full max-w-[1000px] flex-wrap items-center justify-between border-b-2 border-brand-red bg-brand-gray p-2">
       <span className="text-xl">Lauren Mendelsohn-Bass</span>
       {displaySidebar()}
       {displayFullMenu()}

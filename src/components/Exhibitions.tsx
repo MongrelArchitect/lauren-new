@@ -32,8 +32,8 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
       {inDashboard ? <NewExhibition /> : null}
       <button
         className={`${
-          exhibitionsVisible ? "bg-brand-red" : "bg-brand-dark-gray"
-        } flex w-full items-center justify-between gap-3 p-2 text-brand-white`}
+          exhibitionsVisible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
+        } flex w-full items-center justify-between gap-3 p-2`}
         onClick={toggleExhibitionsVisible}
         title={`${exhibitionsVisible ? "hide" : "show"} artist info`}
         type="button"
@@ -42,8 +42,8 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
         <img
           alt="view / hide biographical info"
           className={`${
-            exhibitionsVisible ? "rotate-180" : ""
-          } h-[12px] invert transition-transform`}
+            exhibitionsVisible ? "rotate-180 invert" : ""
+          } h-[12px] transition-transform`}
           title="view / hide biographical info"
           src={downIcon}
         />
