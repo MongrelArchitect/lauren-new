@@ -36,13 +36,15 @@ export default function Bio({ bio, inDashboard }: Props) {
             src={downIcon}
           />
         </button>
-        <pre
+        <div
           className={`${
             bioVisible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-          } whitespace-pre-wrap border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-all`}
+          } border-2 border-t-0 border-brand-red bg-brand-white transition-all`}
         >
-          {bio}
-        </pre>
+          <pre className="p-2 whitespace-pre-wrap font-sans text-xl">
+            {bio}
+          </pre>
+        </div>
       </div>
     );
   }

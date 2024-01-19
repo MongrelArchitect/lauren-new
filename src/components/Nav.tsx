@@ -138,7 +138,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="max-w-[1000px] sticky top-0 z-20 flex w-full items-center justify-between border-b-2 border-brand-red bg-brand-white p-2">
+    <nav className="sticky top-0 z-20 flex w-full max-w-[1000px] flex-wrap items-center justify-between border-b-2 border-brand-red bg-brand-white p-2">
       <span className="text-xl">Lauren Mendelsohn-Bass</span>
       {displaySidebar()}
       {displayFullMenu()}
