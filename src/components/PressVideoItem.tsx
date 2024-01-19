@@ -21,12 +21,14 @@ export default function PressVideoItem({
       {inDashboard ? (
         <DeleteVideo videoId={videoId} youtubeId={youtubeId} />
       ) : null}
-      <iframe
-        className="h-[315px] w-full max-w-[560px] border-[1px] border-red-600 p-1"
-        src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-        title="YouTube video player"
-        allowFullScreen
-      />
+      <div className="w-full aspect-video">
+        <iframe
+          className="h-full w-full border-2 border-brand-red p-1"
+          src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+          title="YouTube video player"
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 }

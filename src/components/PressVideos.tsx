@@ -9,6 +9,8 @@ import Loading from "./Loading";
 import NewVideo from "./NewVideo";
 import PressVideoItem from "./PressVideoItem";
 
+import downIcon from "@assets/icons/down.svg";
+
 interface PressVideos {
   [key: string]: PressVideo;
 }
@@ -19,19 +21,24 @@ export default function PressVideos() {
 
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<null | PressVideos>(null);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const videosQuery = query(collection(database, "press-videos"));
     const unsubVideos = onSnapshot(videosQuery, (querySnapshot) => {
       setLoading(true);
       const videosFromDB: PressVideos = {};
-      querySnapshot.forEach((docu) => {
-        const videoInfo: PressVideo = {
-          added: docu.data().added.toDate(),
-          url: docu.data().url,
-        };
-        videosFromDB[docu.id] = videoInfo;
-      });
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((docu) => {
+          const videoInfo: PressVideo = {
+            added: docu.data().added.toDate(),
+            url: docu.data().url,
+          };
+          videosFromDB[docu.id] = videoInfo;
+        });
+      } else {
+        setVideos(null);
+      }
       // only set to the temp object if there's any videos from the db
       if (Object.keys(videosFromDB).length) {
         setVideos(videosFromDB);
@@ -51,7 +58,7 @@ export default function PressVideos() {
       return videos[b].added.getTime() - videos[a].added.getTime();
     });
     return (
-      <div>
+      <div className="p-2">
         {videoIds.map((videoId) => {
           return (
             <PressVideoItem
@@ -70,11 +77,48 @@ export default function PressVideos() {
     return <Loading />;
   }
 
+  if (!videos) {
+    return (
+    <div>
+      {inDashboard ? <NewVideo /> : null}
+    </div>
+    );
+  }
+
+  const toggleVisible = () => {
+    setVisible(!visible);
+  };
+
   return (
     <div>
-      <h2>Videos</h2>
       {inDashboard ? <NewVideo /> : null}
-      {displayVideos()}
+      <button
+        className={`${
+          visible
+            ? "bg-brand-red text-brand-white"
+            : "bg-brand-gray text-brand-black"
+        } flex w-full items-center justify-between gap-3 p-2`}
+        onClick={toggleVisible}
+        title={`${visible ? "hide" : "show"} artist info`}
+        type="button"
+      >
+        <h2 className="text-2xl">Videos</h2>
+        <img
+          alt="view / hide biographical info"
+          className={`${
+            visible ? "rotate-180 invert" : ""
+          } h-[12px] transition-transform`}
+          title="view / hide biographical info"
+          src={downIcon}
+        />
+      </button>
+      <div
+        className={`${
+          visible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
+        } border-2 border-t-0 border-brand-red bg-brand-white transition-all`}
+      >
+        {displayVideos()}
+      </div>
     </div>
   );
 }
