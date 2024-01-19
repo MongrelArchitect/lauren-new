@@ -5,7 +5,7 @@ interface Props {
 export default function Blur({ close }: Props) {
   return (
     <div
-      className="fixed left-0 top-0 z-20 min-h-[100svh] min-w-[100svw] bg-neutral-400/30 backdrop-blur-sm"
+      className="fixed left-0 top-0 z-20 min-h-[100svh] min-w-[100svw] bg-brand-black/40 backdrop-blur-sm"
       onClick={close}
     />
   );
