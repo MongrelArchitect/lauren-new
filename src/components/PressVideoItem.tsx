@@ -17,11 +17,12 @@ export default function PressVideoItem({
     : videoURL.split("?v=")[1];
 
   return (
-    <div className="flex items-center gap-2">
+    <li className="flex items-center gap-4">
       {inDashboard ? (
         <DeleteVideo videoId={videoId} youtubeId={youtubeId} />
       ) : null}
-      <div className="w-full aspect-video">
+      <div 
+        className="w-full aspect-video">
         <iframe
           className="h-full w-full border-2 border-brand-red p-1"
           src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
@@ -29,6 +30,6 @@ export default function PressVideoItem({
           allowFullScreen
         />
       </div>
-    </div>
+    </li>
   );
 }

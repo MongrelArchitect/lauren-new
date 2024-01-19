@@ -52,25 +52,21 @@ export default function PressVideos() {
 
   const displayVideos = () => {
     if (!videos) {
-      return <div>No videos available</div>;
+      return <li>No videos available</li>;
     }
     const videoIds = Object.keys(videos).sort((a, b) => {
       return videos[b].added.getTime() - videos[a].added.getTime();
     });
-    return (
-      <div className="p-2">
-        {videoIds.map((videoId) => {
-          return (
-            <PressVideoItem
-              inDashboard={inDashboard}
-              key={videoId}
-              videoId={videoId}
-              videoURL={videos[videoId].url}
-            />
-          );
-        })}
-      </div>
-    );
+    return videoIds.map((videoId) => {
+      return (
+        <PressVideoItem
+          inDashboard={inDashboard}
+          key={videoId}
+          videoId={videoId}
+          videoURL={videos[videoId].url}
+        />
+      );
+    });
   };
 
   if (loading) {
@@ -78,11 +74,7 @@ export default function PressVideos() {
   }
 
   if (!videos) {
-    return (
-    <div>
-      {inDashboard ? <NewVideo /> : null}
-    </div>
-    );
+    return <div>{inDashboard ? <NewVideo /> : null}</div>;
   }
 
   const toggleVisible = () => {
@@ -112,13 +104,13 @@ export default function PressVideos() {
           src={downIcon}
         />
       </button>
-      <div
+      <ul
         className={`${
           visible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-        } border-2 border-t-0 border-brand-red bg-brand-white transition-all`}
+        } flex flex-col p-2 gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
       >
         {displayVideos()}
-      </div>
+      </ul>
     </div>
   );
 }
