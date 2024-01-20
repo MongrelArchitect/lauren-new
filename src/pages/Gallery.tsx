@@ -173,10 +173,10 @@ export default function Gallery() {
 
   if (currentCollection) {
     return (
-      <div className="flex flex-col gap-2 w-full">
-      <h1 className="text-3xl">
-        {currentCollection.name.toUpperCase()}
-      </h1>
+      <div className="flex w-full flex-col gap-2">
+        <h1 className="bg-brand-red p-2 text-3xl text-brand-white">
+          {currentCollection.name.toUpperCase()}
+        </h1>
         {inDashboard ? (
           <div>
             <DeleteCollection

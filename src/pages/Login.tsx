@@ -83,7 +83,7 @@ export default function Login() {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <h1 className="text-3xl">Login</h1>
+      <h1 className="bg-brand-red p-2 text-3xl text-brand-white">Login</h1>
       <form className="flex w-full max-w-[400px] flex-col gap-3 p-2 text-xl">
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email:</label>

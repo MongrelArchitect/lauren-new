@@ -83,7 +83,7 @@ export default function Profile() {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <h1 className="text-3xl">Profile</h1>
+      <h1 className="bg-brand-red p-2 text-3xl text-brand-white">Profile</h1>
       {displayImage()}
       <Bio bio={bio} inDashboard={inDashboard} />
       {displayExhibitions()}

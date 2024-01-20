@@ -3,11 +3,16 @@ import contactImage from "@assets/images/contact.jpg";
 
 export default function Contact() {
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <h1 className="text-3xl">Contact</h1>
-      <p className="text-xl flex gap-1">
+    <div className="flex w-full flex-col gap-2">
+      <h1 className="bg-brand-red p-2 text-3xl text-brand-white">Contact</h1>
+      <p className="flex gap-1 text-xl">
         email:
-        <Link className="text-brand-red hover:underline" to="mailto:lmbass@roadrunner.com">lmbass@roadrunner.com</Link>
+        <Link
+          className="text-brand-red hover:underline"
+          to="mailto:lmbass@roadrunner.com"
+        >
+          lmbass@roadrunner.com
+        </Link>
       </p>
       <img
         alt=""
