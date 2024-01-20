@@ -9,6 +9,7 @@ import UserContextProvider from "@contexts/users";
 import Contact from "@pages/Contact";
 import Dashboard from "@pages/Dashboard";
 import ErrorPage from "@pages/ErrorPage";
+import Forgot from "@pages/Forgot";
 import Gallery from "@pages/Gallery";
 import Home from "@pages/Home";
 import Login from "@pages/Login";
@@ -38,10 +39,6 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
-        index: true,
-        element: <Home />,
-      },
-      {
         path: "dashboard",
         element: <Dashboard />,
         children: [
@@ -68,6 +65,14 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
         ],
+      },
+      {
+        path: "forgot",
+        element: <Forgot />,
+      },
+      {
+        index: true,
+        element: <Home />,
       },
       {
         path: "login",
