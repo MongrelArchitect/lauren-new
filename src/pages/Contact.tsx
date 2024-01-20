@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import contactImage from "@assets/images/contact.jpg";
 
 export default function Contact() {
+  useEffect(() => {
+    document.title = "Lauren Mendelsohn-Bass | Contact";
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-2">
       <h1 className="bg-brand-red p-2 text-3xl text-brand-white">Contact</h1>

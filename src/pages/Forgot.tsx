@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@util/firebase";
 
 export default function Forgot() {
+  useEffect(() => {
+    document.title = "Lauren Mendelsohn-Bass | Forgot Password";
+  }, []);
+
   const [attempted, setAttempted] = useState(false);
   const [email, setEmail] = useState({
     value: "",

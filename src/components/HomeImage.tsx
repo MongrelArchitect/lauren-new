@@ -30,6 +30,7 @@ export default function HomeImage() {
       unsubImage();
     };
   }, []);
+
   if (image) {
     return (
       <div className="min-h-[200px]">

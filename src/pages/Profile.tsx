@@ -22,6 +22,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Lauren Mendelsohn-Bass | Profile';
     const profileQuery = query(collection(database, "profile"));
     const unsubProfile = onSnapshot(profileQuery, (querySnapshot) => {
       setLoading(true);

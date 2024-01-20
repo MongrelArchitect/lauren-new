@@ -33,6 +33,9 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = `Lauren Mendelsohn-Bass | ${
+      currentCollection ? currentCollection.name : "Gallery"
+    }`;
     setLoading(true);
     const collectionsQuery = query(
       collection(database, "art"),

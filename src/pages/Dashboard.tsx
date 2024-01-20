@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import { CollectionsContext } from "@contexts/collections";
@@ -8,6 +8,10 @@ import Login from "./Login";
 import NewCollection from "@components/NewCollection";
 
 export default function Dashboard() {
+  useEffect(() => {
+    document.title = "Lauren Mendelsohn-Bass | Dashboard";
+  }, []);
+
   const user = useContext(UserContext);
 
   const allCollections = useContext(CollectionsContext);

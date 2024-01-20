@@ -10,6 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Lauren Mendelsohn-Bass | Login";
     if (user) {
       navigate("/dashboard");
     }
