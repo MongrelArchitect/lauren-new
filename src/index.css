@@ -8,5 +8,5 @@ button.active {
 }
 
 .red-icon {
-  filter: brightness(0) saturate(100%) invert(18%) sepia(67%) saturate(6027%) hue-rotate(356deg) brightness(97%) contrast(130%);
+  filter: brightness(0) saturate(100%) invert(12%) sepia(88%) saturate(5326%) hue-rotate(7deg) brightness(95%) contrast(123%);
 }
