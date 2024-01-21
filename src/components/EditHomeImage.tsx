@@ -76,46 +76,77 @@ export default function EditProfileImage({ imageURL }: Props) {
     }
   };
 
+  const handleDropFile = (event: React.DragEvent) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    setError(null);
+    setNewImage({
+      file,
+      valid: checkImageValidity(file),
+    });
+  };
+
   const displayForm = () => {
     return (
       <Modal close={cancel} visible={editing}>
-        <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">Edit Homepage Image</h3>
+        <form>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Edit Homepage Image
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex items-center justify-center p-4 min-h-[300px]">
+              <Loading />
+            </div>
           ) : (
-            <>
-              <label htmlFor="image">Image</label>
+            <div className="flex flex-col items-start gap-2 p-2">
               <img
                 alt="Homepage image"
-                className="max-h-[300px]"
+                className="max-h-[400px] self-center border-2 border-brand-red p-1"
                 src={
                   newImage.file && checkImageValidity(newImage.file)
                     ? URL.createObjectURL(newImage.file)
                     : imageURL
                 }
               />
+              <label
+                className="flex h-[160px] w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black"
+                htmlFor="image"
+                onDragOver={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onDrop={handleDropFile}
+              >
+                <div className="cursor-pointer bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                  Choose File
+                </div>
+                <span>or drop file here</span>
+                {newImage.file ? <span>{newImage.file.name}</span> : null}
+              </label>
               <input
                 accept="image/*"
-                className="w-full rounded border-2 border-gray-500 p-1"
+                hidden
                 id="image"
                 onChange={changeImage}
                 required
                 type="file"
               />
+
               {attempted && !newImage.valid ? (
-                <div className="bg-red-300 p-1">Image required</div>
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  Image required
+                </div>
               ) : null}
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                  className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                  className="bg-[#ff6600] p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
@@ -123,9 +154,9 @@ export default function EditProfileImage({ imageURL }: Props) {
                 </button>
               </div>
               {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
+                <div className="w-full bg-brand-red p-2">{error}</div>
               ) : null}
-            </>
+            </div>
           )}
         </form>
       </Modal>
@@ -136,7 +167,7 @@ export default function EditProfileImage({ imageURL }: Props) {
     <>
       {displayForm()}
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={edit}
         type="button"
       >

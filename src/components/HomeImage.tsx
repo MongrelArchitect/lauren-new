@@ -33,7 +33,7 @@ export default function HomeImage() {
 
   if (image) {
     return (
-      <div className="min-h-[200px]">
+      <div className="flex min-h-[200px] flex-col items-start gap-2">
         {loading ? <Loading overlay /> : null}
         {inDashboard ? <EditHomeImage imageURL={image.imageURL} /> : null}
         <img
