@@ -146,7 +146,7 @@ export default function EditProfileImage({ imageURL }: Props) {
                   Submit
                 </button>
                 <button
-                  className="bg-[#ff6600] p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >

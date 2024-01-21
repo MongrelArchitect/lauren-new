@@ -102,7 +102,7 @@ export default function Login() {
             value={formInfo.email || ""}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <label htmlFor="password">Password:</label>
           <input
             name="password"

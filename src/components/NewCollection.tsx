@@ -26,6 +26,7 @@ export default function NewCollection() {
   };
 
   const changeName = (event: React.SyntheticEvent) => {
+    setError(null);
     const target = event.target as HTMLInputElement;
     setName((prevState) => {
       return {
@@ -66,7 +67,7 @@ export default function NewCollection() {
   return (
     <>
       <button
-        className="rounded border-2 border-gray-800 bg-purple-300 p-1"
+        className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleNewCollection}
         type="button"
       >
@@ -74,30 +75,41 @@ export default function NewCollection() {
       </button>
       <Modal close={cancel} visible={modalVisible}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">New Collection</h3>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            New Collection
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
-              <label htmlFor="name">Name:</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                id="name"
-                onChange={changeName}
-                required
-                type="text"
-                value={name.value || ""}
-              />
+            <div className="flex w-full flex-col items-start gap-2 p-2">
+              <div className="flex w-full flex-col gap-1">
+                <label htmlFor="name">Name (required):</label>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  id="name"
+                  onChange={changeName}
+                  placeholder="ex: Awesome Art"
+                  required
+                  type="text"
+                  value={name.value || ""}
+                />
+              </div>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                  className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                  className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
@@ -105,9 +117,11 @@ export default function NewCollection() {
                 </button>
               </div>
               {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  {error}
+                </div>
               ) : null}
-            </>
+            </div>
           )}
         </form>
       </Modal>
