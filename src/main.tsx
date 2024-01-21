@@ -6,8 +6,10 @@ import "./index.css";
 import CollectionsContextProvider from "@contexts/collections";
 import UserContextProvider from "@contexts/users";
 
+import Collections from "@components/Collections";
 import Contact from "@pages/Contact";
 import Dashboard from "@pages/Dashboard";
+import DashHome from "@components/DashHome";
 import ErrorPage from "@pages/ErrorPage";
 import Forgot from "@pages/Forgot";
 import Gallery from "@pages/Gallery";
@@ -43,10 +45,12 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
+            path: "art",
+            element: <Collections />,
+          },
+          {
             index: true,
-            element: (
-              <div>Please select a menu option to get started</div>
-            ),
+            element: <DashHome />,
           },
           {
             path: "art/:collectionId",
