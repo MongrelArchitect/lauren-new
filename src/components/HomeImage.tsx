@@ -34,16 +34,18 @@ export default function HomeImage() {
   if (image) {
     return (
       <div className="flex min-h-[200px] flex-col items-start gap-2">
-        {loading ? <Loading overlay /> : null}
         {inDashboard ? <EditHomeImage imageURL={image.imageURL} /> : null}
-        <img
-          alt=""
-          className="w-full border-2 border-brand-red p-2"
-          onLoad={() => {
-            setLoading(false);
-          }}
-          src={image.imageURL}
-        />
+        <div className="relative w-full min-h-[320px]">
+          {loading ? <Loading overlay /> : null}
+          <img
+            alt=""
+            className="w-full border-2 border-brand-red p-2"
+            onLoad={() => {
+              setLoading(false);
+            }}
+            src={image.imageURL}
+          />
+        </div>
       </div>
     );
   }
