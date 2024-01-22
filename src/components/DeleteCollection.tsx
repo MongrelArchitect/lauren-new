@@ -74,7 +74,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
           <div className="flex items-center gap-2">
             <input
               checked={acknowledged}
-              className="h-6 w-6"
+              className="h-6 w-6 accent-brand-blue"
               id="acknowledge"
               onChange={toggleAcknowledge}
               type="checkbox"
@@ -85,7 +85,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
           </div>
           <div className="flex gap-2">
             <button
-              className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:text-gray-500 disabled:hover:border-gray-300"
+              className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black disabled:cursor-not-allowed disabled:bg-brand-dark-gray disabled:text-brand-gray disabled:hover:outline-brand-black"
               disabled={!acknowledged}
               onClick={confirmDelete}
               type="button"
@@ -93,7 +93,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
               Delete
             </button>
             <button
-              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+              className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={cancel}
               type="button"
             >
@@ -106,14 +106,14 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
     return (
       <div className="flex gap-2">
         <button
-          className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+          className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={confirmDelete}
           type="button"
         >
           Delete
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+          className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={cancel}
           type="button"
         >
@@ -127,17 +127,23 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
     return (
       <Modal close={cancel} visible={confirming}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">Delete Collection</h3>
-          <p>Deleting collection "{collection.name}"</p>
+          <h3 className="flex w-full flex-wrap gap-2 bg-brand-red p-2 text-2xl text-brand-white">
+            Delete Collection
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
+            <div className="flex w-full flex-col items-start gap-2 p-2">
               <div className="flex w-full flex-col gap-2">
+                <p>Deleting collection "{collection.name}"</p>
                 {artCount ? (
                   <>
-                    <div className="bg-red-300 p-1">WARNING</div>
-                    <div className="flex flex-col gap-2 p-1 text-brand-red">
+                    <div className="bg-brand-orange p-2 text-brand-white">
+                      WARNING
+                    </div>
+                    <div className="flex flex-col gap-2 text-brand-red">
                       <p>
                         This collection contains artwork. Deleting the
                         collection will also delete{" "}
@@ -153,8 +159,10 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
                   </>
                 ) : (
                   <>
-                    <div className="bg-red-300 p-1">Confirm Delete</div>
-                    <div className="p-1 text-brand-red">
+                    <div className="bg-brand-orange p-2 text-brand-white">
+                      Confirm Delete
+                    </div>
+                    <div className="text-brand-red">
                       Are you sure? This cannot be undone!
                     </div>
                   </>
@@ -166,7 +174,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
                   <div className="bg-red-300 p-1">{error}</div>
                 ) : null}
               </div>
-            </>
+            </div>
           )}
         </form>
       </Modal>
