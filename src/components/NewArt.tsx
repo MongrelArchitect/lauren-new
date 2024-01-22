@@ -154,7 +154,7 @@ export default function NewArt({ collectionId }: Props) {
 
   const addArtButton = (
     <button
-      className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+      className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
       onClick={toggleAddingArt}
       type="button"
     >
@@ -270,7 +270,7 @@ export default function NewArt({ collectionId }: Props) {
                       className="flex min-h-[160px] flex-1 flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2 text-center"
                       htmlFor="image"
                     >
-                      <div className="cursor-pointer bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                      <div className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
                         Choose File
                       </div>
                       <span>or drop file here</span>
@@ -307,14 +307,14 @@ export default function NewArt({ collectionId }: Props) {
 
                 <div className="flex flex-wrap gap-2">
                   <button
-                    className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                    className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={submit}
                     type="button"
                   >
                     Submit
                   </button>
                   <button
-                    className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                    className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={cancel}
                     type="button"
                   >
@@ -338,7 +338,7 @@ export default function NewArt({ collectionId }: Props) {
         <h3 className="w-full bg-brand-red text-2xl text-brand-white">Error</h3>
         <p>Invalid collection</p>
         <button
-          className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+          className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={toggleAddingArt}
           type="button"
         >

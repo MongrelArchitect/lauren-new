@@ -65,7 +65,7 @@ export default function NewCollection() {
   return (
     <>
       <button
-        className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+        className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleNewCollection}
         type="button"
       >
@@ -83,14 +83,12 @@ export default function NewCollection() {
           ) : (
             <div className="flex w-full flex-col items-start gap-2 p-2">
               <div className="flex w-full flex-col gap-1">
-                  <div className="flex flex-wrap items-center justify-between">
-                    <label htmlFor="name">Name:</label>
-                    {attempted && !name.valid ? (
-                      <div className="text-brand-red">
-                        Name required
-                      </div>
-                    ) : null}
-                  </div>
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="name">Name:</label>
+                  {attempted && !name.valid ? (
+                    <div className="text-brand-red">Name required</div>
+                  ) : null}
+                </div>
                 <input
                   className={`${
                     attempted
@@ -107,14 +105,14 @@ export default function NewCollection() {
               </div>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >

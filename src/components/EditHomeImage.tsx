@@ -134,7 +134,7 @@ export default function EditProfileImage({ imageURL }: Props) {
                 }}
                 onDrop={handleDropFile}
               >
-                <div className="cursor-pointer bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                <div className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
                   Choose File
                 </div>
                 <span>or drop file here</span>
@@ -158,14 +158,14 @@ export default function EditProfileImage({ imageURL }: Props) {
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
@@ -188,7 +188,7 @@ export default function EditProfileImage({ imageURL }: Props) {
     <>
       {displayForm()}
       <button
-        className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+        className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={edit}
         type="button"
       >

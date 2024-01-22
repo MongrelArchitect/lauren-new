@@ -85,7 +85,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
           </div>
           <div className="flex gap-2">
             <button
-              className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black disabled:cursor-not-allowed disabled:bg-brand-dark-gray disabled:text-brand-gray disabled:hover:outline-brand-black"
+              className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black disabled:cursor-not-allowed disabled:bg-brand-dark-gray disabled:text-brand-gray disabled:hover:outline-brand-black"
               disabled={!acknowledged}
               onClick={confirmDelete}
               type="button"
@@ -93,7 +93,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
               Delete
             </button>
             <button
-              className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+              className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={cancel}
               type="button"
             >
@@ -106,14 +106,14 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
     return (
       <div className="flex gap-2">
         <button
-          className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+          className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={confirmDelete}
           type="button"
         >
           Delete
         </button>
         <button
-          className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+          className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={cancel}
           type="button"
         >
@@ -184,7 +184,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
   return (
     <>
       <button
-        className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+        className="border-2 border-brand-black bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleConfirming}
         type="button"
       >

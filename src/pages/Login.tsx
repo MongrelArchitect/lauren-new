@@ -96,7 +96,7 @@ export default function Login() {
               attempted
                 ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
                 : null
-            } border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+            } border-2 border-brand-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
             required
             type="email"
             value={formInfo.email || ""}
@@ -112,14 +112,14 @@ export default function Login() {
               attempted
                 ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
                 : null
-            } border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+            } border-2 border-brand-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
             required
             type="password"
             value={formInfo.password || ""}
           />
         </div>
         <button
-          className="border-2 border-black bg-brand-blue p-2 text-brand-white"
+          className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={attemptLogin}
           type="button"
         >
