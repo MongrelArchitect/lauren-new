@@ -58,8 +58,6 @@ export default function NewCollection() {
         }
         setError(message);
       }
-    } else {
-      setError("Name required");
     }
     setLoading(false);
   };
@@ -85,7 +83,14 @@ export default function NewCollection() {
           ) : (
             <div className="flex w-full flex-col items-start gap-2 p-2">
               <div className="flex w-full flex-col gap-1">
-                <label htmlFor="name">Name (required):</label>
+                  <div className="flex flex-wrap items-center justify-between">
+                    <label htmlFor="name">Name:</label>
+                    {attempted && !name.valid ? (
+                      <div className="text-brand-red">
+                        Name required
+                      </div>
+                    ) : null}
+                  </div>
                 <input
                   className={`${
                     attempted
@@ -109,7 +114,7 @@ export default function NewCollection() {
                   Submit
                 </button>
                 <button
-                  className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
