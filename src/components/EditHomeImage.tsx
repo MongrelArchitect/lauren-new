@@ -2,6 +2,7 @@ import { useState } from "react";
 import Loading from "./Loading";
 import Modal from "./Modal";
 import { updateHomeImage } from "@util/database";
+import fileIcon from "@assets/icons/file-alert.svg";
 
 interface Props {
   imageURL: string;
@@ -86,6 +87,16 @@ export default function EditProfileImage({ imageURL }: Props) {
     });
   };
 
+  const setFilePreviewURL = () => {
+    if (newImage.file && checkImageValidity(newImage.file)) {
+      return URL.createObjectURL(newImage.file);
+    }
+    if (newImage.file && !checkImageValidity(newImage.file)) {
+      return fileIcon;
+    }
+    return imageURL;
+  };
+
   const displayForm = () => {
     return (
       <Modal close={cancel} visible={editing}>
@@ -94,19 +105,25 @@ export default function EditProfileImage({ imageURL }: Props) {
             Edit Homepage Image
           </h3>
           {loading ? (
-            <div className="flex items-center justify-center p-4 min-h-[300px]">
+            <div className="flex min-h-[300px] items-center justify-center p-4">
               <Loading />
             </div>
           ) : (
             <div className="flex flex-col items-start gap-2 p-2">
+              <div className="flex flex-wrap items-center justify-between self-stretch">
+                <div>Image:</div>
+                {attempted && !newImage.valid ? (
+                  <div className="text-brand-red">Image required</div>
+                ) : null}
+              </div>
               <img
                 alt="Homepage image"
-                className="max-h-[400px] self-center border-2 border-brand-red p-1"
-                src={
-                  newImage.file && checkImageValidity(newImage.file)
-                    ? URL.createObjectURL(newImage.file)
-                    : imageURL
-                }
+                className={`${
+                  newImage.file && !checkImageValidity(newImage.file)
+                    ? "red-icon"
+                    : null
+                } max-h-[400px] self-center border-2 border-brand-red p-1`}
+                src={setFilePreviewURL()}
               />
               <label
                 className="flex h-[160px] w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black"
@@ -121,7 +138,10 @@ export default function EditProfileImage({ imageURL }: Props) {
                   Choose File
                 </div>
                 <span>or drop file here</span>
-                {newImage.file ? <span>{newImage.file.name}</span> : null}
+                {newImage.file ? <span className="text-base">{newImage.file.name}</span> : null}
+                {newImage.file && !newImage.valid ? (
+                  <div className="text-brand-red text-base">Not a valid image file!</div>
+                ) : null}
               </label>
               <input
                 accept="image/*"
@@ -148,13 +168,10 @@ export default function EditProfileImage({ imageURL }: Props) {
                   Cancel
                 </button>
               </div>
-              {attempted && !newImage.valid ? (
-                <div className="w-full bg-brand-red p-2 text-brand-white">
-                  Image required
-                </div>
-              ) : null}
               {attempted && error ? (
-                <div className="w-full bg-brand-red p-2">{error}</div>
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  {error}
+                </div>
               ) : null}
             </div>
           )}
