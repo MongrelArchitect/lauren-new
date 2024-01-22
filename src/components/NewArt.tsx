@@ -154,7 +154,7 @@ export default function NewArt({ collectionId }: Props) {
 
   const addArtButton = (
     <button
-      className="w-full max-w-[200px] bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+      className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
       onClick={toggleAddingArt}
       type="button"
     >

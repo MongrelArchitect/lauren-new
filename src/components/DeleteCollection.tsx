@@ -176,7 +176,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
   return (
     <>
       <button
-        className="w-full max-w-[200px] bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+        className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleConfirming}
         type="button"
       >

@@ -147,7 +147,10 @@ export default function Gallery() {
   const displayThumbs = () => {
     if (art) {
       if (artIds && artIds.length) {
-        return artIds.map((artId) => {
+        return (
+          <div className="grid grid-cols-gallery justify-items-center gap-4">
+            {
+        artIds.map((artId) => {
           const currentArt = art[artId];
           return (
             <ArtThumb
@@ -158,9 +161,14 @@ export default function Gallery() {
               setEditingArt={setEditingArt}
             />
           );
-        });
+        })
+            }
+          </div>
+        )
       }
-      return <div>No art in this collection.</div>;
+      return (
+        <div>No art in this collection.</div>
+      );
     }
     return null;
   };
@@ -181,7 +189,7 @@ export default function Gallery() {
           {currentCollection.name.toUpperCase()}
         </h1>
         {inDashboard ? (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             <NewArt collectionId={collectionId} />
             <DeleteCollection
               art={art}
@@ -197,11 +205,14 @@ export default function Gallery() {
           closeArtDetail={closeArtDetail}
           setArtDetail={setArtDetail}
         />
-        <div className="grid grid-cols-gallery justify-items-center gap-4">
-          {displayThumbs()}
-        </div>
+        {displayThumbs()}
       </div>
     );
   }
-  return <div>Invalid collection</div>;
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <h1 className="bg-brand-red p-2 text-3xl text-brand-white">Error</h1>
+      <p className="p-2">Invalid collection.</p>
+    </div>
+  );
 }
