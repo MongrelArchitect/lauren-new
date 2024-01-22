@@ -181,13 +181,13 @@ export default function Gallery() {
           {currentCollection.name.toUpperCase()}
         </h1>
         {inDashboard ? (
-          <div>
+          <div className="flex gap-2 flex-wrap">
+            <NewArt collectionId={collectionId} />
             <DeleteCollection
               art={art}
               artCount={artIds ? artIds.length : 0}
               collection={currentCollection}
             />
-            <NewArt collectionId={collectionId} />
           </div>
         ) : null}
         <ArtDetail

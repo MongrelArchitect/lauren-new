@@ -132,11 +132,6 @@ export default function EditProfileImage({ imageURL }: Props) {
                 type="file"
               />
 
-              {attempted && !newImage.valid ? (
-                <div className="w-full bg-brand-red p-2 text-brand-white">
-                  Image required
-                </div>
-              ) : null}
               <div className="flex flex-wrap gap-2">
                 <button
                   className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
@@ -146,13 +141,18 @@ export default function EditProfileImage({ imageURL }: Props) {
                   Submit
                 </button>
                 <button
-                  className="bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
                   Cancel
                 </button>
               </div>
+              {attempted && !newImage.valid ? (
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  Image required
+                </div>
+              ) : null}
               {attempted && error ? (
                 <div className="w-full bg-brand-red p-2">{error}</div>
               ) : null}

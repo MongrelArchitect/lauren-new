@@ -176,11 +176,11 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
   return (
     <>
       <button
-        className="mt-4 rounded border-2 border-gray-800 bg-gray-300 p-1"
+        className="w-full max-w-[200px] bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleConfirming}
         type="button"
       >
-        DELETE COLLECTION
+        - Delete Collection
       </button>
       {displayForm()}
     </>

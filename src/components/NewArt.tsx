@@ -152,15 +152,13 @@ export default function NewArt({ collectionId }: Props) {
   };
 
   const addArtButton = (
-    <div>
-      <button
-        className="mt-4 rounded border-2 border-gray-800 bg-purple-300 p-1"
-        onClick={toggleAddingArt}
-        type="button"
-      >
-        + add art
-      </button>
-    </div>
+    <button
+      className="w-full max-w-[200px] bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+      onClick={toggleAddingArt}
+      type="button"
+    >
+      + Add Art
+    </button>
   );
 
   const displayForm = () => {
