@@ -126,7 +126,7 @@ export default function EditProfileImage({ imageURL }: Props) {
                 src={setFilePreviewURL()}
               />
               <label
-                className="flex h-[160px] w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black"
+                className="flex min-h-[160px] w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2"
                 htmlFor="image"
                 onDragOver={(e) => {
                   e.stopPropagation();
@@ -138,9 +138,13 @@ export default function EditProfileImage({ imageURL }: Props) {
                   Choose File
                 </div>
                 <span>or drop file here</span>
-                {newImage.file ? <span className="text-base">{newImage.file.name}</span> : null}
+                {newImage.file ? (
+                  <span className="text-base">{newImage.file.name}</span>
+                ) : null}
                 {newImage.file && !newImage.valid ? (
-                  <div className="text-brand-red text-base">Not a valid image file!</div>
+                  <div className="text-base text-brand-red">
+                    Not a valid image file!
+                  </div>
                 ) : null}
               </label>
               <input

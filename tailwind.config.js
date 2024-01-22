@@ -19,7 +19,7 @@ export default {
         "brand-orange": "#ff6600",
         "brand-purple": "#8a2be2",
         "brand-red": "#ee0000",
-        "brand-yellow": "#ffb300",
+        "brand-yellow": "#d6bf0f",
         "brand-white": "#fdfdfd",
       },
       gridTemplateColumns: {

@@ -18,7 +18,7 @@ export default function Modal({ children, close, visible }: Props) {
         onClick={close}
       >
         <div
-          className="fixed w-full max-w-[600px] max-h-[95svh] bg-brand-white text-xl shadow-black shadow-lg"
+          className="fixed max-h-[95svh] w-full max-w-[600px] overflow-auto bg-brand-white text-xl shadow-lg shadow-black"
           onClick={(event: React.MouseEvent) => {
             event.stopPropagation();
           }}

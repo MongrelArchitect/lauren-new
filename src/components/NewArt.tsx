@@ -4,6 +4,7 @@ import { addNewArt } from "@util/database";
 import { ArtFormInfo } from "@customTypes/art";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import fileIcon from "@assets/icons/file-alert.svg";
 
 interface Props {
   collectionId: string | undefined;
@@ -161,97 +162,171 @@ export default function NewArt({ collectionId }: Props) {
     </button>
   );
 
+  const setFilePreviewURL = () => {
+    if (formInfo.image && checkImageValidity(formInfo.image)) {
+      return URL.createObjectURL(formInfo.image);
+    }
+    return fileIcon;
+  };
+
   const displayForm = () => {
     if (currentCollection) {
       return (
         <Modal close={cancel} visible={addingArt}>
           <form className="flex flex-col items-start gap-2">
-            <h3 className="text-2xl">New Art</h3>
-            <p>{`Adding to collection "${currentCollection.name.toUpperCase()}"`}</p>
+            <h3 className="flex w-full flex-wrap gap-2 bg-brand-red p-2 text-2xl text-brand-white">
+              <span>New Art</span>
+              <div>{`(in "${currentCollection.name.toUpperCase()}")`}</div>
+            </h3>
             {loading ? (
-              <Loading />
+              <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+                <Loading />
+              </div>
             ) : (
-              <>
-                <div>(Fields marked with * are required)</div>
-                <label htmlFor="title">Title*</label>
-                <input
-                  className="w-full rounded border-2 border-gray-500 p-1"
-                  id="title"
-                  onChange={handleChange}
-                  placeholder="ex: Untitled"
-                  required
-                  type="text"
-                  value={formInfo.title || ""}
-                />
-                {attempted && !formInfo.validTitle ? (
-                  <div className="bg-red-300 p-1">Title required</div>
-                ) : null}
-                <label htmlFor="medium">Medium*</label>
-                <input
-                  className="w-full rounded border-2 border-gray-500 p-1"
-                  id="medium"
-                  onChange={handleChange}
-                  placeholder="ex: Oil on canvas"
-                  required
-                  type="text"
-                  value={formInfo.medium || ""}
-                />
-                {attempted && !formInfo.validMedium ? (
-                  <div className="bg-red-300 p-1">Medium required</div>
-                ) : null}
-                <label htmlFor="medium">Size*</label>
-                <input
-                  className="w-full rounded border-2 border-gray-500 p-1"
-                  id="size"
-                  onChange={handleChange}
-                  placeholder={`ex: 36" x 24"`}
-                  required
-                  type="text"
-                  value={formInfo.size || ""}
-                />
-                {attempted && !formInfo.validSize ? (
-                  <div className="bg-red-300 p-1">Size required</div>
-                ) : null}
-                <label htmlFor="sold">Sold:</label>
-                <input
-                  className="h-6 w-6"
-                  checked={formInfo.sold || false}
-                  id="sold"
-                  onChange={handleChange}
-                  type="checkbox"
-                />
-                <label htmlFor="image">Image*</label>
-                <input
-                  accept="image/*"
-                  className="w-full rounded border-2 border-gray-500 p-1"
-                  id="image"
-                  onChange={handleChange}
-                  required
-                  type="file"
-                />
-                {attempted && !formInfo.validImage ? (
-                  <div className="bg-red-300 p-1">Image required</div>
-                ) : null}
+              <div className="flex w-full flex-col items-start gap-2 p-2">
+                <div className="flex w-full flex-col gap-1">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <label htmlFor="title">Title</label>
+                    {attempted && !formInfo.validTitle ? (
+                      <div className="text-brand-red">Title required</div>
+                    ) : null}
+                  </div>
+                  <input
+                    className={`${
+                      attempted
+                        ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                        : null
+                    } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                    id="title"
+                    onChange={handleChange}
+                    placeholder="ex: Untitled"
+                    required
+                    type="text"
+                    value={formInfo.title || ""}
+                  />
+                </div>
+                <div className="flex w-full flex-col gap-1">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <label htmlFor="medium">Medium</label>
+                    {attempted && !formInfo.validMedium ? (
+                      <div className="text-brand-red">Medium required</div>
+                    ) : null}
+                  </div>
+                  <input
+                    className={`${
+                      attempted
+                        ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                        : null
+                    } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                    id="medium"
+                    onChange={handleChange}
+                    placeholder="ex: Oil on canvas"
+                    required
+                    type="text"
+                    value={formInfo.medium || ""}
+                  />
+                </div>
+                <div className="flex w-full flex-col gap-1">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <label htmlFor="medium">Size</label>
+                    {attempted && !formInfo.validSize ? (
+                      <div className="text-brand-red">Size required</div>
+                    ) : null}
+                  </div>
+                  <input
+                    className={`${
+                      attempted
+                        ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                        : null
+                    } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                    id="size"
+                    onChange={handleChange}
+                    placeholder={`ex: 36" x 24"`}
+                    required
+                    type="text"
+                    value={formInfo.size || ""}
+                  />
+                </div>
+                <div className="flex w-full flex-col gap-1">
+                  <label htmlFor="sold">Sold:</label>
+                  <input
+                    className="h-6 w-6 accent-brand-blue"
+                    checked={formInfo.sold || false}
+                    id="sold"
+                    onChange={handleChange}
+                    type="checkbox"
+                  />
+                </div>
+
+                <div className="flex w-full flex-col gap-1">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <div>Image:</div>
+                    {attempted && !formInfo.validImage ? (
+                      <div className="text-brand-red">Image required</div>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    <label
+                      className="flex min-h-[160px] flex-1 flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2 text-center"
+                      htmlFor="image"
+                    >
+                      <div className="cursor-pointer bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                        Choose File
+                      </div>
+                      <span>or drop file here</span>
+                      {formInfo.image ? (
+                        <span className="text-base">{formInfo.image.name}</span>
+                      ) : null}
+                      {formInfo.image && !formInfo.validImage ? (
+                        <div className="text-base text-brand-red">
+                          Not a valid image file!
+                        </div>
+                      ) : null}
+                    </label>
+                    <input
+                      accept="image/*"
+                      hidden
+                      id="image"
+                      onChange={handleChange}
+                      required
+                      type="file"
+                    />
+                    {formInfo.image ? (
+                      <img
+                        alt="Homepage image"
+                        className={`${
+                          formInfo.image && !checkImageValidity(formInfo.image)
+                            ? "red-icon"
+                            : null
+                        } max-h-[160px] self-center border-2 border-brand-red p-1`}
+                        src={setFilePreviewURL()}
+                      />
+                    ) : null}
+                  </div>
+                </div>
+
                 <div className="flex flex-wrap gap-2">
                   <button
-                    className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                    className="bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={submit}
                     type="button"
                   >
                     Submit
                   </button>
                   <button
-                    className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                    className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={cancel}
                     type="button"
                   >
                     Cancel
                   </button>
                   {attempted && error ? (
-                    <div className="bg-red-300 p-1">{error}</div>
+                    <div className="w-full bg-brand-red p-2 text-brand-white">
+                      {error}
+                    </div>
                   ) : null}
                 </div>
-              </>
+              </div>
             )}
           </form>
         </Modal>
@@ -260,10 +335,10 @@ export default function NewArt({ collectionId }: Props) {
 
     return (
       <Modal close={cancel} visible={addingArt}>
-        <h3 className="text-2xl">Error</h3>
+        <h3 className="w-full bg-brand-red text-2xl text-brand-white">Error</h3>
         <p>Invalid collection</p>
         <button
-          className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+          className="bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={toggleAddingArt}
           type="button"
         >
