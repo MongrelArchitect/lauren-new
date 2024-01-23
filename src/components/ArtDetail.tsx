@@ -56,7 +56,7 @@ export default function ArtDetail({
         <div className="relative flex min-h-[640px] flex-col items-center gap-2">
           <div className="flex w-full items-center justify-between gap-3 bg-brand-gray text-brand-black">
             <button
-              className="flex-shrink-0 bg-brand-red hover:bg-brand-dark-gray self-start"
+              className="flex-shrink-0 self-start bg-brand-red hover:bg-brand-dark-gray"
               onClick={closeArtDetail}
               type="button"
             >
@@ -89,14 +89,13 @@ export default function ArtDetail({
             <p>{artDetail.size.toUpperCase()}</p>
             {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
           </div>
-
-          <ArtNav
-            adjacent={adjacent}
-            next={adjacent.next}
-            prev={adjacent.prev}
-            setArtDetail={setArtDetail}
-          />
         </div>
+        <ArtNav
+          adjacent={adjacent}
+          next={adjacent.next}
+          prev={adjacent.prev}
+          setArtDetail={setArtDetail}
+        />
       </Modal>
     );
   }

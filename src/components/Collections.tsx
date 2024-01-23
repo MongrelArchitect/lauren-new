@@ -40,6 +40,7 @@ export default function Collections() {
         Collections
       </h2>
       <div className="flex flex-col items-start gap-2">
+        <p>Choose a collection below to view and edit its art:</p>
         {displayCollections()}
         <NewCollection />
       </div>

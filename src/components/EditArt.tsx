@@ -202,20 +202,23 @@ export default function EditArt({
     if (confirmingDelete) {
       return (
         <div className="flex w-full flex-col gap-2">
-          <div className="bg-red-300 p-1">Confirm Delete</div>
-          <div className="p-1 text-band-red">
-            Are you sure? This cannot be undone!
+          <div className="bg-brand-orange p-2 text-brand-white">
+            Confirm Delete
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-1 text-brand-red">
+            <span>Are you sure?</span>
+            <strong>This cannot be undone!</strong>
+          </div>
+          <div className="flex flex-wrap gap-2">
             <button
-              className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+              className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={confirmDelete}
               type="button"
             >
               Delete
             </button>
             <button
-              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+              className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={toggleConfirm}
               type="button"
             >
@@ -228,21 +231,21 @@ export default function EditArt({
     return (
       <div className="flex flex-wrap gap-2">
         <button
-          className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={submit}
           type="button"
         >
           Submit
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={toggleConfirm}
           type="button"
         >
           Delete
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={cancel}
           type="button"
         >
@@ -260,11 +263,8 @@ export default function EditArt({
       return collectionIds.map((collectionId) => {
         const collection = collections[collectionId];
         return (
-          <option
-            key={collectionId}
-            value={collectionId}
-          >
-            {collection.name}
+          <option key={collectionId} value={collectionId}>
+            {collection.name.toUpperCase()}
           </option>
         );
       });
@@ -274,82 +274,118 @@ export default function EditArt({
 
   return (
     <>
-      <h3 className="text-2xl">Edit Art</h3>
       {loading ? <Loading overlay /> : null}
-        <>
-          <img
-            alt={artDetail.title}
-            className="max-h-[320px]"
-            onLoad={() => {
-              setLoading(false);
-            }}
-            src={artDetail.imageURL ? artDetail.imageURL : ""}
-          />
-          <form className="flex flex-col items-start gap-2">
-            <div>(Fields marked with * are required)</div>
-            <label htmlFor="collection">Collection*</label>
-            <select
-              className="w-full bg-brand-white rounded border-2 border-gray-500 p-1"
-              id="collection"
-              onChange={handleChange}
-              defaultValue={artDetail.collection}
-            >
-              {displayCollectionOptions()}
-            </select>
-            <label htmlFor="title">Title*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="title"
-              onChange={handleChange}
-              placeholder="ex: Untitled"
-              required
-              type="text"
-              value={formInfo.title || ""}
+      <>
+        <form className="flex flex-col items-start gap-2">
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Edit Art
+          </h3>
+          <div className="flex w-full flex-col items-start gap-2 p-2">
+            <img
+              alt={artDetail.title}
+              className="max-h-[240px] self-center border-2 border-brand-red p-1"
+              onLoad={() => {
+                setLoading(false);
+              }}
+              src={artDetail.imageURL ? artDetail.imageURL : ""}
             />
-            {attempted && !formInfo.validTitle ? (
-              <div className="bg-red-300 p-1">Title required</div>
-            ) : null}
-            <label htmlFor="medium">Medium*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="medium"
-              onChange={handleChange}
-              placeholder="ex: Oil on canvas"
-              required
-              type="text"
-              value={formInfo.medium || ""}
-            />
-            {attempted && !formInfo.validMedium ? (
-              <div className="bg-red-300 p-1">Medium required</div>
-            ) : null}
-            <label htmlFor="medium">Size*</label>
-            <input
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="size"
-              onChange={handleChange}
-              placeholder={`ex: 36" x 24"`}
-              required
-              type="text"
-              value={formInfo.size || ""}
-            />
-            {attempted && !formInfo.validSize ? (
-              <div className="bg-red-300 p-1">Size required</div>
-            ) : null}
-            <label htmlFor="sold">Sold:</label>
-            <input
-              className="h-6 w-6"
-              checked={formInfo.sold || false}
-              id="sold"
-              onChange={handleChange}
-              type="checkbox"
-            />
+            <div className="flex w-full flex-col gap-1">
+              <label htmlFor="collection">Collection</label>
+              <select
+                className="w-full border-2 border-black bg-brand-white p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue"
+                id="collection"
+                onChange={handleChange}
+                defaultValue={artDetail.collection}
+              >
+                {displayCollectionOptions()}
+              </select>
+            </div>
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex flex-wrap items-center justify-between">
+                <label htmlFor="title">Title</label>
+                {attempted && !formInfo.validTitle ? (
+                  <div className="text-brand-red">Title required</div>
+                ) : null}
+              </div>
+              <input
+                className={`${
+                  attempted
+                    ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                    : null
+                } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                id="title"
+                onChange={handleChange}
+                placeholder="ex: Untitled"
+                required
+                type="text"
+                value={formInfo.title || ""}
+              />
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex flex-wrap items-center justify-between">
+                <label htmlFor="medium">Medium</label>
+                {attempted && !formInfo.validMedium ? (
+                  <div className="text-brand-red">Medium required</div>
+                ) : null}
+              </div>
+              <input
+                className={`${
+                  attempted
+                    ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                    : null
+                } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                id="medium"
+                onChange={handleChange}
+                placeholder="ex: Oil on canvas"
+                required
+                type="text"
+                value={formInfo.medium || ""}
+              />
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <div className="flex flex-wrap items-center justify-between">
+                <label htmlFor="medium">Size</label>
+                {attempted && !formInfo.validSize ? (
+                  <div className="text-brand-red">Size required</div>
+                ) : null}
+              </div>
+              <input
+                className={`${
+                  attempted
+                    ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                    : null
+                } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                id="size"
+                onChange={handleChange}
+                placeholder={`ex: 36" x 24"`}
+                required
+                type="text"
+                value={formInfo.size || ""}
+              />
+            </div>
+
+            <div className="flex w-full flex-col gap-1">
+              <label htmlFor="sold">Sold:</label>
+              <input
+                className="h-6 w-6 accent-brand-blue"
+                checked={formInfo.sold || false}
+                id="sold"
+                onChange={handleChange}
+                type="checkbox"
+              />
+            </div>
             {displayControls()}
             {attempted && error ? (
-              <div className="bg-red-300 p-1">{error}</div>
+              <div className="w-full bg-brand-red p-2 text-brand-white">
+                {error}
+              </div>
             ) : null}
-          </form>
-          {children}
-        </>
+          </div>
+        </form>
+        {children}
+      </>
     </>
   );
 }

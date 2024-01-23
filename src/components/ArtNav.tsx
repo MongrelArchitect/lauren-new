@@ -29,11 +29,11 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
   };
 
   return (
-    <div className="flex justify-between gap-2">
+    <div className="flex justify-between gap-2 w-full bg-brand-gray">
       {prev ? (
         <button
           id="prev"
-          className="absolute bottom-0 left-0 bg-brand-red hover:bg-brand-dark-gray"
+          className="relative bottom-0 left-0 bg-brand-red hover:outline hover:outline-brand-black"
           data-direction="prev"
           onClick={handleClick}
           type="button"
@@ -52,7 +52,7 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       {next ? (
         <button
           id="next"
-          className="absolute bottom-0 right-0 bg-brand-red hover:bg-brand-dark-gray"
+          className="relative bottom-0 right-0 bg-brand-red hover:outline hover:outline-brand-black"
           data-direction="next"
           onClick={handleClick}
           type="button"
