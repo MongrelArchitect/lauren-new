@@ -72,7 +72,7 @@ export default function NewCollection() {
         + New Collection
       </button>
       <Modal close={cancel} visible={modalVisible}>
-        <form className="flex flex-col items-start gap-2">
+        <form>
           <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
             New Collection
           </h3>
@@ -84,7 +84,7 @@ export default function NewCollection() {
             <div className="flex w-full flex-col items-start gap-2 p-2">
               <div className="flex w-full flex-col gap-1">
                 <div className="flex flex-wrap items-center justify-between">
-                  <label htmlFor="name">Name:</label>
+                  <label htmlFor="name">Name</label>
                   {attempted && !name.valid ? (
                     <div className="text-brand-red">Name required</div>
                   ) : null}

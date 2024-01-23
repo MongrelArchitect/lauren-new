@@ -71,47 +71,61 @@ export default function EditBio({ bio }: Props) {
   return (
     <>
       <Modal close={cancel} visible={editing}>
-        <h3 className="text-2xl">Edit Bio</h3>
-        {loading ? (
-          <Loading />
-        ) : (
-          <form className="flex flex-col items-start gap-2">
-            <label htmlFor="bio">Bio:</label>
-            <textarea
-              className="w-full resize-none rounded border-2 border-black p-1"
-              id="bio"
-              onChange={changeBio}
-              required
-              rows={16}
-              value={formInfo.bio || ""}
-            />
-            {attempted && !formInfo.valid ? (
-              <div className="bg-red-300 p-1">Bio text required</div>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button
-                className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                onClick={submit}
-                type="button"
-              >
-                Submit
-              </button>
-              <button
-                className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                onClick={cancel}
-                type="button"
-              >
-                Cancel
-              </button>
+        <form>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Edit Bio
+          </h3>
+          {loading ? (
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
             </div>
-            {attempted && error ? (
-              <div className="bg-red-300 p-1">{error}</div>
-            ) : null}
-          </form>
-        )}
+          ) : (
+            <div className="flex w-full flex-col items-start gap-2 p-2">
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="bio">Bio</label>
+                  {attempted && !formInfo.valid ? (
+                    <div className="text-brand-red">Name required</div>
+                  ) : null}
+                </div>
+                <textarea
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full resize-none border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  id="bio"
+                  onChange={changeBio}
+                  required
+                  rows={16}
+                  value={formInfo.bio || ""}
+                />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  onClick={submit}
+                  type="button"
+                >
+                  Submit
+                </button>
+                <button
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  onClick={cancel}
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </div>
+              {attempted && error ? (
+                <div className="bg-red-300 p-1">{error}</div>
+              ) : null}
+            </div>
+          )}
+        </form>
       </Modal>
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={edit}
         type="button"
       >
