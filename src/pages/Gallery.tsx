@@ -167,7 +167,7 @@ export default function Gallery() {
         )
       }
       return (
-        <div>No art in this collection.</div>
+        <div className="text-xl">No art in this collection.</div>
       );
     }
     return null;

@@ -75,20 +75,23 @@ export default function ArtDetail({
             <div className="h-[40px] w-[40px] flex-shrink-0" />
           </div>
 
-          <img
-            className="max-h-[500px] border-2 border-brand-red p-1"
-            alt={artDetail.title}
-            src={artDetail.imageURL ? artDetail.imageURL : ""}
-            onLoad={() => {
-              setLoading(false);
-            }}
-          />
+          <div className="p-2 flex flex-col items-center gap-2">
+            <img
+              className="max-h-[500px] border-2 border-brand-red p-1"
+              alt={artDetail.title}
+              src={artDetail.imageURL ? artDetail.imageURL : ""}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
 
-          <div className="text-center">
-            <p>{artDetail.medium.toUpperCase()}</p>
-            <p>{artDetail.size.toUpperCase()}</p>
-            {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
+            <div className="text-center">
+              <p>{artDetail.medium.toUpperCase()}</p>
+              <p>{artDetail.size.toUpperCase()}</p>
+              {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
+            </div>
           </div>
+
         </div>
         <ArtNav
           adjacent={adjacent}
