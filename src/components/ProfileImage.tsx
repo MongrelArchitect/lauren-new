@@ -12,7 +12,7 @@ export default function ProfileImage({ image, inDashboard }: Props) {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start gap-2">
       {inDashboard ? <EditProfileImage imageURL={image.imageURL} /> : null}
       <div className="relative min-h-[200px] min-w-[200px]">
         {loading ? <Loading overlay /> : null}

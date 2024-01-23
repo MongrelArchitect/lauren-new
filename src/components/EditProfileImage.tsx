@@ -2,6 +2,7 @@ import { useState } from "react";
 import Loading from "./Loading";
 import Modal from "./Modal";
 import { updateProfileImage } from "@util/database";
+import fileIcon from "@assets/icons/file-alert.svg";
 
 interface Props {
   imageURL: string;
@@ -76,59 +77,109 @@ export default function EditProfileImage({ imageURL }: Props) {
     }
   };
 
+  const handleDropFile = (event: React.DragEvent) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    setError(null);
+    setNewImage({
+      file,
+      valid: checkImageValidity(file),
+    });
+  };
+
+  const setFilePreviewURL = () => {
+    if (newImage.file && checkImageValidity(newImage.file)) {
+      return URL.createObjectURL(newImage.file);
+    }
+    if (newImage.file && !checkImageValidity(newImage.file)) {
+      return fileIcon;
+    }
+    return imageURL;
+  };
+
   return (
     <>
       <Modal close={cancel} visible={editing}>
-        <h3 className="text-2xl">Edit Image</h3>
-        {loading ? (
-          <Loading />
-        ) : (
-          <form className="flex flex-col items-start gap-2">
-            <label htmlFor="image">Image</label>
-            <img
-              alt="Profile image"
-              className="max-h-[300px]"
-              src={
-                newImage.file && checkImageValidity(newImage.file)
-                  ? URL.createObjectURL(newImage.file)
-                  : imageURL
-              }
-            />
-            <input
-              accept="image/*"
-              className="w-full rounded border-2 border-gray-500 p-1"
-              id="image"
-              onChange={changeImage}
-              required
-              type="file"
-            />
-            {attempted && !newImage.valid ? (
-              <div className="bg-red-300 p-1">Image required</div>
-            ) : null}
-            <div className="flex flex-wrap gap-2">
-              <button
-                className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
-                onClick={submit}
-                type="button"
-              >
-                Submit
-              </button>
-              <button
-                className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-                onClick={cancel}
-                type="button"
-              >
-                Cancel
-              </button>
+        <form>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Edit Image
+          </h3>
+          {loading ? (
+            <div className="flex min-h-[300px] items-center justify-center p-4">
+              <Loading />
             </div>
-            {attempted && error ? (
-              <div className="bg-red-300 p-1">{error}</div>
-            ) : null}
-          </form>
-        )}
+          ) : (
+            <div className="flex flex-col items-start gap-2 p-2">
+              <div className="flex flex-wrap items-center justify-between self-stretch">
+                <div>Image</div>
+                {attempted && !newImage.valid ? (
+                  <div className="text-brand-red">Image required</div>
+                ) : null}
+              </div>
+              <img
+                alt="Profile image"
+                className={`${
+                  newImage.file && !checkImageValidity(newImage.file)
+                    ? "red-icon"
+                    : null
+                } max-h-[400px] self-center border-2 border-brand-red p-1`}
+                src={setFilePreviewURL()}
+              />
+              <label
+                className="flex min-h-[160px] w-full flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2"
+                htmlFor="image"
+                onDragOver={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+                onDrop={handleDropFile}
+              >
+                <div className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                  Choose File
+                </div>
+                <span>or drop file here</span>
+                {newImage.file ? (
+                  <span className="text-base">{newImage.file.name}</span>
+                ) : null}
+                {newImage.file && !newImage.valid ? (
+                  <div className="text-base text-brand-red">
+                    Not a valid image file!
+                  </div>
+                ) : null}
+              </label>
+              <input
+                accept="image/*"
+                hidden
+                id="image"
+                onChange={changeImage}
+                required
+                type="file"
+              />
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  onClick={submit}
+                  type="button"
+                >
+                  Submit
+                </button>
+                <button
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  onClick={cancel}
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </div>
+              {attempted && error ? (
+                <div className="bg-red-300 p-1">{error}</div>
+              ) : null}
+            </div>
+          )}
+        </form>
       </Modal>
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={edit}
         type="button"
       >

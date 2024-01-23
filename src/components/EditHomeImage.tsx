@@ -111,7 +111,7 @@ export default function EditProfileImage({ imageURL }: Props) {
           ) : (
             <div className="flex flex-col items-start gap-2 p-2">
               <div className="flex flex-wrap items-center justify-between self-stretch">
-                <div>Image:</div>
+                <div>Image</div>
                 {attempted && !newImage.valid ? (
                   <div className="text-brand-red">Image required</div>
                 ) : null}
