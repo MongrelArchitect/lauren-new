@@ -46,7 +46,7 @@ export default function Nav() {
 
   const displayLinks = () => {
     return (
-      <ul className="flex gap-4 text-2xl max-lg:flex-col">
+      <ul className="flex gap-4 text-2xl max-lg:flex-col p-2">
         <li>
           <NavLink
             className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
@@ -126,11 +126,13 @@ export default function Nav() {
         <div
           className={`${
             menuVisible ? null : "translate-x-[110%]"
-          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-gray p-2 transition-transform`}
+          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white transition-transform`}
         >
-          <button className="self-end" onClick={closeMenu} type="button">
-            <img alt="menu" className="red-icon h-[40px]" src={closeIcon} />
-          </button>
+          <div className="bg-brand-gray w-full flex justify-end">
+            <button className="bg-brand-red hover:outline focus:outline hover:outline-brand-black focus:outline-brand-black" onClick={closeMenu} type="button">
+              <img alt="menu" className="invert h-[40px]" src={closeIcon} />
+            </button>
+          </div>
           {displayLinks()}
         </div>
       </div>
