@@ -28,43 +28,49 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
   });
 
   return (
-    <div>
+    <div className="flex flex-col items-start gap-2">
       {inDashboard ? <NewExhibition /> : null}
-      <button
-        className={`${
-          exhibitionsVisible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
-        } flex w-full items-center justify-between gap-3 p-2`}
-        onClick={toggleExhibitionsVisible}
-        title={`${exhibitionsVisible ? "hide" : "show"} exhibitions`}
-        type="button"
-      >
-        <h2 className="text-2xl">Selected Exhibitions</h2>
-        <img
-          alt=""
+      <div>
+        <button
           className={`${
-            exhibitionsVisible ? "rotate-180 invert" : ""
-          } h-[12px] transition-transform`}
-          src={downIcon}
-        />
-      </button>
+            exhibitionsVisible
+              ? "bg-brand-red text-brand-white"
+              : "bg-brand-gray text-brand-black"
+          } flex w-full items-center justify-between gap-3 p-2`}
+          onClick={toggleExhibitionsVisible}
+          title={`${exhibitionsVisible ? "hide" : "show"} exhibitions`}
+          type="button"
+        >
+          <h2 className="text-2xl">Selected Exhibitions</h2>
+          <img
+            alt=""
+            className={`${
+              exhibitionsVisible ? "rotate-180 invert" : ""
+            } h-[12px] transition-transform`}
+            src={downIcon}
+          />
+        </button>
 
-      <ul 
-        className={`${
-          exhibitionsVisible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-        } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
-      >
-        {exhibitionIds.map((exhibitionId, index) => {
-          const current = exhibitions[exhibitionId];
-          return (
-            <ExhibitionItem
-              exhibition={current}
-              exhibitionIndex={index}
-              inDashboard={inDashboard}
-              key={exhibitionId}
-            />
-          );
-        })}
-      </ul>
+        <ul
+          className={`${
+            exhibitionsVisible
+              ? "max-h-[10000px]"
+              : "max-h-0 overflow-hidden opacity-0"
+          } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
+        >
+          {exhibitionIds.map((exhibitionId, index) => {
+            const current = exhibitions[exhibitionId];
+            return (
+              <ExhibitionItem
+                exhibition={current}
+                exhibitionIndex={index}
+                inDashboard={inDashboard}
+                key={exhibitionId}
+              />
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
