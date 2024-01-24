@@ -211,7 +211,7 @@ export default function EditArt({
           </div>
           <div className="flex flex-wrap gap-2">
             <button
-              className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+              className="border-2 border-brand-black bg-brand-red p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={confirmDelete}
               type="button"
             >

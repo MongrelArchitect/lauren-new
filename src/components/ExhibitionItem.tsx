@@ -13,7 +13,11 @@ export default function ExhibitionItem({
 }: Props) {
   return (
     <>
-      <li className="flex items-center gap-4">
+      <li 
+        className={`${
+            exhibitionIndex % 2 === 0 ? "bg-brand-white" : "bg-brand-gray"
+        } flex items-center gap-4`}
+      >
         {inDashboard ? <EditExhibition exhibition={exhibition} /> : null}
         <div
           className={`${

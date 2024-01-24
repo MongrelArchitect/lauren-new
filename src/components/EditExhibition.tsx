@@ -166,20 +166,23 @@ export default function EditExhibition({ exhibition }: Props) {
     if (confirmingDelete) {
       return (
         <div className="flex w-full flex-col gap-2">
-          <div className="bg-red-300 p-1">Confirm Delete</div>
-          <div className="p-1 text-brand-red">
-            Are you sure? This cannot be undone!
+          <div className="bg-brand-orange p-2 text-brand-white">
+            Confirm Delete
+          </div>
+          <div className="flex flex-wrap gap-1 text-brand-red">
+            <span>Are you sure?</span>
+            <strong>This cannot be undone!</strong>
           </div>
           <div className="flex gap-2">
             <button
-              className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+              className="border-2 border-brand-black bg-brand-red p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={confirmDelete}
               type="button"
             >
               Delete
             </button>
             <button
-              className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+              className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
               onClick={toggleConfirm}
               type="button"
             >
@@ -192,21 +195,21 @@ export default function EditExhibition({ exhibition }: Props) {
     return (
       <div className="flex flex-wrap gap-2">
         <button
-          className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={submit}
           type="button"
         >
           Submit
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={toggleConfirm}
           type="button"
         >
           Delete
         </button>
         <button
-          className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+          className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
           onClick={cancel}
           type="button"
         >
@@ -220,68 +223,100 @@ export default function EditExhibition({ exhibition }: Props) {
     return (
       <Modal close={cancel} visible={modalVisible}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">Edit Exhibition</h3>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Edit Exhibition
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
+            <div className="flex w-full flex-col items-start gap-2 p-2">
               <div>(Fields marked with * are required)</div>
-              <label htmlFor="year">Year*</label>
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="year">Year*</label>
+                  {attempted && !year.valid ? (
+                    <div className="text-brand-red">
+                      Year required (1900 - 2100)
+                    </div>
+                  ) : null}
+                </div>
+              </div>
               <input
-                className="w-full rounded border-2 border-gray-500 p-1"
+                className={`${
+                  attempted
+                    ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                    : null
+                } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
                 type="number"
                 id="year"
                 max="2100"
                 min="1900"
                 onChange={handleChange}
                 required
-                value={year.value || 2023}
+                value={year.value || 0}
               />
-              {attempted && !year.valid ? (
-                <div className="bg-red-300 p-1">
-                  Year required (1900 - 2100)
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="title">Title*</label>
+                  {attempted && !title.valid ? (
+                    <div className="text-brand-red">Title required</div>
+                  ) : null}
                 </div>
-              ) : null}
-              <label htmlFor="title">Title*</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="text"
-                id="title"
-                onChange={handleChange}
-                placeholder="ex: Art Show"
-                required
-                value={title.value || ""}
-              />
-              {attempted && !title.valid ? (
-                <div className="bg-red-300 p-1">Title required</div>
-              ) : null}
-              <label htmlFor="gallery">Gallery</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="text"
-                id="gallery"
-                onChange={handleChange}
-                placeholder="ex: Some Gallery"
-                value={gallery || ""}
-              />
-              <label htmlFor="location">Location*</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="text"
-                id="location"
-                onChange={handleChange}
-                placeholder="ex: Los Angeles, CA"
-                required
-                value={galleryLocation.value}
-              />
-              {attempted && !galleryLocation.valid ? (
-                <div className="bg-red-300 p-1">Location required</div>
-              ) : null}
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="text"
+                  id="title"
+                  onChange={handleChange}
+                  placeholder="ex: Art Show"
+                  required
+                  value={title.value || ""}
+                />
+              </div>
+              <div className="flex w-full flex-col gap-1">
+                <label htmlFor="gallery">Gallery</label>
+                <input
+                  className="w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue"
+                  type="text"
+                  id="gallery"
+                  onChange={handleChange}
+                  placeholder="ex: Some Gallery"
+                  value={gallery || ""}
+                />
+              </div>
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="location">Location*</label>
+                  {attempted && !galleryLocation.valid ? (
+                    <div className="text-brand-red">Location required</div>
+                  ) : null}
+                </div>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="text"
+                  id="location"
+                  onChange={handleChange}
+                  placeholder="ex: Los Angeles, CA"
+                  required
+                  value={galleryLocation.value}
+                />
+              </div>
               {displayControls()}
               {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
+                <div className="w-full bg-brand-red text-brand-white">
+                  {error}
+                </div>
               ) : null}
-            </>
+            </div>
           )}
         </form>
       </Modal>
@@ -291,7 +326,7 @@ export default function EditExhibition({ exhibition }: Props) {
     <>
       {displayForm()}
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="my-2 ml-2 border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={edit}
       >
         Edit
