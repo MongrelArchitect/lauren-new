@@ -86,8 +86,8 @@ export default function ArtDetail({
             />
 
             <div className="text-center">
-              <p>{artDetail.medium.toUpperCase()}</p>
-              <p>{artDetail.size.toUpperCase()}</p>
+              <p>{artDetail.medium}</p>
+              <p>{artDetail.size}</p>
               {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
             </div>
           </div>

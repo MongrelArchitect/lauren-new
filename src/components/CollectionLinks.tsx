@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { CollectionsContext } from "@contexts/collections";
+import downIcon from "@assets/icons/down.svg";
 
 interface Props {
   dropdownVisible: boolean;
@@ -82,10 +83,17 @@ export default function CollectionLinks({
         <button
           className={`${
             viewingArt ? "text-brand-red" : null
-          } hover:text-brand-red hover:underline`}
+          } hover:make-red focus:make-red flex items-center gap-2 hover:text-brand-red hover:underline focus:text-brand-red focus:underline`}
           onClick={toggleDropdown}
           type="button"
         >
+          <img
+            alt=""
+            className={`${
+              dropdownVisible ? "rotate-180" : null
+            } h-[8px] transition-transform`}
+            src={downIcon}
+          />
           ART
         </button>
         {dropdownVisible ? displayDropdown() : null}

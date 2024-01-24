@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .make-red {
+    filter: brightness(0) saturate(100%) invert(12%) sepia(88%) saturate(5326%) hue-rotate(7deg) brightness(95%) contrast(123%);
+  }
+}
+
 a.active,
 button.active {
   @apply text-brand-red;
