@@ -17,7 +17,11 @@ export default function PressArticleItem({
 }: Props) {
   return (
     <>
-      <li className="flex items-center gap-4">
+      <li 
+        className={`${
+            articleIndex % 2 === 0 ? "bg-brand-white" : "bg-brand-gray"
+        } flex items-center gap-4`}
+      >
         {inDashboard ? (
           <EditArticle article={article} articleId={articleId} />
         ) : null}
@@ -31,7 +35,7 @@ export default function PressArticleItem({
 
           <i>
             <Link
-              className="text-brand-red underline"
+              className="text-brand-red hover:underline focus:underline"
               target="_blank"
               to={article.url}
             >
