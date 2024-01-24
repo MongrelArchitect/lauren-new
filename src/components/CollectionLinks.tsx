@@ -47,7 +47,7 @@ export default function CollectionLinks({
             <div>
               {firstCollection && menuVisible ? (
                 <div className="bg-brand-dark-gray p-2 text-brand-white">
-                  ART
+                  Art
                 </div>
               ) : null}
               <NavLink
