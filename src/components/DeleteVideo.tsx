@@ -48,34 +48,42 @@ export default function DeleteVideo({ videoId, youtubeId }: Props) {
     return (
       <Modal close={cancel} visible={confirmingDelete}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">Delete Video</h3>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            Delete Video
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
+            <div className="flex w-full flex-col items-start gap-2 p-2">
               {confirmingDelete ? (
-                <iframe
-                  className="h-[315px] w-full max-w-[560px] border-[1px] border-red-600 p-1"
-                  src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-                  title="YouTube video player"
-                  allowFullScreen
-                />
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="h-full w-full border-2 border-brand-red p-1"
+                    src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+                    title="YouTube video player"
+                    allowFullScreen
+                  />
+                </div>
               ) : null}
               <div className="flex w-full flex-col gap-2">
-                <div className="bg-red-300 p-1">Confirm Delete</div>
-                <div className="p-1 text-brand-red">
+                <div className="bg-brand-orange p-2 text-brand-white">
+                  Confirm Delete
+                </div>
+                <div className="text-brand-red">
                   Are you sure? This cannot be undone!
                 </div>
                 <div className="flex gap-2">
                   <button
-                    className="rounded border-2 border-gray-500 bg-red-400 p-1 hover:border-black"
+                    className="border-2 border-brand-black bg-brand-red p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={confirmDelete}
                     type="button"
                   >
                     Delete
                   </button>
                   <button
-                    className="rounded border-2 border-gray-500 bg-orange-300 p-1 hover:border-black"
+                    className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                     onClick={cancel}
                     type="button"
                   >
@@ -83,10 +91,12 @@ export default function DeleteVideo({ videoId, youtubeId }: Props) {
                   </button>
                 </div>
                 {attempted && error ? (
-                  <div className="bg-red-300 p-1">{error}</div>
+                  <div className="w-full bg-brand-red p-2 text-brand-white">
+                    {error}
+                  </div>
                 ) : null}
-                </div>
-            </>
+              </div>
+            </div>
           )}
         </form>
       </Modal>
@@ -97,7 +107,7 @@ export default function DeleteVideo({ videoId, youtubeId }: Props) {
     <>
       {displayForm()}
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="border-2 border-brand-black bg-brand-orange p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleConfirming}
       >
         Delete
