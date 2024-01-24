@@ -255,7 +255,7 @@ export default function EditExhibition({ exhibition }: Props) {
                 min="1900"
                 onChange={handleChange}
                 required
-                value={year.value || 0}
+                value={year.value || ""}
               />
               <div className="flex w-full flex-col gap-1">
                 <div className="flex flex-wrap items-center justify-between">

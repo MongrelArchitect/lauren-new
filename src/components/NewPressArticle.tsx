@@ -7,7 +7,7 @@ import PressArticle from "@customTypes/pressArticles";
 export default function NewPressArticle() {
   const defaultFormInfo = {
     year: {
-      value: 2023,
+      value: 2024,
       valid: true,
     },
     publication: {
@@ -141,82 +141,116 @@ export default function NewPressArticle() {
     return (
       <Modal close={cancel} visible={modalVisible}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">New Article</h3>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            New Article
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
-              <div>(All fields required)</div>
-
-              <label htmlFor="year">Year</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="number"
-                id="year"
-                max="2100"
-                min="1900"
-                onChange={handleChange}
-                required
-                value={formInfo.year.value || 2023}
-              />
-              {attempted && !formInfo.year.valid ? (
-                <div className="bg-red-300 p-1">
-                  Year required (1900 - 2100)
+            <div className="flex w-full flex-col items-start gap-2 p-2">
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="year">Year</label>
+                  {attempted && !formInfo.year.valid ? (
+                    <div className="text-brand-red">
+                      Year required (1900 - 2100)
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="number"
+                  id="year"
+                  max="2100"
+                  min="1900"
+                  onChange={handleChange}
+                  required
+                  value={formInfo.year.value || ""}
+                />
+              </div>
 
-              <label htmlFor="publication">Publication</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="text"
-                id="publication"
-                onChange={handleChange}
-                placeholder="ex: Some Art Blog"
-                required
-                value={formInfo.publication.value || ""}
-              />
-              {attempted && !formInfo.publication.valid ? (
-                <div className="bg-red-300 p-1">Publication required</div>
-              ) : null}
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="publication">Publication</label>
+                  {attempted && !formInfo.publication.valid ? (
+                    <div className="text-brand-red">Publication required</div>
+                  ) : null}
+                </div>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="text"
+                  id="publication"
+                  onChange={handleChange}
+                  placeholder="ex: Some Art Blog"
+                  required
+                  value={formInfo.publication.value || ""}
+                />
+              </div>
 
-              <label htmlFor="title">Title</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="text"
-                id="title"
-                onChange={handleChange}
-                placeholder="ex: Check Out This Artist!"
-                required
-                value={formInfo.title.value || ""}
-              />
-              {attempted && !formInfo.title.valid ? (
-                <div className="bg-red-300 p-1">Title required</div>
-              ) : null}
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="title">Title</label>
+                  {attempted && !formInfo.title.valid ? (
+                    <div className="text-brand-red">Title required</div>
+                  ) : null}
+                </div>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="text"
+                  id="title"
+                  onChange={handleChange}
+                  placeholder="ex: Check Out This Artist!"
+                  required
+                  value={formInfo.title.value || ""}
+                />
+              </div>
 
-              <label htmlFor="url">URL</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="url"
-                id="url"
-                onChange={handleChange}
-                placeholder="ex: https://example.com/article"
-                required
-                value={formInfo.url.value || ""}
-              />
-              {attempted && !formInfo.url.valid ? (
-                <div className="bg-red-300 p-1">Valid URL required</div>
-              ) : null}
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="url">URL</label>
+                  {attempted && !formInfo.url.valid ? (
+                    <div className="text-brand-red">Valid URL required</div>
+                  ) : null}
+                </div>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="url"
+                  id="url"
+                  onChange={handleChange}
+                  placeholder="ex: https://example.com/article"
+                  required
+                  value={formInfo.url.value || ""}
+                />
+              </div>
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
@@ -224,9 +258,11 @@ export default function NewPressArticle() {
                 </button>
               </div>
               {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  {error}
+                </div>
               ) : null}
-            </>
+            </div>
           )}
         </form>
       </Modal>
@@ -234,15 +270,15 @@ export default function NewPressArticle() {
   };
 
   return (
-    <div>
+    <>
       {displayForm()}
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="mb-2 border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleModal}
         type="button"
       >
         + New Article
       </button>
-    </div>
+    </>
   );
 }

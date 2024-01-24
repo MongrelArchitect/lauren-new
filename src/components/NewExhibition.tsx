@@ -16,7 +16,7 @@ export default function NewExhibition() {
   });
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState({ value: "", valid: false });
-  const [year, setYear] = useState({ value: 2023, valid: true });
+  const [year, setYear] = useState({ value: 2024, valid: true });
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -25,7 +25,7 @@ export default function NewExhibition() {
   const cancel = () => {
     toggleModal();
     setYear({
-      value: 2023,
+      value: 2024,
       valid: true,
     });
     setTitle({
@@ -144,7 +144,7 @@ export default function NewExhibition() {
                   min="1900"
                   onChange={handleChange}
                   required
-                  value={year.value || 0}
+                  value={year.value || ""}
                 />
               </div>
               <div className="flex w-full flex-col gap-1">
