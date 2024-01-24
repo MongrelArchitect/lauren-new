@@ -10,7 +10,12 @@ interface Props {
   menuVisible: boolean;
 }
 
-export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdownVisible, menuVisible }: Props) {
+export default function CollectionLinks({
+  closeMenu,
+  dropdownVisible,
+  setDropdownVisible,
+  menuVisible,
+}: Props) {
   const { pathname } = useLocation();
   const viewingArt =
     pathname.includes("art") && !pathname.includes("dashboard");
@@ -32,22 +37,26 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
   const displayLinks = () => {
     if (collections && collectionIds) {
       return collectionIds.map((collectionId) => {
+        const firstCollection = collectionIds.indexOf(collectionId) === 0;
         return (
           <li
-            className={
-              collectionIds.indexOf(collectionId) === 0 && menuVisible
-                ? "max-lg:mt-8"
-                : ""
-            }
+            className={firstCollection && menuVisible ? "max-lg:mt-2" : ""}
             key={collectionId}
           >
-            <NavLink
-              className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
-              onClick={handleClick}
-              to={`/art/${collectionId}`}
-            >
-              {collections[collectionId].name.toUpperCase()}
-            </NavLink>
+            <div>
+              {firstCollection && menuVisible ? (
+                <div className="bg-brand-dark-gray p-2 text-brand-white">
+                  ART
+                </div>
+              ) : null}
+              <NavLink
+                className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
+                onClick={handleClick}
+                to={`/art/${collectionId}`}
+              >
+                {collections[collectionId].name.toUpperCase()}
+              </NavLink>
+            </div>
           </li>
         );
       });
@@ -61,7 +70,7 @@ export default function CollectionLinks({ closeMenu, dropdownVisible, setDropdow
 
   const displayDropdown = () => {
     return (
-      <ul className="absolute w-[max-content] left-[-10px] top-10 border-b-2 border-l-2 border-r-2 border-brand-red bg-brand-gray p-2">
+      <ul className="absolute left-[-10px] top-10 w-[max-content] border-b-2 border-l-2 border-r-2 border-t-2 border-brand-red border-t-brand-dark-gray bg-brand-gray p-2">
         {displayLinks()}
       </ul>
     );

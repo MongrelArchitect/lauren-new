@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "@util/firebase";
 import { UserContext } from "@contexts/users";
@@ -46,16 +46,7 @@ export default function Nav() {
 
   const displayLinks = () => {
     return (
-      <ul className="flex gap-4 text-2xl max-lg:flex-col p-2">
-        <li>
-          <NavLink
-            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
-            onClick={closeMenu}
-            to="/"
-          >
-            HOME
-          </NavLink>
-        </li>
+      <ul className="flex gap-2 text-2xl max-lg:flex-col lg:gap-4 lg:p-2">
         <CollectionLinks
           dropdownVisible={dropdownVisible}
           setDropdownVisible={setDropdownVisible}
@@ -63,8 +54,11 @@ export default function Nav() {
           closeMenu={closeMenu}
         />
         <li className="max-lg:mt-8">
+          {menuVisible ? (
+            <div className="bg-brand-dark-gray p-2 text-brand-white">INFO</div>
+          ) : null}
           <NavLink
-            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
+            className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
             onClick={closeMenu}
             to="/profile"
           >
@@ -73,7 +67,7 @@ export default function Nav() {
         </li>
         <li>
           <NavLink
-            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
+            className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
             onClick={closeMenu}
             to="/press"
           >
@@ -82,7 +76,7 @@ export default function Nav() {
         </li>
         <li>
           <NavLink
-            className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
+            className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
             onClick={closeMenu}
             to="/contact"
           >
@@ -92,8 +86,13 @@ export default function Nav() {
         {user ? (
           <>
             <li className="max-lg:mt-8">
+              {menuVisible ? (
+                <div className="bg-brand-dark-gray p-2 text-brand-white">
+                  ADMIN
+                </div>
+              ) : null}
               <NavLink
-                className="hover:border-b-2 hover:border-brand-red hover:text-brand-red"
+                className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
                 onClick={closeMenu}
                 to="/dashboard"
               >
@@ -102,7 +101,7 @@ export default function Nav() {
             </li>
             <li>
               <button
-                className="hover:text-brand-red hover:underline"
+                className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:pl-2"
                 onClick={logout}
                 type="button"
               >
@@ -128,9 +127,13 @@ export default function Nav() {
             menuVisible ? null : "translate-x-[110%]"
           } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white transition-transform`}
         >
-          <div className="bg-brand-gray w-full flex justify-end">
-            <button className="bg-brand-red hover:outline focus:outline hover:outline-brand-black focus:outline-brand-black" onClick={closeMenu} type="button">
-              <img alt="menu" className="invert h-[40px]" src={closeIcon} />
+          <div className="flex w-full justify-end bg-brand-gray">
+            <button
+              className="bg-brand-red hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+              onClick={closeMenu}
+              type="button"
+            >
+              <img alt="menu" className="h-[40px] invert" src={closeIcon} />
             </button>
           </div>
           {displayLinks()}
@@ -140,17 +143,22 @@ export default function Nav() {
   };
 
   return (
-    <nav className="sticky top-0 z-20 flex w-full max-w-[1000px] flex-wrap items-center justify-between border-b-2 border-brand-red bg-brand-gray p-2">
-      <span className="text-xl">Lauren Mendelsohn-Bass</span>
+    <nav className="sticky top-0 z-20 flex w-full max-w-[1000px] flex-wrap items-center justify-between border-b-2 border-brand-red bg-brand-gray">
+      <Link
+        className="p-2 text-xl hover:text-brand-red hover:underline focus:text-brand-red focus:underline"
+        to="/"
+      >
+        Lauren Mendelsohn-Bass
+      </Link>
       {displaySidebar()}
       {displayFullMenu()}
       <button
-        className="lg:hidden"
+        className="p-2 lg:hidden"
         onClick={openMenu}
         tabIndex={1}
         type="button"
       >
-        <img alt="menu" className="red-icon h-[40px]" src={menuIcon} />
+        <img alt="menu" className="red-icon h-[24px] p-[2px]" src={menuIcon} />
       </button>
     </nav>
   );
