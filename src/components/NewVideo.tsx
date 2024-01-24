@@ -69,35 +69,47 @@ export default function NewVideo() {
     return (
       <Modal close={cancel} visible={adding}>
         <form className="flex flex-col items-start gap-2">
-          <h3 className="text-2xl">New Video</h3>
+          <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+            New Video
+          </h3>
           {loading ? (
-            <Loading />
+            <div className="flex min-h-[300px] items-center justify-center self-center p-4">
+              <Loading />
+            </div>
           ) : (
-            <>
-              <div>Only YouTube is currently supported</div>
-              <label htmlFor="url">YouTube URL</label>
-              <input
-                className="w-full rounded border-2 border-gray-500 p-1"
-                type="url"
-                id="url"
-                onChange={changeURL}
-                placeholder="ex: https://www.youtube.com/watch?v=ZLOSH5FUnrM"
-                required
-                value={url.value || ""}
-              />
-              {attempted && !url.valid ? (
-                <div className="bg-red-300 p-1">YouTube URL required</div>
-              ) : null}
+            <div className="flex w-full flex-col items-start gap-2 p-2">
+              <i>Note: only YouTube is currently supported.</i>
+              <div className="flex w-full flex-col gap-1">
+                <div className="flex flex-wrap items-center justify-between">
+                  <label htmlFor="url">YouTube URL</label>
+                  {attempted && !url.valid ? (
+                    <div className="text-brand-red">YouTube URL required</div>
+                  ) : null}
+                </div>
+                <input
+                  className={`${
+                    attempted
+                      ? "invalid:border-brand-red invalid:text-brand-red invalid:outline invalid:outline-brand-red invalid:focus:border-brand-red focus:invalid:outline-brand-red"
+                      : null
+                  } w-full border-2 border-black p-2 focus:border-brand-blue focus:outline focus:outline-brand-blue`}
+                  type="url"
+                  id="url"
+                  onChange={changeURL}
+                  placeholder="ex: https://www.youtube.com/watch?v=ZLOSH5FUnrM"
+                  required
+                  value={url.value || ""}
+                />
+              </div>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded border-2 border-gray-500 bg-green-300 p-1 hover:border-black"
+                  className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={submit}
                   type="button"
                 >
                   Submit
                 </button>
                 <button
-                  className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
+                  className="border-2 border-brand-black bg-brand-yellow p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
                   onClick={cancel}
                   type="button"
                 >
@@ -105,9 +117,11 @@ export default function NewVideo() {
                 </button>
               </div>
               {attempted && error ? (
-                <div className="bg-red-300 p-1">{error}</div>
+                <div className="w-full bg-brand-red p-2 text-brand-white">
+                  {error}
+                </div>
               ) : null}
-            </>
+            </div>
           )}
         </form>
       </Modal>
@@ -115,15 +129,15 @@ export default function NewVideo() {
   };
 
   return (
-    <div>
+    <>
       {displayForm()}
       <button
-        className="rounded border-2 border-black bg-neutral-300 p-1"
+        className="mb-2 border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
         onClick={toggleAdding}
         type="button"
       >
         + New Video
       </button>
-    </div>
+    </>
   );
 }
