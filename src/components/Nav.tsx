@@ -46,7 +46,7 @@ export default function Nav() {
 
   const displayLinks = () => {
     return (
-      <ul className="max-lg:overflow-auto flex gap-2 text-2xl max-lg:flex-col lg:gap-4 lg:p-2">
+      <ul className="flex gap-2 text-2xl max-lg:h-full max-lg:flex-col max-lg:overflow-auto lg:gap-4 lg:p-2">
         <CollectionLinks
           dropdownVisible={dropdownVisible}
           setDropdownVisible={setDropdownVisible}
@@ -125,7 +125,7 @@ export default function Nav() {
         <div
           className={`${
             menuVisible ? null : "translate-x-[110%]"
-          } fixed right-0 top-0 z-30 flex h-[100svh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white transition-transform duration-400 ease-in-out`}
+          } duration-400 fixed right-0 top-0 z-30 flex min-h-[100lvh] min-w-[200px] flex-col border-l-2 border-brand-red bg-brand-white transition-transform ease-in-out`}
         >
           <div className="flex w-full justify-end bg-brand-gray">
             <button

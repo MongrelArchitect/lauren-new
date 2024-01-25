@@ -5,10 +5,10 @@ import Nav from "@components/Nav";
 
 export default function Root() {
   return (
-    <div className="text-brand-black relative flex flex-col items-center min-h-[100svh] bg-brand-canvas">
-      <div className="shadow-sides max-w-[1000px] w-full bg-red-300 relative flex flex-col h-full items-center">
+    <div className="relative flex min-h-[100dvh] flex-col items-center bg-brand-canvas text-brand-black">
+      <div className="relative flex h-full w-full max-w-[1000px] flex-col items-center bg-red-300 shadow-sides">
         <Nav />
-        <main className="flex w-full max-w-[1000px] flex-col items-center bg-brand-white p-2 h-full">
+        <main className="flex h-full w-full max-w-[1000px] flex-col items-center bg-brand-white p-2">
           <Outlet />
         </main>
         <Footer />
