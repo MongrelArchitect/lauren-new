@@ -44,6 +44,9 @@ export async function generateThumbnail(image: File) {
   canvas.width = 200;
   canvas.height = 200;
 
+  ctx.fillStyle = "#fdfdfd";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   ctx.drawImage(
     bitmap,
     Math.floor(bitmap.width / 2) - 100,
