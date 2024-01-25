@@ -71,7 +71,7 @@ export default function CollectionLinks({
 
   const displayDropdown = () => {
     return (
-      <ul className="absolute left-[-10px] top-10 w-[max-content] border-b-2 border-l-2 border-r-2 border-t-2 border-brand-red border-t-brand-dark-gray bg-brand-gray p-2">
+      <ul className="absolute left-[-10px] top-10 flex w-[max-content] flex-col gap-2 border-b-2 border-l-2 border-r-2 border-t-2 border-brand-red border-t-brand-dark-gray bg-brand-gray p-2">
         {displayLinks()}
       </ul>
     );
