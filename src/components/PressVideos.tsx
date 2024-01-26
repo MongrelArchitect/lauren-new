@@ -70,7 +70,7 @@ export default function PressVideos() {
   };
 
   if (loading) {
-    return <Loading />;
+    return <Loading overlay/>;
   }
 
   if (!videos) {

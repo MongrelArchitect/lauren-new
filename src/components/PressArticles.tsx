@@ -83,7 +83,7 @@ export default function PressArticles() {
   };
 
   if (loading) {
-    return <Loading />;
+    return <Loading overlay/>;
   }
 
   const toggleVisible = () => {
