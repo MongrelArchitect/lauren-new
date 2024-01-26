@@ -8,6 +8,8 @@ import Modal from "./Modal";
 import AdjacentArt from "@customTypes/adjacent";
 import Art from "@customTypes/art";
 
+import useSwipe from "@customHooks/useSwipe";
+
 import closeIcon from "@assets/icons/close.svg";
 
 interface Props {
@@ -26,6 +28,15 @@ export default function ArtDetail({
   setArtDetail,
 }: Props) {
   const [loading, setLoading] = useState(true);
+
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () => {
+      setArtDetail(adjacent.next);
+    },
+    onSwipedRight: () => {
+      setArtDetail(adjacent.prev);
+    },
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -53,7 +64,10 @@ export default function ArtDetail({
       // ======================
       <Modal close={closeArtDetail} visible>
         {loading ? <Loading overlay /> : null}
-        <div className="relative flex min-h-[640px] flex-col items-center gap-2">
+        <div
+          {...swipeHandlers}
+          className="relative flex min-h-[640px] flex-col items-center gap-2"
+        >
           <div className="flex w-full items-center justify-between gap-3 bg-brand-gray text-brand-black">
             <button
               className="flex-shrink-0 self-start bg-brand-red hover:outline hover:outline-brand-black"
@@ -75,7 +89,7 @@ export default function ArtDetail({
             <div className="h-[40px] w-[40px] flex-shrink-0" />
           </div>
 
-          <div className="p-2 flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-2 p-2">
             <img
               className="max-h-[500px] border-2 border-brand-red p-1"
               alt={artDetail.title}
@@ -91,7 +105,6 @@ export default function ArtDetail({
               {artDetail.sold ? <p className="text-brand-red">SOLD</p> : null}
             </div>
           </div>
-
         </div>
         <ArtNav
           adjacent={adjacent}

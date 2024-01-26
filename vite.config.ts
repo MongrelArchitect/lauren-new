@@ -9,6 +9,7 @@ export default defineConfig({
       "@assets": "/src/assets",
       "@components": "/src/components",
       "@contexts": "/src/contexts",
+      "@customHooks": "/src/hooks",
       "@pages": "/src/pages",
       "@customTypes": "/src/types",
       "@util": "/src/util",
