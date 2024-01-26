@@ -231,6 +231,13 @@ export async function updateBio(newBio: string) {
   });
 }
 
+export async function updateCollection(collectionId: string, newName: string) {
+  const collectionRef = doc(database, "collections", collectionId);
+  await updateDoc(collectionRef, {
+    name: newName,
+  });
+}
+
 export async function updateExhibition(newExhibition: Exhibition) {
   const id = newExhibition.exhibitionId;
   if (!id) {

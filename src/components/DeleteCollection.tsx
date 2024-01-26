@@ -188,7 +188,7 @@ export default function DeleteCollection({ art, artCount, collection }: Props) {
         onClick={toggleConfirming}
         type="button"
       >
-        - Delete Collection
+        Delete
       </button>
       {displayForm()}
     </>

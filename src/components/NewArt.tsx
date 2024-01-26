@@ -152,16 +152,6 @@ export default function NewArt({ collectionId }: Props) {
     setAddingArt(!addingArt);
   };
 
-  const addArtButton = (
-    <button
-      className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
-      onClick={toggleAddingArt}
-      type="button"
-    >
-      + Add Art
-    </button>
-  );
-
   const setFilePreviewURL = () => {
     if (formInfo.image && checkImageValidity(formInfo.image)) {
       return URL.createObjectURL(formInfo.image);
@@ -350,7 +340,13 @@ export default function NewArt({ collectionId }: Props) {
 
   return (
     <>
-      {addArtButton}
+      <button
+        className="border-2 border-brand-black bg-brand-blue p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+        onClick={toggleAddingArt}
+        type="button"
+      >
+        + Add Art
+      </button>
       {displayForm()}
     </>
   );

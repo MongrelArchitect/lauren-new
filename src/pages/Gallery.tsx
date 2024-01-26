@@ -9,6 +9,7 @@ import { CollectionsContext } from "@contexts/collections";
 import ArtDetail from "@components/ArtDetail";
 import ArtThumb from "@components/ArtThumb";
 import DeleteCollection from "@components/DeleteCollection";
+import EditCollection from "@components/EditCollection";
 import Loading from "@components/Loading";
 import NewArt from "@components/NewArt";
 
@@ -191,6 +192,7 @@ export default function Gallery() {
         {inDashboard ? (
           <div className="flex flex-wrap gap-2">
             <NewArt collectionId={collectionId} />
+            <EditCollection collection={currentCollection} />
             <DeleteCollection
               art={art}
               artCount={artIds ? artIds.length : 0}
