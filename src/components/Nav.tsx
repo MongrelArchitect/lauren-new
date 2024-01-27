@@ -115,7 +115,7 @@ export default function Nav() {
   };
 
   const displayFullMenu = () => {
-    return <div className="hidden lg:flex">{displayLinks()}</div>;
+    return <div className="hidden lg:flex bg-brand-gray">{displayLinks()}</div>;
   };
 
   const displaySidebar = () => {
