@@ -46,7 +46,11 @@ export default function Nav() {
 
   const displayLinks = () => {
     return (
-      <ul className="flex gap-2 text-2xl max-lg:h-full max-lg:flex-col max-lg:overflow-auto lg:gap-4 lg:p-2">
+      <ul
+        aria-label="Navigation menu"
+        className={`${menuVisible ? "" : "max-lg:hidden"} flex gap-2 text-2xl max-lg:h-full max-lg:flex-col max-lg:overflow-auto lg:gap-4 lg:p-2`}
+        id="nav-links"
+      >
         <CollectionLinks
           dropdownVisible={dropdownVisible}
           setDropdownVisible={setDropdownVisible}
@@ -115,7 +119,7 @@ export default function Nav() {
   };
 
   const displayFullMenu = () => {
-    return <div className="hidden lg:flex bg-brand-gray">{displayLinks()}</div>;
+    return <div className="hidden bg-brand-gray lg:flex">{displayLinks()}</div>;
   };
 
   const displaySidebar = () => {
@@ -129,11 +133,14 @@ export default function Nav() {
         >
           <div className="flex w-full justify-end bg-brand-gray">
             <button
-              className="bg-brand-red hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+              aria-label="Close navigation menu"
+              className={`${menuVisible ? "" : "hidden"} bg-brand-red hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black`}
               onClick={closeMenu}
+              tabIndex={menuVisible ? 0 : -1}
+              title="Close navigation menu"
               type="button"
             >
-              <img alt="menu" className="h-[40px] invert" src={closeIcon} />
+              <img alt="" className="h-[40px] invert" src={closeIcon} />
             </button>
           </div>
           {displayLinks()}
@@ -153,9 +160,12 @@ export default function Nav() {
       {displaySidebar()}
       {displayFullMenu()}
       <button
-        className="p-2 lg:hidden"
+        aria-controls="nav-links"
+        aria-expanded={menuVisible ? "true" : "false"}
+        aria-label="Open navigation menu"
+        className={`${menuVisible ? "hidden" : ""} p-2 lg:hidden`}
         onClick={openMenu}
-        tabIndex={1}
+        title="Open navigation menu"
         type="button"
       >
         <img alt="menu" className="red-icon h-[24px] p-[2px]" src={menuIcon} />

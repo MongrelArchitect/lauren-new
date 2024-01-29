@@ -35,7 +35,19 @@ export default function CollectionLinks({
     setDropdownVisible(false);
   };
 
-  const displayLinks = () => {
+  const determineTabindex = (inDropdown?: boolean) => {
+    if (inDropdown) {
+      if (dropdownVisible) {
+        return 0;
+      }
+      return -1;
+    } else if (menuVisible) {
+      return 0;
+    }
+    return -1;
+  };
+
+  const displayLinks = (inDropdown?: boolean) => {
     if (collections && collectionIds) {
       return collectionIds.map((collectionId) => {
         const firstCollection = collectionIds.indexOf(collectionId) === 0;
@@ -53,6 +65,7 @@ export default function CollectionLinks({
               <NavLink
                 className="hover:text-brand-red hover:underline focus:text-brand-red focus:underline max-lg:p-2"
                 onClick={handleClick}
+                tabIndex={determineTabindex(inDropdown)}
                 to={`/art/${collectionId}`}
               >
                 {collections[collectionId].name.toUpperCase()}
@@ -71,8 +84,14 @@ export default function CollectionLinks({
 
   const displayDropdown = () => {
     return (
-      <ul className={`${dropdownVisible ? "" : "-translate-y-[150%]"} -z-10 transition-transform ease-in-out duration-300 absolute left-[12px] top-10 flex w-[max-content] flex-col gap-2 border-b-2 border-l-2 border-r-2 border-t-2 border-brand-red border-t-brand-dark-gray bg-brand-gray p-2`}>
-        {displayLinks()}
+      <ul
+        aria-label="Art links"
+        className={`${
+          dropdownVisible ? "" : "-translate-y-[150%]"
+        } absolute left-[12px] top-10 -z-10 flex w-[max-content] flex-col gap-2 border-b-2 border-l-2 border-r-2 border-t-2 border-brand-red border-t-brand-dark-gray bg-brand-gray p-2 transition-transform duration-300 ease-in-out`}
+        id="art-links"
+      >
+        {displayLinks(true)}
       </ul>
     );
   };
@@ -81,10 +100,14 @@ export default function CollectionLinks({
     return (
       <li className="relative">
         <button
+          aria-controls="art-links"
+          aria-expanded={dropdownVisible ? "true" : "false"}
+          aria-label="Open art links"
           className={`${
             viewingArt ? "text-brand-red" : null
           } hover:make-red focus:make-red flex items-center gap-2 hover:text-brand-red hover:underline focus:text-brand-red focus:underline`}
           onClick={toggleDropdown}
+          title="Open art links"
           type="button"
         >
           <img
