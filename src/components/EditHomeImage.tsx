@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Loading from "./Loading";
 import Modal from "./Modal";
 import { updateHomeImage } from "@util/database";
@@ -97,6 +97,14 @@ export default function EditProfileImage({ imageURL }: Props) {
     return imageURL;
   };
 
+  const filePicker = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    if (filePicker.current) {
+      filePicker.current.click();
+    }
+  };
+
   const displayForm = () => {
     return (
       <Modal close={cancel} visible={editing}>
@@ -134,9 +142,13 @@ export default function EditProfileImage({ imageURL }: Props) {
                 }}
                 onDrop={handleDropFile}
               >
-                <div className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                <button 
+                  className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                  onClick={handleClick}
+                  type="button"
+                >
                   Choose File
-                </div>
+                </button>
                 <span>or drop file here</span>
                 {newImage.file ? (
                   <span className="text-base">{newImage.file.name}</span>
@@ -152,6 +164,7 @@ export default function EditProfileImage({ imageURL }: Props) {
                 hidden
                 id="image"
                 onChange={changeImage}
+                ref={filePicker}
                 required
                 type="file"
               />

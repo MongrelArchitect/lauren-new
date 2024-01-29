@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { CollectionsContext } from "@contexts/collections";
 import { addNewArt } from "@util/database";
 import { ArtFormInfo } from "@customTypes/art";
@@ -120,6 +120,7 @@ export default function NewArt({ collectionId }: Props) {
         break;
       default:
         // XXX
+        console.error("invalid form control id");
         break;
     }
   };
@@ -157,6 +158,14 @@ export default function NewArt({ collectionId }: Props) {
       return URL.createObjectURL(formInfo.image);
     }
     return fileIcon;
+  };
+
+  const filePicker = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    if (filePicker.current) {
+      filePicker.current.click();
+    }
   };
 
   const displayForm = () => {
@@ -260,9 +269,13 @@ export default function NewArt({ collectionId }: Props) {
                       className="flex min-h-[160px] flex-1 flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2 text-center"
                       htmlFor="image"
                     >
-                      <div className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black">
+                      <button
+                        className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
+                        onClick={handleClick}
+                        type="button"
+                      >
                         Choose File
-                      </div>
+                      </button>
                       <span>or drop file here</span>
                       {formInfo.image ? (
                         <span className="text-base">{formInfo.image.name}</span>
@@ -278,6 +291,7 @@ export default function NewArt({ collectionId }: Props) {
                       hidden
                       id="image"
                       onChange={handleChange}
+                      ref={filePicker}
                       required
                       type="file"
                     />
