@@ -168,6 +168,19 @@ export default function NewArt({ collectionId }: Props) {
     }
   };
 
+  const handleDropFile = (event: React.DragEvent) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    setError(null);
+    setFormInfo((prevState) => {
+      return {
+        ...prevState,
+        image: file,
+        validImage: checkImageValidity(file),
+      };
+    });
+  };
+
   const displayForm = () => {
     if (currentCollection) {
       return (
@@ -268,6 +281,11 @@ export default function NewArt({ collectionId }: Props) {
                     <label
                       className="flex min-h-[160px] flex-1 flex-col items-center justify-center gap-1 border-2 border-dashed border-brand-black p-2 text-center"
                       htmlFor="image"
+                      onDragOver={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onDrop={handleDropFile}
                     >
                       <button
                         className="cursor-pointer border-2 border-brand-black bg-brand-dark-gray p-2 text-brand-white hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black"
