@@ -110,7 +110,7 @@ export default function EditProfileImage({ imageURL }: Props) {
       <Modal close={cancel} visible={editing}>
         <form>
           <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
-            Edit Image
+            Edit Profile Image
           </h3>
           {loading ? (
             <div className="flex min-h-[300px] items-center justify-center p-4">
