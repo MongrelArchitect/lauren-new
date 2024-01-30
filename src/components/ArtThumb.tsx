@@ -27,6 +27,7 @@ export default function ShowArt({
   return (
     <>
       <button
+        aria-label={`View ${art.title} detail`}
         className="relative z-10 aspect-square max-h-[200px] min-h-[160px] min-w-[160px] max-w-[200px] border-2 border-brand-red p-1 hover:p-0 focus:p-0"
         onClick={handleClick}
         title={art.title.toUpperCase()}

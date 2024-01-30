@@ -59,6 +59,7 @@ export default function ArtDetail({
         </Modal>
       );
     }
+
     return (
       // VIEWING ONLY
       // ======================
@@ -70,14 +71,17 @@ export default function ArtDetail({
         >
           <div className="flex w-full items-center justify-between gap-3 bg-brand-gray text-brand-black">
             <button
-              className="flex-shrink-0 self-start bg-brand-red hover:outline hover:outline-brand-black"
+              aria-label="Close art detail"
+              className={`${
+                artDetail ? "" : "hidden"
+              } flex-shrink-0 self-start bg-brand-red hover:outline hover:outline-brand-black`}
               onClick={closeArtDetail}
+              title="Close"
               type="button"
             >
               <img
-                alt="close"
+                alt=""
                 className="h-[40px] invert"
-                title="close"
                 src={closeIcon}
               />
             </button>
@@ -106,12 +110,14 @@ export default function ArtDetail({
             </div>
           </div>
         </div>
-        <ArtNav
-          adjacent={adjacent}
-          next={adjacent.next}
-          prev={adjacent.prev}
-          setArtDetail={setArtDetail}
-        />
+        {artDetail ? (
+          <ArtNav
+            adjacent={adjacent}
+            next={adjacent.next}
+            prev={adjacent.prev}
+            setArtDetail={setArtDetail}
+          />
+        ) : null}
       </Modal>
     );
   }
@@ -122,15 +128,24 @@ export default function ArtDetail({
     // This modal won't show, but needs to be here for other animations to work.
     // Keep the "error" message just in case it shows up shomehow?
     <Modal close={closeArtDetail} visible={false}>
-      <h3 className="text-2xl">Error</h3>
-      <p>Invalid artwork</p>
-      <button
-        className="rounded border-2 border-gray-500 bg-red-300 p-1 hover:border-black"
-        onClick={closeArtDetail}
-        type="button"
-      >
-        Cancel
-      </button>
+      <div className="invisible relative flex min-h-[640px] flex-col items-center gap-2">
+        <h3 className="w-full bg-brand-red p-2 text-2xl text-brand-white">
+          Error
+        </h3>
+        <div className="flex flex-col gap-2 p-2">
+          <p className="text-brand-red">No Artwork Selected</p>
+          <p>
+            If you're seeing this message, either something really screwy
+            happened or you're poking around in the code.
+          </p>
+          <p>
+            This modal is here when artDetail is null, so that transition
+            effects will work when opening or closing a piece of art. If we
+            don't render it, the "art detail" modals will just pop in / out of
+            existence (which doesn't look very nice).
+          </p>
+        </div>
+      </div>
     </Modal>
   );
 }

@@ -32,17 +32,18 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
     <div className="flex justify-between gap-2 w-full bg-brand-gray">
       {prev ? (
         <button
+          aria-label="Previous art in collection"
           id="prev"
           className="relative bottom-0 left-0 bg-brand-red hover:outline hover:outline-brand-black"
           data-direction="prev"
           onClick={handleClick}
+          title="Previous"
           type="button"
         >
           <img
-            alt="previous"
+            alt=""
             className="h-[40px] invert"
             data-direction="prev"
-            title="previous"
             src={prevIcon}
           />
         </button>
@@ -51,17 +52,18 @@ export default function ArtNav({ adjacent, next, prev, setArtDetail }: Props) {
       )}
       {next ? (
         <button
+          aria-label="Next art in collection"
           id="next"
           className="relative bottom-0 right-0 bg-brand-red hover:outline hover:outline-brand-black"
           data-direction="next"
           onClick={handleClick}
+          title="Next"
           type="button"
         >
           <img
-            alt="next"
+            alt=""
             className="h-[40px] invert"
             data-direction="next"
-            title="next"
             src={nextIcon}
           />
         </button>
