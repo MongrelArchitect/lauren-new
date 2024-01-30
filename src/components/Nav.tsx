@@ -48,7 +48,9 @@ export default function Nav() {
     return (
       <ul
         aria-label="Navigation menu"
-        className={`${menuVisible ? "" : "max-lg:hidden"} flex gap-2 text-2xl max-lg:h-full max-lg:flex-col max-lg:overflow-auto lg:gap-4 lg:p-2`}
+        className={`${
+          menuVisible ? "" : "max-lg:hidden"
+        } flex gap-2 text-2xl max-lg:min-h-[100lvh] max-lg:flex-col max-lg:overflow-auto lg:gap-4 lg:p-2`}
         id="nav-links"
       >
         <CollectionLinks
@@ -134,7 +136,9 @@ export default function Nav() {
           <div className="flex w-full justify-end bg-brand-gray">
             <button
               aria-label="Close navigation menu"
-              className={`${menuVisible ? "" : "hidden"} bg-brand-red hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black`}
+              className={`${
+                menuVisible ? "" : "hidden"
+              } bg-brand-red hover:outline hover:outline-brand-black focus:outline focus:outline-brand-black`}
               onClick={closeMenu}
               tabIndex={menuVisible ? 0 : -1}
               title="Close navigation menu"
