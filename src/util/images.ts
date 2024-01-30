@@ -41,22 +41,22 @@ export async function generateThumbnail(image: File) {
     throw new Error("Error generating thumbnail");
   }
 
-  canvas.width = 200;
-  canvas.height = 200;
+  canvas.width = 240;
+  canvas.height = 240;
 
   ctx.fillStyle = "#fdfdfd";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.drawImage(
     bitmap,
-    Math.floor(bitmap.width / 2) - 100,
-    Math.floor(bitmap.height / 2) - 100,
-    200,
-    200,
+    Math.floor(bitmap.width / 2) - 120,
+    Math.floor(bitmap.height / 2) - 120,
+    240,
+    240,
     0,
     0,
-    200,
-    200,
+    240,
+    240,
   );
   result = canvas.toDataURL("image/jpeg", 0.9);
   return result;
