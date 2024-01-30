@@ -32,6 +32,9 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
       {inDashboard ? <NewExhibition /> : null}
       <div>
         <button
+          aria-label={`${exhibitionsVisible ? "hide" : "show"} exhibitions`}
+          aria-controls="exhibitions"
+          aria-expanded={exhibitionsVisible}
           className={`${
             exhibitionsVisible
               ? "bg-brand-red text-brand-white"
@@ -52,11 +55,13 @@ export default function ExhibitionsList({ exhibitions, inDashboard }: Props) {
         </button>
 
         <ul
+          aria-hidden={!exhibitionsVisible}
           className={`${
             exhibitionsVisible
               ? "max-h-[10000px]"
               : "max-h-0 overflow-hidden opacity-0"
           } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
+          id="exhibitions"
         >
           {exhibitionIds.map((exhibitionId, index) => {
             const current = exhibitions[exhibitionId];

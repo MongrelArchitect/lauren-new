@@ -61,10 +61,12 @@ export default function PressArticles() {
       );
     });
     return (
-      <ul 
+      <ul
+        aria-hidden={!visible}
         className={`${
           visible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
         } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
+        id="articles"
       >
         {articleIds.map((articleId, index) => {
           return (
@@ -77,13 +79,12 @@ export default function PressArticles() {
             />
           );
         })}
-
       </ul>
     );
   };
 
   if (loading) {
-    return <Loading overlay/>;
+    return <Loading overlay />;
   }
 
   const toggleVisible = () => {
@@ -94,8 +95,13 @@ export default function PressArticles() {
     <div>
       {inDashboard ? <NewPressArticle /> : null}
       <button
+        aria-label={`${visible ? "hide" : "show"} articles`}
+        aria-controls="articles"
+        aria-expanded={visible}
         className={`${
-          visible ? "bg-brand-red text-brand-white" : "bg-brand-gray text-brand-black"
+          visible
+            ? "bg-brand-red text-brand-white"
+            : "bg-brand-gray text-brand-black"
         } flex w-full items-center justify-between gap-3 p-2`}
         onClick={toggleVisible}
         title={`${visible ? "hide" : "show"} articles`}
@@ -113,7 +119,6 @@ export default function PressArticles() {
       </button>
 
       {displayArticles()}
-
     </div>
   );
 }

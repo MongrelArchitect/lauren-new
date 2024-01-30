@@ -70,7 +70,7 @@ export default function PressVideos() {
   };
 
   if (loading) {
-    return <Loading overlay/>;
+    return <Loading overlay />;
   }
 
   if (!videos) {
@@ -85,6 +85,9 @@ export default function PressVideos() {
     <div>
       {inDashboard ? <NewVideo /> : null}
       <button
+        aria-label={`${visible ? "hide" : "show"} videos`}
+        aria-controls="videos"
+        aria-expanded={visible}
         className={`${
           visible
             ? "bg-brand-red text-brand-white"
@@ -104,9 +107,11 @@ export default function PressVideos() {
         />
       </button>
       <ul
+        aria-hidden={!visible}
         className={`${
           visible ? "max-h-[10000px]" : "max-h-0 overflow-hidden opacity-0"
-        } flex flex-col p-2 gap-2 border-2 border-t-0 border-brand-red bg-brand-white font-sans text-xl transition-all`}
+        } flex flex-col gap-2 border-2 border-t-0 border-brand-red bg-brand-white p-2 font-sans text-xl transition-all`}
+        id="videos"
       >
         {displayVideos()}
       </ul>
