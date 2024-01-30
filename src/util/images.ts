@@ -7,7 +7,7 @@ const resizeFile = (file: File, maxSize: number) => {
       maxSize,
       maxSize,
       "JPEG",
-      100,
+      80,
       0,
       (uri) => {
         resolve(uri);
@@ -18,7 +18,7 @@ const resizeFile = (file: File, maxSize: number) => {
 };
 
 export default async function resizeImage(image: File) {
-  const resizedImage = await resizeFile(image, 600);
+  const resizedImage = await resizeFile(image, 800);
   return resizedImage as File;
 }
 
